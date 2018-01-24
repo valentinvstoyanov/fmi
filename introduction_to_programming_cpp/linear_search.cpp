@@ -8,7 +8,7 @@ void print_array(const int arr[], const unsigned size) {
 	std::cout << "}" << std::endl;
 }
 
-int find(const int arr[], const unsigned size, const int element) {
+int linear_search(const int arr[], const unsigned size, const int element) {
 	for(unsigned i = 0; i < size; ++i)
 		if(arr[i] == element)
 			return i;
@@ -20,7 +20,7 @@ int main() {
 	const unsigned size = 7;
 	const int arr[size] = {5, 4, 20, 3, 2, 100, -1};
 	const int search_element = 3;
-	const int search_result = find(arr, size, search_element);
+	const int search_result = linear_search(arr, size, search_element);
 
 	std::cout << "Searched for element: " << search_element << " in ";
 	print_array(arr, size);
