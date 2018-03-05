@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc} 
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+
+\begin{document}
+
+\title{Решени задачи от въведение в теория на числата}
+\author{Валентин Стоянов}
+\date{март 2018}
+\maketitle
+
+\section*{Задача 1.}
+Да се докаже, че за всяко естествено число $n$, числото $n^3 + 11n$ се дели на 6.\\
+Доказателство по индукция:\\
+\subsection*{1. База $n = 1$}
+$6 \mid 12$ да.
+\subsection*{2. Индукционна хипотеза}
+Допускаме, че $6 \mid n^3 + 11n$
+\subsection*{3. Индукционна стъпка}
+Проверяваме дали твърдението е вярно за $n+1 \Rightarrow$\\
+$\Rightarrow 6 \mid (n+1)^3 + 11(n+1)$\\
+$\Leftrightarrow 6 \mid n^3 +3n^2 + 3n + 1 + 11n + 11$\\
+$\Leftrightarrow 6 \mid 3n^2 + 3n$\\
+$\Leftrightarrow 6 \mid 3n(n + 1)$\\
+$\Leftrightarrow 2 \mid n(n + 1)$\\
+Но $n(n + 1)$ са две поредни числа $\Rightarrow$ винаги поне едно е четно
+$\Rightarrow 2 \mid n(n + 1)$
+
+\section*{Задача 2.}
+Да се докаже, че за всяко естествено число $n$, числото $3^{2^n} - 1$ се дели на $2^{n + 2}$.\\
+Доказателство по индукция:\\
+\subsection*{1. База $n = 1$}
+$8 \mid 8$ да.
+\subsection*{2. Индукционна хипотеза}
+Допускаме, че $2^{n + 2} \mid 3^{2^n} - 1$
+\subsection*{3. Индукционна стъпка}
+Проверяваме дали твърдението е изпълнено за $n+1 \Rightarrow$\\
+$2^{(n + 1) + 2} \mid 3^{2^{n + 1}} - 1$\\
+$\Leftrightarrow 2^{(n + 2) + 1} \mid 3^{2^{n + 1}} - 1$\\
+$\Leftrightarrow 2^{n + 2}2^1 \mid 3^{2^n2^1} - 1$\\
+$\Leftrightarrow 2^{n + 2}2 \mid 3^{2^n2} - 1$\\
+$\Leftrightarrow 2^{n + 2}2 \mid (3^{2^n})^2 - 1$\\
+$\Leftrightarrow 2^{n + 2}2 \mid (3^{2^n} - 1)(3^{2^n} + 1)$\\
+$\Leftrightarrow 2 \mid (3^{2^n} + 1)$\\
+$3^{2^n}$ е нечетно число $\Rightarrow 3^{2^n} + 1$ e четно $\Rightarrow$\\
+$2 \mid (3^{2^n} + 1)$
+
+
+
+\end{document}
