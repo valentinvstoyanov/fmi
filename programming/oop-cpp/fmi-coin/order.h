@@ -7,9 +7,11 @@ struct Order {
     double fmi_coins;
 };
 
+const size_t ORDER_SIZE = sizeof(unsigned) + sizeof(double) + sizeof(Order::Type);
+
 void read_order(Order&);
 void add_order_to_cache(const Order&);
 void persist_orders_cache();
-Order* complete_orders(Order&, int&);
+Order* complete_orders(Order&, size_t&);
 
 #endif

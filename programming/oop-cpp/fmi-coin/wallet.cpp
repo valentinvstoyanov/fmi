@@ -158,21 +158,20 @@ void update_fiat_money(const unsigned* const ids, const double* const fiat_money
     std::fstream file(WALLET_FILENAME, std::ios::binary | std::ios::in | std::ios::app | std::ios::out);
     if(!file) {
         std::cerr << "Failed to open " << WALLET_FILENAME << " file." << std::endl;
-        return;
-    }
-    const size_t file_size = get_file_size(file);
-    const size_t fiat_money_seek = sizeof(unsigned) + OWNER_SIZE;
-    for(size_t i = 0; file && i < file_size; i += WALLET_SIZE) {
-        Wallet tmp;
-        load_wallet(file, tmp);
-        int pos = binary_search(ids, size, tmp.id);
-        if(pos >= 0) {
-            tmp.fiat_money += fiat_money[pos];
-            file.seekp(i + fiat_money_seek, std::ios::beg);
-            file.write(reinterpret_cast<const char*>(&tmp.fiat_money), sizeof(double));
+        const size_t file_size = get_file_size(file);
+        const size_t fiat_money_seek = sizeof(unsigned) + OWNER_SIZE;
+        for(size_t i = 0; file && i < file_size; i += WALLET_SIZE) {
+            Wallet tmp;
+            load_wallet(file, tmp);
+            int pos = binary_search(ids, size, tmp.id);
+            if(pos >= 0) {
+                tmp.fiat_money += fiat_money[pos];
+                file.seekp(i + fiat_money_seek, std::ios::beg);
+                file.write(reinterpret_cast<const char*>(&tmp.fiat_money), sizeof(double));
+            }
         }
+        file.close();
     }
-    file.close();
     for(unsigned short i = 0; i < cache_size; ++i) {
         Wallet tmp = cache[i];
         int pos = binary_search(ids, size, tmp.id);

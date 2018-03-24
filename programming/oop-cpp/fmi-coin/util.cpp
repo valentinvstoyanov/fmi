@@ -1,4 +1,5 @@
 #include <fstream>
+#include <cmath>
 #include "util.h"
 
 size_t get_file_size(std::istream& f) {
@@ -66,6 +67,25 @@ int binary_search(const size_t* const arr, const size_t size, const size_t eleme
     return -1;
 }
 
-int max(int a, int b) {
+int max(const int a, const int b) {
     return a < b ? b : a;
+}
+
+int double_cmp(const double a, const double b) {
+    if(fabs(a - b) < EPSILON)
+        return 0;
+    if(a + EPSILON > b)
+        return 1;
+    else
+        return -1;
+}
+
+size_t insert_sorted(unsigned* arr, const size_t size, unsigned element)
+{
+    size_t i;
+    for(i = size; i > 0 && arr[i - 1] > element; --i)
+        arr[i] = arr[i - 1];
+
+    arr[i] = element;
+    return i;
 }

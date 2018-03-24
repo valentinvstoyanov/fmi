@@ -119,7 +119,7 @@ Order* ensure_orders_size(Order* arr, const size_t size, size_t& capacity, size_
     return arr;
 }
 
-size_t* ensure_pos_size(size_t* arr, const size_t size, size_t& capacity, size_t new_elements) {
+size_t* ensure_indexes_size(size_t* arr, const size_t size, size_t& capacity, size_t new_elements) {
     if(new_elements + size - 1 <  capacity)
         return arr;
     const size_t new_capacity = max(2 *  capacity, new_elements + size - 1);
@@ -139,130 +139,144 @@ size_t* ensure_pos_size(size_t* arr, const size_t size, size_t& capacity, size_t
     return arr;
 }
 
-Order* complete_orders(Order& order, int& res_size) {
+Order* complete_orders(Order& order, size_t& result_arr_size) {
     size_t co_capacity = 4;
     size_t co_size = 0;
     Order* completed_orders = new(std::nothrow) Order[co_capacity];
-    if(!completed_orders)
+    if(!completed_orders) {
+        std::cerr << "Failed to allocate dynamic memory for completed orders." << std::endl;
         return NULL;
+    }
 
-    size_t rm_capacity = 2;
-    size_t rm_size = 0;
-    size_t* remove_positions = new(std::nothrow) size_t[rm_capacity];
-    if(!remove_positions) {
+    std::fstream file(ORDER_FILENAME, std::ios::binary | std::ios::in | std::ios::app | std::ios::out);
+    if(!file) {
+        std::cerr << "Failed to open " << ORDER_FILENAME << " file." << std::endl;
         delete[] completed_orders;
+        completed_orders = NULL;
+        return NULL;
+    }
+
+    size_t di_capacity = 2;
+    size_t di_size = 0;
+    size_t* delete_indexes = new(std::nothrow) size_t[di_capacity];
+    if(!delete_indexes) {
+        std::cerr << "Failed to allocate dynamic memory for delete file order indexes." << std::endl;
+        file.close();
+        delete[] completed_orders;
+        completed_orders = NULL;
         return NULL;
     }
 
     double remaining_coins = order.fmi_coins;
-
-    std::fstream file(ORDER_FILENAME, std::ios::binary | std::ios::in | std::ios::app);
-    if(!file) {
-        delete[] completed_orders;
-        delete[] remove_positions;
-        return NULL;
-    }
     const size_t file_size = get_file_size(file);
-    const size_t order_size = sizeof(unsigned) + sizeof(double) + sizeof(Order::Type);
-    const size_t seek_to_coins_size = sizeof(Order::Type) + sizeof(unsigned);
-    const double epsilon = 0.001;
-    for(size_t i = 0; i < file_size; i += order_size) {
-        Order tmp;
-        load_order(file, tmp);
-        if(tmp.type != order.type) {
-            if(fabs(order.fmi_coins - tmp.fmi_coins) < epsilon) {
-                if((completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1))
-                && (remove_positions = ensure_pos_size(remove_positions, rm_size, rm_capacity, 1))) {
-                    //completed_orders[co_size++] = order;
-                    completed_orders[co_size++] = tmp;
-                    remove_positions[rm_size++] = i;
-                    remaining_coins = 0;
-                }
-            } else if(order.fmi_coins + epsilon > tmp.fmi_coins) {
-                if((completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1))
-                && (remove_positions = ensure_pos_size(remove_positions, rm_size, rm_capacity, 1))) {
-                    completed_orders[co_size++] = tmp;
-                    remove_positions[rm_size++] = i;
-                    remaining_coins -= tmp.fmi_coins;
-                }
-            } else {
-                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1)) {
-                    //completed_orders[co_size++] = order;
-                    const double tmp_new_coins = tmp.fmi_coins - order.fmi_coins;
-                    tmp.fmi_coins = order.fmi_coins;
-                    completed_orders[co_size++] = tmp;
-                    tmp.fmi_coins = tmp_new_coins;
-                    add_order_to_cache(tmp);
-                    remaining_coins = 0;
-                }
-            }
+    const size_t fmi_coins_seek = ORDER_SIZE - sizeof(double);
 
-            if(!(completed_orders && remove_positions) || !file) {
+    for(size_t i = 0; i < file_size; i += ORDER_SIZE) {
+        Order cur_order;
+        load_order(file, cur_order);
+        if(!file) {
+            std::cerr << "Failed to load order from " << ORDER_FILENAME << " file." << std::endl;
+            file.close();
+            delete[] completed_orders;
+            completed_orders = NULL;
+            delete[] delete_indexes;
+            delete_indexes = NULL;
+            return NULL;
+        }
+
+        completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1);
+        if(!completed_orders) {
+            std::cerr << "Failed to resize completed orders array due to dynamic memory issue." << std::endl;
+            delete[] delete_indexes;
+            delete_indexes = NULL;
+            file.close();
+            return NULL;
+        }
+
+        delete_indexes = ensure_indexes_size(delete_indexes, di_size, di_capacity, 1);
+        if(!delete_indexes) {
+            std::cerr << "Failed to resize delete indexes array due to dynamic memory issue." << std::endl;
+            delete[] completed_orders;
+            completed_orders = NULL;
+            file.close();
+            return NULL;
+        }
+
+        Order completed_order = cur_order;
+        if(double_cmp(remaining_coins, cur_order.fmi_coins) < 0) {
+            completed_order.fmi_coins = order.fmi_coins;
+            cur_order.fmi_coins -= order.fmi_coins;
+            remaining_coins = 0.000;
+        } else if(double_cmp(remaining_coins, cur_order.fmi_coins) > 0) {
+            remaining_coins -= cur_order.fmi_coins;
+        } else {
+            remaining_coins = 0.000;
+        }
+        completed_orders[co_size++] = completed_order;
+        delete_indexes[di_size++] = i;
+
+        if(remaining_coins < EPSILON) {
+            if(delete_orders_at_positions(delete_indexes, di_size, file, file_size)) {
+                if(double_cmp(completed_order.fmi_coins, cur_order.fmi_coins) != 0)
+                    add_order_to_cache(cur_order);
+                delete[] delete_indexes;
+                delete_indexes = NULL;
+                result_arr_size = co_size;
+                order.fmi_coins = remaining_coins;
+                return completed_orders;
+            } else {
+                delete[] delete_indexes;
+                delete_indexes = NULL;
                 delete[] completed_orders;
-                delete[] remove_positions;
-                file.close();
-                std::cerr << "Problem with " << ORDER_FILENAME << " file or with dynamic memory allocation while completing orders." << std::endl;
+                completed_orders = NULL;
+                std::cerr << "Failed to delete orders from " << ORDER_FILENAME << " file." << std::endl;
                 return NULL;
             }
-
-            if(remaining_coins < epsilon)
-                break;
         }
     }
 
-    if(!delete_orders_at_positions(remove_positions, rm_size, file, file_size)) {
-        std::cerr << "Failed to delete orders from " << ORDER_FILENAME << " file!" << std::endl;
+    if(delete_orders_at_positions(delete_indexes, di_size, file, file_size)) {
+        delete[] delete_indexes;
+        delete_indexes = NULL;
+    } else {
+        delete[] delete_indexes;
+        delete_indexes = NULL;
         delete[] completed_orders;
-        delete[] remove_positions;
+        completed_orders = NULL;
+        std::cerr << "Failed to delete orders from " << ORDER_FILENAME << " file." << std::endl;
         return NULL;
     }
 
-    delete[] remove_positions;
-    res_size = co_size;
-    order.fmi_coins = remaining_coins;
-    if(remaining_coins < epsilon)
-        return completed_orders;
+    for(size_t i = 0; i < cache_size; ++i) {
+        completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1);
+        if(!completed_orders) {
+            std::cerr << "Failed to resize completed orders array due to dynamic memory issue." << std::endl;
+            return NULL;
+        }
 
-    for (unsigned short i = 0; i < cache_size; ++i) {
-        Order tmp = cache[i];
-        if(tmp.type != order.type) {
-            if(fabs(order.fmi_coins - tmp.fmi_coins) < epsilon) {
-                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1)) {
-                    //completed_orders[co_size++] = order;
-                    completed_orders[co_size++] = tmp;
-                    delete_order_cache(i);
-                    remaining_coins = 0;
-                }
-            } else if(order.fmi_coins + epsilon > tmp.fmi_coins) {
-                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1)) {
-                    completed_orders[co_size++] = tmp;
-                    delete_order_cache(i);
-                    remaining_coins -= tmp.fmi_coins;
-                }
-            } else {
-                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1)) {
-                    //completed_orders[co_size++] = order;
-                    const double tmp_new_coins = tmp.fmi_coins - order.fmi_coins;
-                    tmp.fmi_coins = order.fmi_coins;
-                    completed_orders[co_size++] = tmp;
-                    tmp.fmi_coins = tmp_new_coins;
-                    add_order_to_cache(tmp);
-                    remaining_coins = 0;
-                }
-            }
+        Order cur_order = cache[i];
+        Order completed_order = cur_order;
+        if(double_cmp(remaining_coins, cur_order.fmi_coins) < 0) {
+            completed_order.fmi_coins = order.fmi_coins;
+            cur_order.fmi_coins -= order.fmi_coins;
+            add_order_to_cache(cur_order);
+            remaining_coins = 0.000;
+        } else if(double_cmp(remaining_coins, cur_order.fmi_coins) > 0) {
+            remaining_coins -= cur_order.fmi_coins;
+        } else {
+            remaining_coins = 0.000;
+        }
+        completed_orders[co_size++] = completed_order;
+        delete_order_cache(i);
 
-            if(!completed_orders) {
-                delete[] completed_orders;
-                std::cerr << "Problem with dynamic memory allocation while completing orders." << std::endl;
-                return NULL;
-            }
-
-            if(remaining_coins < epsilon)
-                break;
+        if(remaining_coins < EPSILON) {
+            result_arr_size = co_size;
+            order.fmi_coins = remaining_coins;
+            return completed_orders;
         }
     }
 
-    res_size = co_size;
+    result_arr_size = co_size;
     order.fmi_coins = remaining_coins;
     return completed_orders;
 }
