@@ -1,6 +1,6 @@
 #include <iostream>
 #include <ctime>
-#include "executor.h"
+#include "performer.h"
 #include "wallet.h"
 #include "transaction.h"
 #include "order.h"
@@ -39,19 +39,26 @@ void on_make_order() {
     if(completed_orders && co_size > 0) {
         if(order.fmi_coins > 0.001)
             add_order_to_cache(order);
-            //TODO: update wallet coins
+        unsigned* wallet_ids = new(std::nothrow) unsigned[co_size + 1];
+        double* fiat_money = new(std::nothrow) double[co_size + 1];
         if(selling) {
             for(size_t i = 0; i < co_size; ++i) {
                 Order tmp = completed_orders[i];
                 transfer_fmi_coins(orderer.id, tmp.wallet_id, tmp.fmi_coins);
+                wallet_ids[i] = tmp.wallet_id;
+                fiat_money[i] = tmp.fmi_coins * FMICOIN_RATE;
             }
         } else {
             for(size_t i = 0; i < co_size; ++i) {
                 Order tmp = completed_orders[i];
                 transfer_fmi_coins(tmp.wallet_id, orderer.id, tmp.fmi_coins);
-
+                wallet_ids[i] = tmp.wallet_id;
+                fiat_money[i] = -tmp.fmi_coins * FMICOIN_RATE;
             }
         }
+        update_fiat_money(wallet_ids, fiat_money, co_size);
+        delete[] wallet_ids;
+        delete[] fiat_money;
     } else {
         std::cout << "No completed orders" << std::endl;
         add_order_to_cache(order);

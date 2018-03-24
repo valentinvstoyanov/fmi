@@ -2,7 +2,7 @@
 #include <cstring>
 #include <ctime>
 #include "command.h"
-#include "executor.h"
+#include "performer.h"
 
 void read_command(char command[LONGEST_COMMAND]) {
     std::cout << "Enter command: ";

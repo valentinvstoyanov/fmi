@@ -2,7 +2,7 @@
 #include <ctime>
 #include <fstream>
 #include "transaction.h"
-#include "file.h"
+#include "util.h"
 
 static const char TRANSACTION_FILENAME[] = "Transactions.dat";
 static const unsigned short CACHE_CAPACITY = 64;

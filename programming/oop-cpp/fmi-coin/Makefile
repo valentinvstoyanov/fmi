@@ -1,13 +1,13 @@
 all: fmicoin
 
-fmicoin: main.o file.o wallet.o transaction.o order.o command.o executor.o
-	g++ main.o file.o wallet.o transaction.o order.o command.o executor.o -o fmicoin
+fmicoin: main.o util.o wallet.o transaction.o order.o command.o performer.o
+	g++ main.o util.o wallet.o transaction.o order.o command.o performer.o -o fmicoin
 
 main.o: main.cpp
 	g++ -c main.cpp
 
-file.o: file.cpp
-	g++ -c file.cpp
+util.o: util.cpp
+	g++ -c util.cpp
 
 wallet.o: wallet.cpp
 	g++ -c wallet.cpp
@@ -21,9 +21,9 @@ order.o: order.cpp
 command.o: command.cpp
 	g++ -c command.cpp
 
-executor.o: executor.cpp
-	g++ -c executor.cpp
-	
+performer.o: performer.cpp
+	g++ -c performer.cpp
+
 clean:
 	rm *o fmicoin
 	rm *.dat

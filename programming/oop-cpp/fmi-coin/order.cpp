@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <cmath>
 #include "order.h"
-#include "file.h"
+#include "util.h"
 
 void read_order(Order& order) {
     char order_type[4];
@@ -73,29 +73,6 @@ void persist_orders_cache() {
     }
 }
 
-int search(const size_t* arr, const size_t size, const size_t element) {
-	unsigned left = 0;
-	unsigned right = size - 1;
-
-	while(left <= right) {
-		unsigned middle = (left + right) / 2;
-
-		if(arr[middle] == element)
-			return middle;
-
-		if(element < arr[middle])
-			right = middle - 1;
-		else
-			left = middle + 1;
-	}
-
-	return -1;
-}
-
-bool contains(const size_t* arr, const size_t size, const size_t element) {
-    return search(arr, size, element) >= 0;
-}
-
 bool delete_orders_at_positions(const size_t* positions, const size_t pos_size, std::fstream& file, const size_t file_size) {
     const char* tmp_filename = "ORDERS_TMP.dat";
     std::ofstream new_file;
@@ -103,7 +80,7 @@ bool delete_orders_at_positions(const size_t* positions, const size_t pos_size, 
     file.seekg(0, std::ios::beg);
     const size_t order_size = sizeof(Order::Type) + sizeof(unsigned) + sizeof(double);
     for(size_t current_pos = 0; file && new_file && current_pos < file_size; current_pos += order_size) {
-        if(contains(positions, pos_size, current_pos)) {
+        if(binary_search(positions, pos_size, current_pos)) {
             Order tmp;
             load_order(file, tmp);
             save_order(new_file, tmp);
@@ -114,10 +91,6 @@ bool delete_orders_at_positions(const size_t* positions, const size_t pos_size, 
     file.close();
     new_file.close();
     return file && new_file && !unlink(ORDER_FILENAME) && !rename(tmp_filename, ORDER_FILENAME);
-}
-
-int max(int a, int b) {
-    return a < b ? b : a;
 }
 
 void delete_order_cache(const size_t index) {
@@ -198,9 +171,9 @@ Order* complete_orders(Order& order, int& res_size) {
         load_order(file, tmp);
         if(tmp.type != order.type) {
             if(fabs(order.fmi_coins - tmp.fmi_coins) < epsilon) {
-                if((completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 2))
+                if((completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1))
                 && (remove_positions = ensure_pos_size(remove_positions, rm_size, rm_capacity, 1))) {
-                    completed_orders[co_size++] = order;
+                    //completed_orders[co_size++] = order;
                     completed_orders[co_size++] = tmp;
                     remove_positions[rm_size++] = i;
                     remaining_coins = 0;
@@ -213,8 +186,8 @@ Order* complete_orders(Order& order, int& res_size) {
                     remaining_coins -= tmp.fmi_coins;
                 }
             } else {
-                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 2)) {
-                    completed_orders[co_size++] = order;
+                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1)) {
+                    //completed_orders[co_size++] = order;
                     const double tmp_new_coins = tmp.fmi_coins - order.fmi_coins;
                     tmp.fmi_coins = order.fmi_coins;
                     completed_orders[co_size++] = tmp;
@@ -254,8 +227,8 @@ Order* complete_orders(Order& order, int& res_size) {
         Order tmp = cache[i];
         if(tmp.type != order.type) {
             if(fabs(order.fmi_coins - tmp.fmi_coins) < epsilon) {
-                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 2)) {
-                    completed_orders[co_size++] = order;
+                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1)) {
+                    //completed_orders[co_size++] = order;
                     completed_orders[co_size++] = tmp;
                     delete_order_cache(i);
                     remaining_coins = 0;
@@ -267,8 +240,8 @@ Order* complete_orders(Order& order, int& res_size) {
                     remaining_coins -= tmp.fmi_coins;
                 }
             } else {
-                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 2)) {
-                    completed_orders[co_size++] = order;
+                if(completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1)) {
+                    //completed_orders[co_size++] = order;
                     const double tmp_new_coins = tmp.fmi_coins - order.fmi_coins;
                     tmp.fmi_coins = order.fmi_coins;
                     completed_orders[co_size++] = tmp;

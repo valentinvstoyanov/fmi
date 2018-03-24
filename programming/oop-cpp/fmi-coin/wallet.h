@@ -14,6 +14,7 @@ void read_wallet(Wallet&);
 void print_wallet(const Wallet&);
 void add_wallet_to_cache(Wallet&);
 bool find_wallet_by_id(const unsigned, Wallet&);
+void update_fiat_money(const unsigned* const, const double* const, const size_t);
 void persist_wallets_cache();
 
 #endif
