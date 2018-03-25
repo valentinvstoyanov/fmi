@@ -85,12 +85,15 @@ void on_make_order() {
                         sender_id = order.wallet_id;
                         receiver_id = cur_order.wallet_id;
                     }
+
+                    //TODO: create file for each transaction
+                
                     transfer_fmi_coins(sender_id, receiver_id, cur_order.fmi_coins);
                     const double fiat_money = (cur_order.type == Order::SELL ? cur_order.fmi_coins * FMICOIN_RATE : -cur_order.fmi_coins * FMICOIN_RATE);
                     insert_sorted(wallet_ids, wallet_fiat_money, update_wallets_arr_counter, update_wallets_arr_size, cur_order.wallet_id, fiat_money);
                     update_wallets_arr_counter++;
                 }
-                
+
                 update_fiat_money(wallet_ids, wallet_fiat_money, update_wallets_arr_size);
 
                 delete[] wallet_ids;
