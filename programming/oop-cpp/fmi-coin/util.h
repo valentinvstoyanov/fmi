@@ -9,6 +9,6 @@ int binary_search(const unsigned* const, const size_t, const unsigned);
 int binary_search(const size_t* const, const size_t, const size_t);
 int max(const int, const int);
 int double_cmp(const double, const double);
-size_t insert_sorted(unsigned*, const size_t, unsigned);
+int insert_sorted(unsigned*, const size_t, const size_t, const unsigned);
 
 #endif

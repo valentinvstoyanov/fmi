@@ -75,22 +75,20 @@ void persist_orders_cache() {
 
 bool delete_orders_at_positions(const size_t* positions, const size_t pos_size, std::fstream& file, const size_t file_size) {
     const char* tmp_filename = "ORDERS_TMP.dat";
-    std::ofstream new_file;
-    new_file.open(tmp_filename, std::ios::binary | std::ios::out);
+    std::ofstream tmp_file(tmp_filename, std::ios::binary | std::ios::out | std::ios::trunc);
     file.seekg(0, std::ios::beg);
-    const size_t order_size = sizeof(Order::Type) + sizeof(unsigned) + sizeof(double);
-    for(size_t current_pos = 0; file && new_file && current_pos < file_size; current_pos += order_size) {
-        if(binary_search(positions, pos_size, current_pos)) {
+    for(size_t current_pos = 0; file && tmp_file && current_pos < file_size; current_pos += ORDER_SIZE) {
+        if(binary_search(positions, pos_size, current_pos) < 0) {
             Order tmp;
             load_order(file, tmp);
-            save_order(new_file, tmp);
+            save_order(tmp_file, tmp);
         } else {
-            file.seekg(order_size, std::ios::cur);
+            file.seekg(ORDER_SIZE, std::ios::cur);
         }
     }
     file.close();
-    new_file.close();
-    return file && new_file && !unlink(ORDER_FILENAME) && !rename(tmp_filename, ORDER_FILENAME);
+    tmp_file.close();
+    return file && tmp_file && !unlink(ORDER_FILENAME) && !rename(tmp_filename, ORDER_FILENAME);
 }
 
 void delete_order_cache(const size_t index) {
@@ -184,6 +182,9 @@ Order* complete_orders(Order& order, size_t& result_arr_size) {
             return NULL;
         }
 
+        if(order.type == cur_order.type)
+            continue;
+
         completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1);
         if(!completed_orders) {
             std::cerr << "Failed to resize completed orders array due to dynamic memory issue." << std::endl;
@@ -248,13 +249,16 @@ Order* complete_orders(Order& order, size_t& result_arr_size) {
     }
 
     for(size_t i = 0; i < cache_size; ++i) {
+        Order cur_order = cache[i];
+        if(order.type == cur_order.type)
+            continue;
+
         completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1);
         if(!completed_orders) {
             std::cerr << "Failed to resize completed orders array due to dynamic memory issue." << std::endl;
             return NULL;
         }
 
-        Order cur_order = cache[i];
         Order completed_order = cur_order;
         if(double_cmp(remaining_coins, cur_order.fmi_coins) < 0) {
             completed_order.fmi_coins = order.fmi_coins;
@@ -266,8 +270,8 @@ Order* complete_orders(Order& order, size_t& result_arr_size) {
         } else {
             remaining_coins = 0.000;
         }
+        delete_order_cache(i--);
         completed_orders[co_size++] = completed_order;
-        delete_order_cache(i);
 
         if(remaining_coins < EPSILON) {
             result_arr_size = co_size;

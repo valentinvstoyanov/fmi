@@ -10,6 +10,16 @@ static Transaction cache[CACHE_CAPACITY];
 static unsigned short cache_size = 0;
 static bool is_persisted = true;
 
+void print_transaction(const Transaction& transaction) {
+    std::cout << "TRANSACTION:" << std::endl;
+    time_t transaction_time = transaction.time;
+    tm* timestamp = localtime(&transaction_time);
+    std::cout << "\tTIME: " << timestamp->tm_mday  << "/" << timestamp->tm_mon + 1 << "/" << timestamp->tm_year + 1900 << std::endl;
+    std::cout << "\tSENDER ID: " << transaction.sender_id << std::endl;
+    std::cout << "\tRECEIVER ID: " << transaction.receiver_id << std::endl;
+    std::cout << "\tFMICOINS: " << transaction.fmi_coins << std::endl;
+}
+
 void save_transaction(std::ofstream& file, const Transaction& transaction) {
     file.write(reinterpret_cast<const char*>(&transaction.time), sizeof(long long));
     file.write(reinterpret_cast<const char*>(&transaction.sender_id), sizeof(unsigned));

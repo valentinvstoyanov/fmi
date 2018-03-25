@@ -5,8 +5,10 @@
 #include "performer.h"
 
 void read_command(char command[LONGEST_COMMAND]) {
-    std::cout << "Enter command: ";
+    std::cout << std::endl;
+    std::cout << "> ";
     std::cin >> command;
+    std::cout << std::endl;
 }
 
 bool process_command(const char* command) {

@@ -155,9 +155,8 @@ bool find_wallet_by_id(const unsigned id, Wallet& wallet) {
 
 
 void update_fiat_money(const unsigned* const ids, const double* const fiat_money, const size_t size) {
-    std::fstream file(WALLET_FILENAME, std::ios::binary | std::ios::in | std::ios::app | std::ios::out);
-    if(!file) {
-        std::cerr << "Failed to open " << WALLET_FILENAME << " file." << std::endl;
+    std::fstream file(WALLET_FILENAME, std::ios::binary | std::ios::in | std::ios::out);
+    if(file) {
         const size_t file_size = get_file_size(file);
         const size_t fiat_money_seek = sizeof(unsigned) + OWNER_SIZE;
         for(size_t i = 0; file && i < file_size; i += WALLET_SIZE) {
@@ -172,13 +171,11 @@ void update_fiat_money(const unsigned* const ids, const double* const fiat_money
         }
         file.close();
     }
+
     for(unsigned short i = 0; i < cache_size; ++i) {
-        Wallet tmp = cache[i];
-        int pos = binary_search(ids, size, tmp.id);
-        if(pos >= 0) {
-            tmp.fiat_money += fiat_money[pos];
-            cache[i] = tmp;
-        }
+        int pos = binary_search(ids, size, cache[i].id);
+        if(pos >= 0)
+            cache[i].fiat_money += fiat_money[pos];
     }
 }
 

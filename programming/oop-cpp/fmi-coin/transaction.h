@@ -8,6 +8,7 @@ struct Transaction {
     double fmi_coins;
 };
 
+void print_transaction(const Transaction&);
 void create_transaction(Transaction&, const unsigned, const unsigned, const double);
 void add_transaction_to_cache(const Transaction&);
 void persist_transactions_cache();
