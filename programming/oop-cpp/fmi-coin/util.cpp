@@ -80,15 +80,16 @@ int double_cmp(const double a, const double b) {
         return -1;
 }
 
-int insert_sorted(unsigned* arr, const size_t size, const size_t capacity, const unsigned element) {
+void insert_sorted(unsigned* arr1, double* arr2, const size_t size, const size_t capacity, const unsigned u_el, const double d_el) {
     if (size >= capacity)
-       return -1;
+       return;
 
     size_t i;
-    for (i = size-1; i >= 0  && arr[i] > element; --i)
-       arr[i + 1] = arr[i];
+    for (i = size-1; i >= 0  && arr1[i] > u_el; --i) {
+       arr1[i + 1] = arr1[i];
+       arr2[i + 1] = arr2[i];
+    }
 
-    arr[i + 1] = element;
-
-    return i + 1;
+    arr1[i + 1] = u_el;
+    arr2[i + 1] = d_el;
 }

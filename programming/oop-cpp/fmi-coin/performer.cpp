@@ -71,6 +71,8 @@ void on_make_order() {
                     const double fiat_money = order_fmi_coins * FMICOIN_RATE;
                     wallet_fiat_money[0] = (order.type == Order::SELL ? fiat_money : -fiat_money);
                     update_wallets_arr_counter++;
+                } else {
+                    add_order_to_cache(order);
                 }
 
                 for(size_t i = 0; i < completed_orders_size; ++i) {
@@ -84,10 +86,9 @@ void on_make_order() {
                         receiver_id = cur_order.wallet_id;
                     }
                     transfer_fmi_coins(sender_id, receiver_id, cur_order.fmi_coins);
-                    size_t inserted_pos = insert_sorted(wallet_ids, update_wallets_arr_counter, update_wallets_arr_size, cur_order.wallet_id);
+                    const double fiat_money = (cur_order.type == Order::SELL ? cur_order.fmi_coins * FMICOIN_RATE : -cur_order.fmi_coins * FMICOIN_RATE);
+                    insert_sorted(wallet_ids, wallet_fiat_money, update_wallets_arr_counter, update_wallets_arr_size, cur_order.wallet_id, fiat_money);
                     update_wallets_arr_counter++;
-                    const double fiat_money = cur_order.fmi_coins * FMICOIN_RATE;
-                    wallet_fiat_money[inserted_pos] = (cur_order.type == Order::SELL ? fiat_money : -fiat_money);
                 }
                 
                 update_fiat_money(wallet_ids, wallet_fiat_money, update_wallets_arr_size);

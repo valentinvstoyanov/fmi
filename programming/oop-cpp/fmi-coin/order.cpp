@@ -137,6 +137,20 @@ size_t* ensure_indexes_size(size_t* arr, const size_t size, size_t& capacity, si
     return arr;
 }
 
+Order* add_order_to_completed(Order* completed_orders, size_t& size, size_t& capacity, const Order& order) {
+    for (size_t i = 0; i < size; ++i) {;
+        if (order.wallet_id == completed_orders[i].wallet_id) {
+            completed_orders[i].fmi_coins += order.fmi_coins;
+            return completed_orders;
+        }
+    }
+    completed_orders = ensure_orders_size(completed_orders, size, capacity, 1);
+    if(!completed_orders)
+        return NULL;
+    completed_orders[size++] = order;
+    return completed_orders;
+}
+
 Order* complete_orders(Order& order, size_t& result_arr_size) {
     size_t co_capacity = 4;
     size_t co_size = 0;
@@ -185,15 +199,6 @@ Order* complete_orders(Order& order, size_t& result_arr_size) {
         if(order.type == cur_order.type)
             continue;
 
-        completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1);
-        if(!completed_orders) {
-            std::cerr << "Failed to resize completed orders array due to dynamic memory issue." << std::endl;
-            delete[] delete_indexes;
-            delete_indexes = NULL;
-            file.close();
-            return NULL;
-        }
-
         delete_indexes = ensure_indexes_size(delete_indexes, di_size, di_capacity, 1);
         if(!delete_indexes) {
             std::cerr << "Failed to resize delete indexes array due to dynamic memory issue." << std::endl;
@@ -213,7 +218,16 @@ Order* complete_orders(Order& order, size_t& result_arr_size) {
         } else {
             remaining_coins = 0.000;
         }
-        completed_orders[co_size++] = completed_order;
+
+        completed_orders = add_order_to_completed(completed_orders, co_size, co_capacity, completed_order);
+        if(!completed_orders) {
+            std::cerr << "Failed to resize completed orders array due to dynamic memory issue." << std::endl;
+            delete[] delete_indexes;
+            delete_indexes = NULL;
+            file.close();
+            return NULL;
+        }
+
         delete_indexes[di_size++] = i;
 
         if(remaining_coins < EPSILON) {
@@ -253,12 +267,6 @@ Order* complete_orders(Order& order, size_t& result_arr_size) {
         if(order.type == cur_order.type)
             continue;
 
-        completed_orders = ensure_orders_size(completed_orders, co_size, co_capacity, 1);
-        if(!completed_orders) {
-            std::cerr << "Failed to resize completed orders array due to dynamic memory issue." << std::endl;
-            return NULL;
-        }
-
         Order completed_order = cur_order;
         if(double_cmp(remaining_coins, cur_order.fmi_coins) < 0) {
             completed_order.fmi_coins = order.fmi_coins;
@@ -271,7 +279,12 @@ Order* complete_orders(Order& order, size_t& result_arr_size) {
             remaining_coins = 0.000;
         }
         delete_order_cache(i--);
-        completed_orders[co_size++] = completed_order;
+
+        completed_orders = add_order_to_completed(completed_orders, co_size, co_capacity, completed_order);
+        if(!completed_orders) {
+            std::cerr << "Failed to resize completed orders array due to dynamic memory issue." << std::endl;
+            return NULL;
+        }
 
         if(remaining_coins < EPSILON) {
             result_arr_size = co_size;
