@@ -28,3 +28,30 @@
 * Следвайте добрите ООП практики за реализация на тези класове.  
 * При разработка на класовете можете (и е задължително) да добавите методи, които са необходими за правилното решение на задачата, но не са явно посочени в условието.  
 * Код, който не се компилира или грубо нарушава принципите на ООП, ще бъде оценен с нула точки.  
+
+### Примерен вход:  
+**Съдържание в blackHole.txt**:  
+
+What Is a Black Hole?  
+This article is part of the NASA knows!  
+A black hole is a place in space where gravity pulls so much that even light can not get out. The gravity is so strong because matter has been squeezed into a tiny space. This can happen when a star is dying.
+
+**Команди**:   
+makeHeader 1
+makeBold 1 1 5
+makeItalic 2 1 8
+makeCombine 3 2 3
+
+**Изход**: (съдържание в blackHole.md)
+
+```text
+# **What Is a Black Hole?**  
+*This article is part of the NASA knows!*  
+A ***black hole*** is a place in space where gravity pulls so much that even light can not get out. The gravity is so strong because matter has been squeezed into a tiny space. This can happen when a star is dying.
+```
+
+**И как се визуализира**:
+
+# **What Is a Black Hole?**  
+*This article is part of the NASA knows!*  
+A ***black hole*** is a place in space where gravity pulls so much that even light can not get out. The gravity is so strong because matter has been squeezed into a tiny space. This can happen when a star is dying.
