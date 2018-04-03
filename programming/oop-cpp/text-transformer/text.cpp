@@ -78,6 +78,6 @@ void Text::remove_line(const unsigned index) {
 void Text::print(std::ostream& stream) const {
     if(!lines)
         return;
-    for(unsigned i = 0; i < size; ++i)
+    for(unsigned i = 0; stream && i < size; ++i)
         lines[i].print(stream);
 }

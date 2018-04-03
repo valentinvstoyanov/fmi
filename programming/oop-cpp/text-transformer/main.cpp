@@ -1,6 +1,5 @@
 #include <iostream>
-#include "line.h"
-#include "text.h"
+#include "filemanager.h"
 
 int main() {
 
