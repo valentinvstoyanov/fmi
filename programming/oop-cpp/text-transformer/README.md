@@ -37,10 +37,10 @@ This article is part of the NASA knows!
 A black hole is a place in space where gravity pulls so much that even light can not get out. The gravity is so strong because matter has been squeezed into a tiny space. This can happen when a star is dying.
 
 **Команди**:   
-makeHeader 1
-makeBold 1 1 5
+makeHeader 1  
+makeBold 1 1 5  
 makeItalic 2 1 8
-makeCombine 3 2 3
+makeCombine 3 2 3  
 
 **Изход**: (съдържание в blackHole.md)
 
