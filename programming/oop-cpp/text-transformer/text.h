@@ -14,9 +14,10 @@ public:
     ~Text();
     Text& operator=(const Text&);
     void append_line(const Line&);
-    void set_line_content(const char*, const unsigned);
+    void set_line_at(const Line&, const unsigned);
+    const Line& get_line_at(const unsigned);
     void remove_line(const unsigned);
-    void print(std::ostream&) const;
+    void print(std::ostream& = std::cout) const;
 };
 
 #endif

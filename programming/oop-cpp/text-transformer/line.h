@@ -1,6 +1,7 @@
 #ifndef  __LINE_HEADER_INCLUDED__
 #define __LINE_HEADER_INCLUDED__
 #include <fstream>
+#include <iostream>
 
 class Line {
     char* content;
@@ -13,7 +14,8 @@ public:
     Line& operator=(const Line&);
     void set_content(const char*);
     unsigned get_length() const;
-    void print(std::ostream&) const;
+    char* get_content() const;
+    void print(std::ostream& = std::cout) const;
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #include "text.h"
 
 unsigned max(unsigned a, unsigned b) {
@@ -54,20 +55,26 @@ void Text::append_line(const Line& line) {
     lines[size++] = line;
 }
 
-void Text::set_line_content(const char* new_content, const unsigned index) {
-    if(index < 0 || index >= size)
+void Text::set_line_at(const Line& line, const unsigned index) {
+    if(index >= size)
         return;
-    lines[index].set_content(new_content);
+    lines[index] = line;
+}
+
+const Line& Text::get_line_at(const unsigned index) {
+    if(index >= size)
+        throw std::invalid_argument("No such index in lines");
+    return lines[index];
 }
 
 void Text::remove_line(const unsigned index) {
-    if(index < 0 || index >= size)
+    if(index >= size)
         return;
     Line* new_lines = new Line[size - 1];
     for(unsigned i = 0; i < index; ++i)
         new_lines[i] = lines[i];
     for(unsigned i = index + 1; i < size; ++i)
-        new_lines[i] = lines[i];
+        new_lines[i - 1] = lines[i];
     size--;
     capacity = size;
     delete[] lines;
@@ -75,9 +82,8 @@ void Text::remove_line(const unsigned index) {
     new_lines = nullptr;
 }
 
-void Text::print(std::ostream& stream) const {
-    if(!lines)
-        return;
-    for(unsigned i = 0; stream && i < size; ++i)
-        lines[i].print(stream);
+void Text::print(std::ostream& stream/*  = std::cout */) const {
+    if(lines)
+        for(unsigned i = 0; stream && i < size; ++i)
+            lines[i].print(stream);
 }
