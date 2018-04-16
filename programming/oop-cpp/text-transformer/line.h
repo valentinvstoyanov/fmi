@@ -10,8 +10,8 @@ public:
     Line();
     Line(const char*);
     Line(const Line&);
-    ~Line();
     Line& operator=(const Line&);
+    ~Line();
     void set_content(const char*);
     unsigned get_length() const;
     char* get_content() const;

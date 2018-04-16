@@ -10,6 +10,20 @@ FileManager::FileManager(const char* name) {
     strcpy(filename, name);
 }
 
+FileManager::FileManager(const FileManager& fm) {
+    filename = new char(strlen(fm.filename) + 1);
+    strcpy(filename, fm.filename);
+}
+
+FileManager& FileManager::operator=(const FileManager& other) {
+    if(this != &other) {
+        delete[] filename;
+        filename = new char(strlen(other.filename) + 1);
+        strcpy(filename, other.filename);
+    }
+    return *this;
+}
+
 FileManager::~FileManager() {
     delete[] filename;
     filename = nullptr;

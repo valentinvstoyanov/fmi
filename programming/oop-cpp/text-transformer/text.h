@@ -1,6 +1,7 @@
 #ifndef  __TEXT_HEADER_INCLUDED__
 #define __TEXT_HEADER_INCLUDED__
 #include <fstream>
+#include <iostream>
 #include "line.h"
 
 class Text {
@@ -11,8 +12,8 @@ class Text {
 public:
     Text(const unsigned = 0);
     Text(const Text&);
-    ~Text();
     Text& operator=(const Text&);
+    ~Text();
     void append_line(const Line&);
     void set_line_at(const Line&, const unsigned);
     const Line& get_line_at(const unsigned);

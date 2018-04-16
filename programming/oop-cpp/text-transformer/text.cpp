@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdexcept>
 #include "text.h"
 
@@ -15,27 +14,32 @@ Text::Text(const unsigned initial_capacity/* = 0*/)
         lines = new Line[capacity];
 }
 
-Text::Text(const Text& other) {
-    delete[] lines;
-    size = other.size;
-    capacity = other.capacity;
-    lines = new Line[capacity];
-    for(unsigned i = 0; i < size; ++i)
-        lines[i] = other.lines[i];
+Text::Text(const Text& text)
+: size(text.size), capacity(text.capacity) {
+    if(capacity > 0) {
+        lines = new Line[capacity];
+        for(unsigned i = 0; i < size; ++i)
+            lines[i] = text.lines[i];
+    }
+}
+
+Text& Text::operator=(const Text& other) {
+    if(this != &other) {
+        delete[] lines;
+        size = other.size;
+        capacity = other.capacity;
+        if(capacity > 0) {
+            lines = new Line[capacity];
+            for(unsigned i = 0; i < size; ++i)
+                lines[i] = other.lines[i];
+        }
+    }
+    return *this;
 }
 
 Text::~Text() {
     delete[] lines;
     lines = nullptr;
-}
-
-Text& Text::operator=(const Text& other) {
-    delete[] lines;
-    size = other.size;
-    capacity = other.capacity;
-    lines = new Line[capacity];
-    for(unsigned i = 0; i < size; ++i)
-        lines[i] = other.lines[i];
 }
 
 void Text::ensure_capacity(const unsigned new_lines_count) {
