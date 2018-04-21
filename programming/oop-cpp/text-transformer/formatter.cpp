@@ -37,7 +37,7 @@ bool Formatter::is_delimeter(const char& c) const {
 
 int Formatter::get_nth_word_index(const char* str, const unsigned n, const bool end/* = false*/) const {
     int i = 0;
-    if(is_delimeter(str[i])) {
+    if(is_delimeter(str[i]) || str[i] == '#') {
         i++;
         while(is_delimeter(str[i]))
             i++;
@@ -48,7 +48,7 @@ int Formatter::get_nth_word_index(const char* str, const unsigned n, const bool 
         word_len = 0;
         while(is_delimeter(str[i]))
             i++;
-        while(!is_delimeter(str[i])) {
+        while(!is_delimeter(str[i]) && str[i]) {
             word_len++;
             i++;
         }
@@ -63,16 +63,13 @@ int Formatter::get_nth_word_index(const char* str, const unsigned n, const bool 
 char* Formatter::format(const char* str, const char* symbols, const bool bilateral) const {
     const unsigned str_length = strlen(str);
     const unsigned symbols_length = strlen(symbols);
-    const unsigned result_length = str_length + (bilateral ? 2 * (symbols_length + 1) : symbols_length + 1);
+    const unsigned result_length = str_length + (bilateral ? 2 * symbols_length : symbols_length);
     char* result_str = new char[result_length + 1];
     strcpy(result_str, symbols);
-    strcat(result_str, " ");
     strcat(result_str, str);
-    if(bilateral) {
-        strcat(result_str, " ");
+    if(bilateral)
         strcat(result_str, symbols);
-    }
-    
+
     return result_str;
 }
 
@@ -88,10 +85,11 @@ void Formatter::format(Line& line, const char* symbols, const bool bilateral, co
         strncpy(words, line_content + from_word_index, words_len);
         char* formatted_words = format(words, symbols, bilateral);
         char* formatted_line_content = new char[line.get_length() - words_len + strlen(formatted_words) + 1];
-        formatted_line_content[0] = '\0';
         strncpy(formatted_line_content, line_content, from_word_index);
+        formatted_line_content[from_word_index] = '\0';
         strcat(formatted_line_content, formatted_words);
         strcat(formatted_line_content, line_content + from_word_index + words_len);
+
         res.set_content(formatted_line_content);
         delete[] formatted_line_content;
         formatted_line_content = nullptr;
@@ -103,12 +101,11 @@ void Formatter::format(Line& line, const char* symbols, const bool bilateral, co
     delete[] line_content;
     line_content = nullptr;
     line = res;
-    //return line;
 }
 
 Line Formatter::make_heading(const Line& line) const {
     Line formatted_line = line;
-    format(formatted_line, "#", false, 1, 2);
+    format(formatted_line, "# ", false, 1, 2);
     return formatted_line;
 }
 
@@ -128,4 +125,19 @@ Line Formatter::make_combined(const Line& line, const unsigned from, const unsig
     Line formatted_line = line;
     format(formatted_line, "***", true, from, to);
     return formatted_line;
+}
+
+char* Formatter::change_filename_extension(const char* filename, const char* ext) const {
+    const unsigned filename_len = strlen(filename);
+    const unsigned ext_len = strlen(ext);
+    int last_filename_index = get_nth_word_index(filename, 1, true);
+    last_filename_index = (last_filename_index < 0 ? filename_len - 1 : last_filename_index);
+    const unsigned res_len = last_filename_index + 2 + ext_len;
+    char* res = new char[res_len + 1];
+    res[res_len] = '\0';
+    strncpy(res, filename, last_filename_index + 1);
+    res[last_filename_index + 1] = '.';
+    strcpy(res + last_filename_index + 2, ext);
+
+    return res;
 }

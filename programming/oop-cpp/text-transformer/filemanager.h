@@ -9,8 +9,8 @@ public:
     FileManager(const FileManager&);
     FileManager& operator=(const FileManager&);
     ~FileManager();
-    void write_lines(const Text&);
-    void read_lines(Text&);
+    bool write_lines(const Text&);
+    bool read_lines(Text&);
 };
 
 #endif

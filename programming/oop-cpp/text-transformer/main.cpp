@@ -3,8 +3,18 @@
 #include "filemanager.h"
 #include <cstring>
 
+bool get_text_from_file(const char* filename, Text& text) {
+    FileManager in_file_manager(filename);
+    return in_file_manager.read_lines(text);
+}
+
+bool save_text_to_file(const char* filename, const Text& text) {
+    FileManager out_file_manager(filename);
+    return out_file_manager.write_lines(text);
+}
+
 int main() {
-    const char heading_cmd[] = "makeHeading";
+    const char heading_cmd[] = "makeHeader";
     const char italic_cmd[] = "makeItalic";
     const char bold_cmd[] = "makeBold";
     const char combine_cmd[] = "makeCombine";
@@ -13,11 +23,18 @@ int main() {
     const char exit_cmd[] = "exit";
 
     char filename[256];
-    std::cout << "(Enter filename) -> ";
-    std::cin.getline(filename, 256);
-    FileManager file_manager(filename);
     Text text;
-    file_manager.read_lines(text);
+    do {
+        std::cout << "(Enter filename) -> ";
+        std::cin.getline(filename, 256);
+        if(!strcmp(filename, exit_cmd))
+            return 0;
+        if(get_text_from_file(filename, text))
+            break;
+        else
+            std::cout << "(Info) -> Please try again." << std::endl;
+    } while(true);
+
     text.print();
 
     Formatter formatter;
@@ -54,8 +71,11 @@ int main() {
             std::cin >> line_number;
             text.remove_line(line_number - 1);
         } else if(!strcmp(exit_cmd, cmd)) {
-            FileManager write_file_manager("TEST.md");
-            write_file_manager.write_lines(text);
+            Formatter extension_formatter(".");
+            char* formatted_filename = extension_formatter.change_filename_extension(filename, "md");
+            save_text_to_file(formatted_filename, text);
+            delete[] formatted_filename;
+            formatted_filename = nullptr;
             std::cout << "(Info) -> Text successfully transformed to MarkDown." << std::endl;
             running = false;
         } else {

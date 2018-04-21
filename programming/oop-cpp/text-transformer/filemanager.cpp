@@ -29,17 +29,19 @@ FileManager::~FileManager() {
     filename = nullptr;
 }
 
-void FileManager::write_lines(const Text& text) {
+bool FileManager::write_lines(const Text& text) {
     std::ofstream file(filename);
     if(file) {
         text.print(file);
         file.close();
+        return true;
     } else {
-        std::cerr << "Failed to open " << filename << " file." << std::endl;
+        std::cerr << "(Error) -> Failed to open " << filename << " file." << std::endl;
+        return false;
     }
 }
 
-void FileManager::read_lines(Text& text) {
+bool FileManager::read_lines(Text& text) {
     std::ifstream file(filename);
     if(file) {
         const unsigned longest_line = 1024;
@@ -49,7 +51,9 @@ void FileManager::read_lines(Text& text) {
             text.append_line(line);
         }
         file.close();
+        return true;
     } else {
-        std::cerr << "Failed to open " << filename << " file." << std::endl;
+        std::cerr << "(Error) -> Failed to open " << filename << " file." << std::endl;
+        return false;
     }
 }
