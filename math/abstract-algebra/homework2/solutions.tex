@@ -1,0 +1,103 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc} 
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+\usepackage{amssymb}
+
+\newcommand*{\Q}{\mathbb{Q}}
+
+\begin{document}
+
+\title{Решение на домашно 2}
+\author{Валентин Стоянов}
+\date{март 2018}
+\maketitle
+
+\section*{Задача 1.}
+Нека $R = \{a, b, c, d\}$ е пръстен с таблици за събиране и умножение, съответно,\\
+
+\begin{tabular}{ |c|c|c|c|c| } 
+	\hline
+	+ & a & b & c & d \\ 
+	\hline
+	a & a & b & c & d \\
+	\hline
+	b & b & a & d & c \\
+	\hline
+	c & c & d & a & b \\
+	\hline
+	d & d & c & b & a\\
+	\hline
+\end{tabular}
+\quad
+и
+\quad
+\begin{tabular}{ |c|c|c|c|c| } 
+	\hline
+	$\ast$ & a & b & c & d \\ 
+	\hline
+	a & a & a & a & a \\
+	\hline
+	b & a & $\bullet$ & a & b \\
+	\hline
+	c & a & $\bullet$ & $\bullet$ & c \\
+	\hline
+	d & a & d & $\bullet$ & $\bullet$ \\
+	\hline
+\end{tabular}
+\\
+\\
+\\
+Да се определят отбелязаните с кръгче елементи в таблицата за умножение и да се намерят идеалите на пръстена $R$.
+\subsection*{Решение:}
+$dd = (b + c)d = bd + cd = b + c = d$\\
+$dc = d(d + b) = dd + db = d + d = a$\\
+$bb = b(c + d) = bc + bd = a + b = b$\\
+$cb = (b + d)b = bb + db = b + d = c$\\
+$cc = c(b + d) = cb + cd = c + c = a$\\
+След попълване, таблицата за умножение изглежда така: \quad
+\begin{tabular}{ |c|c|c|c|c| } 
+	\hline
+	$\ast$ & a & b & c & d \\ 
+	\hline
+	a & a & a & a & a \\
+	\hline
+	b & a & b & a & b \\
+	\hline
+	c & a & c & a & c \\
+	\hline
+	d & a & d & a & d \\
+	\hline
+\end{tabular}
+\\
+Идеалите в пръстена са: $\{a\}$, $\{a, b, c, d\}$ и $\{a, c\}$.\\
+\newpage
+
+\section*{Задача 2.}
+Разглеждаме множествата
+\begin{center}
+	$A = \{\frac{f}{g} \mid f, g \in \Q[x] \,;\, g(45466) \neq 0\}$\quad и\quad$M = \{\frac{f}{g} \in A \mid f(45466) = 0\}$.
+\end{center}
+Да се докаже, че $A$ е пръстен (относно обичайните операции: събиране и умножение на рационални
+функции), $M$ е идеал на $A$, който съдържа всеки собствен идеал на $A$ и $A/M \cong \Q$
+\subsection*{Решение:}
+Нека $\frac{f_1}{g_1}, \frac{f_2}{g_2} \in A$.
+Ще проверим дали $\frac{f_1}{g_1} - \frac{f_2}{g_2} \in A$ и $\frac{f_1}{g_1}\frac{f_2}{g_2} \in A$.\\
+\begin{itemize}
+	\item $\frac{f_1}{g_1} - \frac{f_2}{g_2} = \frac{f_1g_2 - f_2g_1}{g_1g_2}$, тъй като $\Q[x]$ е пръстен и $f_1, f_2, g_1, g_2 \in \Q[x]$, то следва, че $g_1g_2 \in \Q[x]$ и $f_1g_2 - f_2g_1 \in \Q[x]$. Следователно $\frac{f_1g_2 - f_2g_1}{g_1g_2} \in A$.
+	\item Тъй като $\Q[x]$ е пръстен следва, че $f_1f_2 \in \Q[x]$ и $g_1g_2 \in \Q[x]$. Следователно $\frac{f_1f_2}{g_1g_2} \in A$
+\end{itemize}
+$\Rightarrow A$ е пръстен.\\
+\\
+Нека $\varphi: A \to \Q$ такова, че $\varphi(\frac{f}{g}) = (\frac{f}{g})(x)$.\\
+Ще проверим дали $\varphi$ е хомоморфизъм на пръстени. Нека $\frac{f_1}{g_1}, \frac{f_2}{g_2} \in A$.
+\begin{itemize}
+	\item $\varphi(\frac{f_1}{g_1} + \frac{f_2}{g_2}) = \varphi(\frac{f_1g_2 + f_2g_1}{g_1g_2}) = (\frac{f_1g_2 + f_2g_1}{g_1g_2})(x) = (\frac{f_1}{g_1})(x) + (\frac{f_2}{g_2})(x) = \\ = \varphi(\frac{f_1}{g_1}) + \varphi(\frac{f_2}{g_2})$
+	\item $\varphi(\frac{f_1}{g_1}\frac{f_2}{g_2}) = \varphi(\frac{f_1f_2}{g_1g_2}) = (\frac{f_1f_2}{g_1g_2})(x) = (\frac{f_1}{g_1})(x)(\frac{f_2}{g_2})(x) = \varphi(\frac{f_1}{g_1})\varphi(\frac{f_2}{g_2})$
+\end{itemize}
+$\Rightarrow \varphi$ е хомоморфизъм.\\
+От начина, по който е зададено $М$ следва, че $Ker\varphi = M$.\\
+Съгласно Теоремата за хомоморфизми на пръстени: $A/M \cong \Q$
+
+\end{document}
