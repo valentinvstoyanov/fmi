@@ -5,7 +5,9 @@
 \usepackage[bulgarian]{babel}
 \usepackage{amssymb}
 
+\newcommand*{\Z}{\mathbb{Z}}
 \newcommand*{\Q}{\mathbb{Q}}
+\newcommand{\triq}{\; \underline{\triangleleft} \;}
 
 \begin{document}
 
@@ -90,14 +92,59 @@ $cc = c(b + d) = cb + cd = c + c = a$\\
 \end{itemize}
 $\Rightarrow A$ е пръстен.\\
 \\
-Нека $\varphi: A \to \Q$ такова, че $\varphi(\frac{f}{g}) = (\frac{f}{g})(x)$.\\
+$M$ съдържа необратимите елементи на $A$\\
+$A\textbackslash M$ съдържа обратимите на $A$.\\
+$I$ е идеал. Ако съществува $a \in I$, който е обратим, то $I = A$. Следователно всеки собствен идеал на $A$ се съдържа в $M$.\\
+\\
+Нека $\varphi: A \to \Q$ такова, че $\varphi(\frac{f}{g}) = (\frac{f}{g})(45466)$.\\
 Ще проверим дали $\varphi$ е хомоморфизъм на пръстени. Нека $\frac{f_1}{g_1}, \frac{f_2}{g_2} \in A$.
 \begin{itemize}
-	\item $\varphi(\frac{f_1}{g_1} + \frac{f_2}{g_2}) = \varphi(\frac{f_1g_2 + f_2g_1}{g_1g_2}) = (\frac{f_1g_2 + f_2g_1}{g_1g_2})(x) = (\frac{f_1}{g_1})(x) + (\frac{f_2}{g_2})(x) = \\ = \varphi(\frac{f_1}{g_1}) + \varphi(\frac{f_2}{g_2})$
-	\item $\varphi(\frac{f_1}{g_1}\frac{f_2}{g_2}) = \varphi(\frac{f_1f_2}{g_1g_2}) = (\frac{f_1f_2}{g_1g_2})(x) = (\frac{f_1}{g_1})(x)(\frac{f_2}{g_2})(x) = \varphi(\frac{f_1}{g_1})\varphi(\frac{f_2}{g_2})$
+	\item $\varphi(\frac{f_1}{g_1} + \frac{f_2}{g_2}) = \varphi(\frac{f_1g_2 + f_2g_1}{g_1g_2}) = (\frac{f_1g_2 + f_2g_1}{g_1g_2})(45466) = (\frac{f_1}{g_1})(45466) + (\frac{f_2}{g_2})(45466) = \\ = \varphi(\frac{f_1}{g_1}) + \varphi(\frac{f_2}{g_2})$
+	\item $\varphi(\frac{f_1}{g_1}\frac{f_2}{g_2}) = \varphi(\frac{f_1f_2}{g_1g_2}) = (\frac{f_1f_2}{g_1g_2})(45466) = (\frac{f_1}{g_1})(45466)(\frac{f_2}{g_2})(45466) = \varphi(\frac{f_1}{g_1})\varphi(\frac{f_2}{g_2})$
 \end{itemize}
 $\Rightarrow \varphi$ е хомоморфизъм.\\
 От начина, по който е зададено $М$ следва, че $Ker\varphi = M$.\\
 Съгласно Теоремата за хомоморфизми на пръстени: $A/M \cong \Q$
+\newpage
+
+\section*{Задача 4.}
+Да се докаже, че факторпръстенът $\Z_3[x]/(x^3 + \bar{2}x + \bar{1})$ е поле. Намерете обратния елемент на $\bar{2}x^2 + x + \bar{1}$.
+\subsection*{Решение:}
+Нека $f = x^3 + \bar{2}x + \bar{1}$.\\
+$\Z_3[x]/(f)$ е поле, ако $f$ е неразложим над $\Z_3$.\\
+Понеже $deg(f) = 3$, то $f$ е неразложим $\Leftrightarrow f$ няма корен в $\Z_3$.\\
+$\Z_3 = \{\bar{0}, \bar{1}, \bar{2}\}$;
+$\quad f(\bar{0}) = \bar{1} \neq 0 \quad f(\bar{1}) = \bar{1} \neq 0 \quad f(\bar{2}) = \bar{1} \neq 0 \Rightarrow$\\
+$\Rightarrow f$ няма корени в $\Z_3 \Rightarrow f$ е неразложим над $\Z_3 \Rightarrow \Z_3[x]/(f)$ е поле.\\\\
+Нека $g = \bar{2}x^2 + x + \bar{1}$. Искаме да намерим обратния елемент на $g$ в $\Z_3[x]/(f)$, т.е търсим такъв полином $h$, че $gh \equiv 1 \pmod{f}$.\\
+$gh \equiv 1 \pmod{f} \Leftrightarrow gh + kf = 1$, за някое $k \in \Z_3[x]$.\\
+$f = g(\bar{2}x + \bar{2}) + (x + \bar{2})\\
+g = (x + \bar{2})\bar{2}x + \bar{1}\\
+x + \bar{2} = \bar{1}(x + \bar{2}) + \bar{0}\\
+\Rightarrow g(x^2 + x + \bar{1}) + fx = 1\\
+\Rightarrow h = x^2 + x + \bar{1}$
+\newpage
+
+\section*{Задача 5.}
+Нека $K$ е комутативен пръстен с единица. Да се докаже, че\\
+а) Ако $I \triq K$, то $M_n(I) \triq M_n(K)$ и $M_n(K)/M_n(I) \cong M_n(K/I)$;\\
+б) Всеки идеал $J \triq M_n(K)$ е от вида $J = M_n(I)$, където $I \triq K$.
+\subsection*{Решение:}
+а)
+\begin{itemize}
+	\item Нека $(a_{ij})_{n \times n}, (b_{ij})_{n \times n} \in M_n(I) \quad ?\Rightarrow \quad (a_{ij})_{n \times n} - (b_{ij})_{n \times n} \in M_n(I)$\\$(a_{ij})_{n \times n} - (b_{ij})_{n \times n} = (a_{ij} - b_{ij})_{n \times n}$, $I$ е идеал $\Rightarrow a_{ij} - b_{ij} \in I \Rightarrow (a_{ij})_{n \times n} - (b_{ij})_{n \times n} \in M_n(I)$
+	
+	\item Нека $(a_{ij})_{n \times n} \in M_n(I)$ и $(k_{ij})_{n \times n} \in M_n(K) \quad ?\Rightarrow \quad (a_{ij})_{n \times n}(k_{ij})_{n \times n} \in M_n(I)$\\$(a_{ij})_{n \times n}(k_{ij})_{n \times n} = (a_{ij}k_{ij})_{n \times n}$, $I$ е идеал $\Rightarrow a_{ij}k_{ij} \in I \Rightarrow (a_{ij})_{n \times n}(k_{ij})_{n \times n} \in M_n(I)$
+\end{itemize}
+$\Rightarrow M_n(I) \triq M_n(K)$\\\\
+
+С помощта на хомоморфизма $\psi: K \to K/I$ такъв, че $\psi(a) = \bar{a} = a + I$, дефинираме изображение $\varphi: M_n(K) \to M_n(K/I)$, действащо по правилото $\varphi((a_{ij})_{n \times n}) = (\bar{a}_{ij})_{n \times n}$. От това, че $\psi$ е хомоморфизъм на пръстени следва, че $\varphi$ е хомоморфизъм. Ясно е, че $Ker\varphi = M_n(I)$. От теоремата за хомоморфизмите на пръстени следва, че $M_n(K)/M_n(I) \cong M_n(K/I)$.\\\\
+б) Нека $J \triq M_n(K)$ и $I$ да е подмножество на $K$, състоящо се от всички елементи на всички матрици на $J$. Ще докажем, че $I \triq K$ и $J = M_n(I)$.\\
+Нека $a, b \in I$. Следователно съществуват матрици $A, B \in J$ такива, че $a$ и $b$ са съответно техни елементи. Нека $a$ е на $(i, j)$-то място в $A$ и $b$ е на $(p, q)$-то място в $B$. Нека $e_{ij}$ е матрицата с, която има единица на $(i, j)$-то място. Понеже $J \triq M_n(K)$, то $e_{1i}Ae_{j1}, e_{1p}Be_{q1} \in J$, откъдето следва, че и $e_{1i}Ae_{j1} - e_{1p}Be_{q1} \in J$. $e_{1i}Ae_{j1} = ae_{11}$, $e_{1p}Be_{q1} = be_{11} \Rightarrow ae_{11} - be_{11} = (a - b)e_{11} \in J \Rightarrow a - b \in I$. Нека $k \in K$. Тогава $(kE)A \in J$ и на $(i, j)$-то място в $(kE)A$ стои $ka$, следователно $ka = ak \in I$. Следователно $I \triq K$.
+
+Нека $(c_{ij})_{n \times n} \in M_n(I)$. За всеки 2 индекса $(i, j)$ съществува матрица $A \in J$, за която $c_{ij}$ е елемент на $A$. Ако $c_{ij}$ стои на $(s, t)$-то място в $A$, то получаваме, че $c_{ij}e_{ij} = e_{is}Ae_{tj} \in J$. Тогава $(c_{ij})_{n \times n} = \sum_{i, j=1}^{n} c_{ij}e_{ij} \in J$. Следователно $M_n(I) \subseteq J$. Лесно се проверява и че $J \subseteq M_n(I)$. Откъдето следва, че $J = M_n(I)$.
+
+
+
 
 \end{document}
