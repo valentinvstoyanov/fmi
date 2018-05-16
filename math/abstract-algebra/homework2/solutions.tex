@@ -8,6 +8,7 @@
 \newcommand*{\Z}{\mathbb{Z}}
 \newcommand*{\Q}{\mathbb{Q}}
 \newcommand{\triq}{\; \underline{\triangleleft} \;}
+\newcommand{\tri}{\; \triangleleft \;}
 
 \begin{document}
 
@@ -105,6 +106,34 @@ $I$ е идеал. Ако съществува $a \in I$, който е обра
 $\Rightarrow \varphi$ е хомоморфизъм.\\
 От начина, по който е зададено $М$ следва, че $Ker\varphi = M$.\\
 Съгласно Теоремата за хомоморфизми на пръстени: $A/M \cong \Q$
+\newpage
+
+\section*{Задача 3.}
+Нека $I = (3 - 2\sqrt{-2}) \tri \Z[\sqrt{-2}] = \{a + b\sqrt{-2} \mid a,b \in \Z\}$. Да се докаже, че $I = \{a + b\sqrt{-2} \mid 17 \mid b - 5a\}$ и $\Z[\sqrt{-2}]/I \cong \Z_{17}$.
+\subsection*{Решение:}
+За произволни $x, y \in \Z$ имаме
+\begin{center}
+	$(3 - 2\sqrt{-2})(x + y\sqrt{-2}) = (3x + 4y) + (3y - 2x)\sqrt{-2}$\\
+	$17 \mid (3y - 2x) - 5(3x + 4y) \Leftrightarrow 17 \mid (-17x - 17y) \Leftrightarrow 17 \mid 17(-x - y)$
+\end{center}
+Следователно $I \subseteq \{a + b\sqrt{-2} \mid 17 \mid b - 5a\}$.
+Обратно, ако $a, b \in \Z: \quad 17 \mid b - 5a$, системата уравнения
+\begin{equation}
+	3x + 4y = a
+\end{equation}
+\begin{equation}
+	-2x + 3y = b
+\end{equation}
+Има решение 
+\begin{center}
+	$x = \frac{-4b + 3a}{17}, y = \frac{3b + 2a}{17} \in \Z$,
+\end{center}
+откъдето $\{a + b\sqrt{-2} \mid 17 \mid b - 5a\} \subseteq I$. Следователно $I = \{a + b\sqrt{-2} \mid 17 \mid b - 5a\}$.\\
+Нека изображението $\varphi: \Z[\sqrt{-2}] \to \Z_{17}$ е такова, че\\$\varphi(a + b\sqrt{-2}) = b - 5a \pmod{17}$. $\varphi$ е хомоморфизъм на пръстени, тъй като:
+\begin{itemize}
+	\item $\varphi((a_1 + b_1\sqrt{-2}) + (a_2 + b_2\sqrt{-2})) = \varphi((a_1 + a_2) + (b_1 + b_2)\sqrt{-2}) =\\=[(b_1 + b_2) - 5(a_1 + a_2) \pmod{17}] = [b_1 - 5a_1 \pmod{17}] + [b_2 - 5a_2 \pmod{17}] = \varphi((a_1 + b_1\sqrt{-2})) + \varphi((a_2 + b_2\sqrt{-2}))$
+	\item $\varphi((a_1 + b_1\sqrt{-2})(a_2 + b_2\sqrt{-2})) = \varphi((a_1a_2 + 2b_1b_2) + (a_1b_2 + a_2b_1)\sqrt{-2}) =\\=[(a_1a_2 + 2b_1b_2) - 5(a_1b_2 + a_2b_1) \pmod{17}] = [(a_1a_2 + 19b_1b_2) - 5(a_1b_2 + a_2b_1) \pmod{17}] = \varphi((a_1 + b_1\sqrt{-2})) + \varphi((a_2 + b_2\sqrt{-2}))$
+\end{itemize}
 \newpage
 
 \section*{Задача 4.}

@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.cpp
+cstring
+-
+iostream
+-
+mystring.h
+/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.h
+
+/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.h
+ostream
+-
+
+/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/main.cpp
+iostream
+-
+ds/mystring.h
+/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.h
+
