@@ -9,16 +9,16 @@
 #include "post.h"
 
 class LinkPost: public Post{
-    char* description_;
+    String description_;
 public:
     LinkPost();
-    LinkPost(const char*, const char*);
+    LinkPost(const String&, const String&, const unsigned);
     LinkPost(const LinkPost&);
     ~LinkPost() override;
     LinkPost& operator=(const LinkPost&);
-    void set_description(const char*);
-    const char* get_description() const;
-    char *toHtml() const override;
+    void set_description(const String&);
+    const String& get_description() const;
+    String toHtml() const override;
 };
 
 

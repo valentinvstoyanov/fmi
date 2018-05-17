@@ -2,21 +2,30 @@
 // Created by valio_stoyanov on 5/16/18.
 //
 
-#ifndef FMIBOOK_ABSTRACT_POST_H
-#define FMIBOOK_ABSTRACT_POST_H
+#ifndef FMIBOOK_POST_H
+#define FMIBOOK_POST_H
 
+
+#include <ostream>
+#include "../../ds/mystring.h"
 
 class Post {
-    char* content_;
+    unsigned id_;
+    String content_;
 public:
-    explicit Post(const char* = nullptr);
-    Post(const Post&);
-    virtual ~Post();
+    Post();
+    explicit Post(const String&, const unsigned = 0);
+    Post(const Post&) = default;
+    virtual ~Post() = default;
     Post& operator=(const Post&);
-    void set_content(const char*);
-    const char* get_content() const;
-    virtual char* toHtml() const = 0;
+    void set_content(const String&);
+    void set_id(const unsigned);
+    unsigned get_id() const;
+    const String& get_content() const;
+    virtual void serialize(std::ostream&) const;
+    virtual void deserialize(std::istream&);
+    virtual String toHtml() const = 0;
 };
 
 
-#endif //FMIBOOK_ABSTRACT_POST_H
+#endif //FMIBOOK_POST_H

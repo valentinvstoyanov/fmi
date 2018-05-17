@@ -5,15 +5,15 @@
 #include <cstring>
 #include "picture_post.h"
 
-PicturePost::PicturePost(const char* path)
-: Post(path)
-{}
-
-char* PicturePost::toHtml() const {
-    char* result = new char[12 + strlen(get_content()) + 1];
-    strcpy(result, "<img src=\"");
-    strcat(result, get_content());
-    strcat(result, "\">");
-
+String PicturePost::toHtml() const {
+    String result("<img src=\"");
+    result.append(get_content());
+    result.append(String("\">"));
     return result;
 }
+
+PicturePost::PicturePost()
+: Post() {}
+
+PicturePost::PicturePost(const String& path, const unsigned id)
+: Post(path, id) {}

@@ -5,53 +5,42 @@
 #include <cstring>
 #include "link_post.h"
 
-char* LinkPost::toHtml() const {
-    char* result = new char[15 + strlen(get_content()) + strlen(get_description()) + 1];
-    strcpy(result, "<a href=\"");
-    strcat(result, get_content());
-    strcat(result, "\">");
-    strcat(result, description_);
-    strcat(result, "</a>");
-
+String LinkPost::toHtml() const {
+    String result("<a href=\"");
+    result.append(get_content());
+    result.append(String("\">"));
+    result.append(description_);
+    result.append(String("</a>"));
     return result;
 }
 
 LinkPost::LinkPost()
-: Post(nullptr), description_(nullptr)
+: Post(), description_(nullptr)
 {}
 
-LinkPost::LinkPost(const char* content, const char* description)
-: Post(content), description_(nullptr)
-{ set_description(description); }
+LinkPost::LinkPost(const String& content, const String& description, const unsigned id)
+: Post(content, id), description_(description)
+{}
 
 LinkPost::LinkPost(const LinkPost& other)
-: Post(other), description_(nullptr)
-{ set_description(other.description_); }
-
-LinkPost::~LinkPost() {
-    delete[] description_;
-    description_ = nullptr;
-}
+: Post(other), description_(other.description_)
+{}
 
 LinkPost& LinkPost::operator=(const LinkPost& other) {
     if (this != &other) {
         Post::operator=(other);
-        set_description(other.description_);
+        description_ = other.description_;
     }
 
     return *this;
 }
 
-void LinkPost::set_description(const char* description) {
-    delete[] description_;
-    description_ = nullptr;
-
-    if (description != nullptr) {
-        description_ = new char[strlen(description) + 1];
-        strcpy(description_, description);
-    }
+void LinkPost::set_description(const String& description) {
+    description_ = description;
 }
 
-const char* LinkPost::get_description() const {
+const String& LinkPost::get_description() const {
     return description_;
 }
+
+LinkPost::~LinkPost() {}

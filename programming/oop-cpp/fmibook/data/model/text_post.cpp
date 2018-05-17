@@ -5,15 +5,15 @@
 #include <cstring>
 #include "text_post.h"
 
-char* TextPost::toHtml() const {
-    char* result = new char[strlen(get_content()) + 1];
-    strcpy(result, get_content());
-
+String TextPost::toHtml() const {
+    String result(get_content());
     return result;
 }
 
-TextPost::TextPost(const char* text)
-: Post(text)
-{}
+TextPost::TextPost()
+: Post() {}
+
+TextPost::TextPost(const String& text, const unsigned id)
+: Post(text, id) {}
 
 

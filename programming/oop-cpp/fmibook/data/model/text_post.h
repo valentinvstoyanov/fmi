@@ -10,8 +10,9 @@
 
 class TextPost: public Post {
 public:
-    explicit TextPost(const char* = nullptr);
-    char* toHtml() const override;
+    TextPost();
+    explicit TextPost(const String&, const unsigned = 0);
+    String toHtml() const override;
 };
 
 
