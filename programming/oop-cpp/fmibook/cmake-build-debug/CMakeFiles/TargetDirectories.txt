@@ -1,3 +1,0 @@
-/home/valio_stoyanov/fmi-education/programming/oop-cpp/fmibook/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/valio_stoyanov/fmi-education/programming/oop-cpp/fmibook/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/valio_stoyanov/fmi-education/programming/oop-cpp/fmibook/cmake-build-debug/CMakeFiles/fmibook.dir
