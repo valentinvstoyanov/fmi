@@ -11,7 +11,8 @@
 #include "../../ds/mystring.h"
 
 class PostRepository {
-    static const char kPostFileExtension[];
+    static const char kGeneratePostFileExtension[];
+  static const char kSavedPostsFileExtension[];
     static const char kIdFilename[];
     PostRepository() = default;
 public:
@@ -19,7 +20,9 @@ public:
     PostRepository& operator=(const PostRepository&) = delete;
     static unsigned next_id();
     static PostRepository& instance();
-    bool save_post(String&, const Post&) const;
+    bool generate_post(const String&, const Post&) const;
+    bool save_post(const User&, const Post&) const;
+
 };
 
 

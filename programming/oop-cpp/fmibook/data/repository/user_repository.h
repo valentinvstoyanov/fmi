@@ -12,12 +12,12 @@
 class UserRepository {
     UserRepository() = default;
     static const char kUserPostsFileExtension[];
+    static const char kUserNicknamesFileName[];
 public:
     UserRepository(const UserRepository&) = delete;
     UserRepository& operator=(const UserRepository&) = delete;
     static UserRepository& instance();
-    bool add_post(const User&, const Post&);
-    bool remove_post(const User&, const unsigned);
+    bool exists(const User&);
 };
 
 

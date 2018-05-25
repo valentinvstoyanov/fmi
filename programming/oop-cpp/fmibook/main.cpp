@@ -1,26 +1,23 @@
 #include <iostream>
-#include "data/repository/post_repository.h"
-#include "data/model/link_post.h"
-#include "data/model/text_post.h"
-#include "data/repository/user_repository.h"
+#include "fmibook.h"
+#include "client.h"
 
 int main() {
+  String admin_nickname("valio");
 
-    String fn("random-name");
-    String link("https://www.youtube.com/watch?v=y06RDyNXqbM");
-    String descr("YouTube song");
+  User admin(admin_nickname, 20, User::Role::kAdmin);
+  Fmibook fmibook(admin);
+  Client client(fmibook);
 
-    String a = String::fromInt(1234);
-    a.reverse();
-    std::cout << a.c_str() << std::endl;
+  const unsigned kMaxInputLen = 2048;
+  char input[kMaxInputLen];
+  bool running = true;
 
-    User user("test_user", 20);
+  do {
+    std::cin.getline(input, kMaxInputLen);
+    String in(input);
+    running = client.ProcessInput(in);
+  } while(running);
 
-    TextPost text_post(descr, PostRepository::next_id());
-    UserRepository::instance().add_post(user, text_post);
-    String name(user.get_nickname());
-    PostRepository::instance().save_post(name, text_post);
-
-
-    return 0;
+  return 0;
 }

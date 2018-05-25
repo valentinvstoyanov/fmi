@@ -5,38 +5,39 @@
 #ifndef FMIBOOK_MYSTRING_H
 #define FMIBOOK_MYSTRING_H
 
-
 #include <cstddef>
 #include <ostream>
 #include <istream>
 
 class String {
-    char *buffer_;
-    size_t size_;
-    size_t capacity_;
-    void ensure_capacity(const size_t);
-public:
-    explicit String(const char*);
-    String(const String&);
-    ~String();
-    String& operator=(const String&);
-    void push_back(char);
-    String& append(const String&);
-    void clear();
-    char& at(size_t);
-    char& back();
-    char& front();
-    void reverse();
-    const char* c_str() const;
-    const char& front() const;
-    const char& back() const;
-    size_t length() const;
-    bool empty() const;
-    char& at(size_t) const;
-    void serialize(std::ostream&) const;
-    void deserialize(std::istream&);
-    static String fromInt(int);
+  char* buffer_;
+  size_t size_;
+  size_t capacity_;
+  void EnsureCapacity(const size_t);
+ public:
+  explicit String(const char* = nullptr);
+  String(const String&);
+  ~String();
+  String& operator=(const String&);
+  bool operator==(const String& other) const;
+  friend std::ostream& operator<<(std::ostream&, const String&);
+  void PushBack(char);
+  String& Append(const String&);
+  void Clear();
+  char& At(size_t);
+  char& Back();
+  char& Front();
+  void Reverse();
+  const char* CStr() const;
+  const char& Front() const;
+  const char& Back() const;
+  size_t Length() const;
+  bool Empty() const;
+  int IndexOf(const char) const;
+  char& At(size_t) const;
+  void Serialize(std::ostream&) const;
+  void Deserialize(std::istream&);
+  static String FromInt(int);
 };
-
 
 #endif //FMIBOOK_MYSTRING_H

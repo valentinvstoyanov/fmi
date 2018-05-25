@@ -6,14 +6,22 @@
 #include "picture_post.h"
 
 String PicturePost::toHtml() const {
-    String result("<img src=\"");
-    result.append(get_content());
-    result.append(String("\">"));
-    return result;
+  String result("<img src=\"");
+  result.Append(get_content());
+  result.Append(String("\">"));
+  return result;
 }
 
 PicturePost::PicturePost()
-: Post() {}
+    : Post() {}
 
 PicturePost::PicturePost(const String& path, const unsigned id)
-: Post(path, id) {}
+    : Post(path, id) {}
+
+Post::Type PicturePost::get_type() const {
+  return kPicture;
+}
+
+Post* PicturePost::clone() const {
+  return new PicturePost(*this);
+}
