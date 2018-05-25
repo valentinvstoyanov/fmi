@@ -14,6 +14,7 @@ class Fmibook {
   UserArray moderators_;
   UserArray users_;
   User& GetUserByNickname(const String&);
+  const Post& GetPostById(const unsigned) const ;
   UserArray GetUsersWithMostPosts() const;
   UserArray GetBlockedUsers() const;
   UserArray GetYoungestUsers() const;

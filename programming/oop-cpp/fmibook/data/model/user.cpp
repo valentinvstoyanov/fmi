@@ -79,7 +79,12 @@ bool User::DeletePost(const unsigned id) {
 
   return false;
 }
-size_t User::getPostsCount() const {
+
+const PostArray& User::GetPosts() const {
+  return posts_;
+}
+
+size_t User::GetPostsCount() const {
   return posts_.Size();
 }
 
@@ -87,6 +92,17 @@ std::ostream& operator<<(std::ostream& out, const User& user) {
   out << '(' << user.GetNickname() << ", " << user.GetAge() << ')';
   return out;
 }
+
+const Post& User::FindPostById(const unsigned post_id) const {
+  for (size_t i = 0; i < posts_.Size(); ++i)
+    if (posts_.At(i).get_id() == post_id)
+      return posts_.At(i);
+
+  throw NoSuchPostException("Cannot find post with that id.");
+}
+
+User::NoSuchPostException::NoSuchPostException(const char* what/* = "No such post."*/)
+    : runtime_error(what) {}
 
 
 

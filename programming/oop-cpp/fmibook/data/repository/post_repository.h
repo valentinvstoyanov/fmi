@@ -21,6 +21,7 @@ public:
     static unsigned next_id();
     static PostRepository& instance();
     bool generate_post(const String&, const Post&) const;
+    bool generate_post(const String&, const PostArray&) const;
     bool save_post(const User&, const Post&) const;
 
 };

@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "fmibook.h"
+#include "data/repository/post_repository.h"
 
 User& Fmibook::GetUserByNickname(const String& nickname) {
   if (admin_.GetNickname() == nickname)
@@ -20,18 +21,39 @@ User& Fmibook::GetUserByNickname(const String& nickname) {
   throw NoSuchUserException();
 }
 
+
+const Post& Fmibook::GetPostById(const unsigned post_id) const {
+  try {
+    return admin_.FindPostById(post_id);
+  } catch (const User::NoSuchPostException&) {}
+
+  for (size_t i = 0; i < moderators_.Size(); ++i) {
+    try {
+      return moderators_.At(i).FindPostById(post_id);
+    } catch (const User::NoSuchPostException&) {}
+  }
+
+  for (size_t i = 0; i < users_.Size(); ++i) {
+    try {
+      return users_.At(i).FindPostById(post_id);
+    } catch (const User::NoSuchPostException&) {}
+  }
+
+  throw NoSuchPostException("Failed to find post with that id.");
+}
+
 UserArray Fmibook::GetUsersWithMostPosts() const {
   UserArray arr;
   arr.PushBack(admin_);
   for (size_t i = 0; i < moderators_.Size(); ++i)
-    if (moderators_.At(i).getPostsCount() >= arr.Front().getPostsCount()) {
-      if (moderators_.At(i).getPostsCount() > arr.Front().getPostsCount())
+    if (moderators_.At(i).GetPostsCount() >= arr.Front().GetPostsCount()) {
+      if (moderators_.At(i).GetPostsCount() > arr.Front().GetPostsCount())
         arr.Clear();
       arr.PushBack(moderators_.At(i));
     }
   for (size_t i = 0; i < users_.Size(); ++i)
-    if (users_.At(i).getPostsCount() >= arr.Front().getPostsCount()) {
-      if (users_.At(i).getPostsCount() > arr.Front().getPostsCount())
+    if (users_.At(i).GetPostsCount() >= arr.Front().GetPostsCount()) {
+      if (users_.At(i).GetPostsCount() > arr.Front().GetPostsCount())
         arr.Clear();
       arr.PushBack(users_.At(i));
     }
@@ -188,18 +210,19 @@ Stat Fmibook::GetStats() const {
             oldests_users);
   return stat;
 }
-void Fmibook::Persist() const {
 
-}
 bool Fmibook::ViewPost(const String& actor_nickname, const unsigned post_id) {
-  //TODO: check res in Client
-  //TODO: implement it
-  return false;
+  const Post& post = GetPostById(post_id);
+  return PostRepository::instance().generate_post(actor_nickname, post);
 }
+
 bool Fmibook::ViewAllPosts(const String& actor_nickname, const String& user_nickname) {
-  //TODO: check res in Client
-  //TODO: implement it
-  return false;
+  const User& user = GetUserByNickname(user_nickname);
+  return PostRepository::instance().generate_post(actor_nickname, user.GetPosts());
+}
+
+void Fmibook::Persist() const {
+  //TODO: save users and their posts
 }
 
 Fmibook::NoSuchUserException::NoSuchUserException(const char* what/* = "No such user."*/)

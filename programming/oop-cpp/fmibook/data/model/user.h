@@ -30,7 +30,9 @@ class User {
 
   unsigned GetAge() const;
   const String& GetNickname() const;
-  size_t getPostsCount() const;
+  const PostArray& GetPosts() const;
+  size_t GetPostsCount() const;
+  const Post& FindPostById(const unsigned) const;
 
   bool IsAdmin() const;
   bool IsModerator() const;
@@ -38,6 +40,12 @@ class User {
 
   void AddPost(const Post&);
   bool DeletePost(const unsigned id);
+
+  class NoSuchPostException : public std::runtime_error {
+   public:
+    explicit NoSuchPostException(const char* = "No such post.");
+  };
+
  private:
   Role role_;
 };

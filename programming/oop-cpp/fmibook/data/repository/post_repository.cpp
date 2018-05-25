@@ -44,6 +44,24 @@ bool PostRepository::generate_post(const String& name, const Post& post) const {
 
   return false;
 }
+
+bool PostRepository::generate_post(const String& name, const PostArray& posts) const {
+  String filename(name);
+  filename.Append(String(kGeneratePostFileExtension));
+  String content("<!DOCTYPE html>\n<html>\n\n\t<body>\n\t\t");
+  for (size_t i = 0; i < posts.Size() ; ++i)
+    content.Append(posts.At(i).toHtml());
+  content.Append(String("\n\t</body>\n\n</html>\n"));
+
+  std::ofstream file(filename.CStr(), std::ios::out | std::ios::trunc);
+  if (file.good()) {
+    file << content.CStr();
+    return file.good();
+  }
+
+  return false;
+}
+
 bool PostRepository::save_post(const User& user, const Post& post) const {
   String filename(user.GetNickname());
   filename.Append(String(kSavedPostsFileExtension));

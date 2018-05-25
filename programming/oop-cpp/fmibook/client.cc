@@ -17,45 +17,49 @@ String Client::GetNextWord(const String& str, const size_t start, const char del
 }
 
 void Client::PrintUsers(const UserArray& users, const char* prefix/* = ""*/) {
-  const unsigned per_row = 3;
-  std::cout << prefix;
-  for (size_t i = 0; i < users.Size() - 1; ++i)
-    std::cout << (i + 1 % per_row == 1 ? prefix : "")
-              << users.At(i)
-              << ", "
-              << (i + 1 == per_row ? "\n" : "");
-  std::cout << (users.Size() % per_row == 1 ? prefix : "")
-            << prefix << users.Back()
-            << '\n';
+  for (size_t i = 0; i < users.Size(); ++i)
+    std::cout << prefix << users.At(i) << '\n';
 }
 
 void Client::PrintStats(const Stat& stat) {
   std::cout << "Fmibook Statistics:\n"
-              << "\t- Users count: " << stat.GetUsersCount()
+              << "\t- Users count: " << stat.GetUsersCount() << '\n'
               << "\t- Moderators count: " << stat.GetModeratorsCount()
               << std::endl;
 
-  std::cout << "\t- "
-              << (stat.GetUsersWithMostPosts().Size() > 1 ? "Users" : "User")
+  const UserArray& users_with_most_posts = stat.GetUsersWithMostPosts();
+  if (!users_with_most_posts.Empty()) {
+    std::cout << "\t- "
+              << (users_with_most_posts.Size() > 1 ? "Users" : "User")
               << " with most posts:\n";
-  PrintUsers(stat.GetUsersWithMostPosts(), "\t\t");
+    PrintUsers(users_with_most_posts, "\t\t- ");
+  }
 
   std::cout << "\t- Blocked users count: " << stat.GetBlockedUsersCount() << std::endl;
 
-  std::cout << "\t- Blocked "
+  const UserArray& blocked_users = stat.GetBlockedUsers();
+  if (!blocked_users.Empty()) {
+    std::cout << "\t- Blocked "
               << (stat.GetBlockedUsersCount() > 1 ? "users: " : "user: ")
               << '\n';
-  PrintUsers(stat.GetBlockedUsers(), "\t\t");
+    PrintUsers(blocked_users, "\t\t- ");
+  }
 
-  std::cout << "\t- Youngest "
-              << (stat.GetYoungestUsers().Size() > 1 ? "users: " : "user: ")
+  const UserArray& youngest_users = stat.GetYoungestUsers();
+  if (!youngest_users.Empty()) {
+    std::cout << "\t- Youngest "
+              << (youngest_users.Size() > 1 ? "users: " : "user: ")
               << '\n';
-  PrintUsers(stat.GetYoungestUsers(), "\t\t");
+    PrintUsers(youngest_users, "\t\t- ");
+  }
 
-  std::cout << "\t- Oldest "
-            << (stat.GetOldestUsers().Size() > 1 ? "users: " : "user: ")
-            << '\n';
-  PrintUsers(stat.GetOldestUsers(), "\t\t");
+  const UserArray& oldest_users = stat.GetOldestUsers();
+  if (!oldest_users.Empty()) {
+    std::cout << "\t- Oldest "
+              << (oldest_users.Size() > 1 ? "users: " : "user: ")
+              << '\n';
+    PrintUsers(oldest_users, "\t\t- ");
+  }
 }
 
 
@@ -86,6 +90,9 @@ Post* Client::ParsePost(const String& str) {
 }
 
 int Client::ParseInt(const String& str) {
+  if (str.Empty())
+    throw ParseException("Failed to parse integer from the input.");
+
   for (size_t i = 0; i < str.Length(); ++i)
     if (str.At(i) < '0' || str.At(i) > '9')
       throw ParseException("Failed to parse integer from the input.");
@@ -120,7 +127,12 @@ void Client::OnAddUser(const String& actor,
     return;
   }
 
-  std::cout << "New user added: " << user << '.' << std:: endl;
+  std::cout << "New "
+            << (role == User::Role::kModerator ? "moderator" : "user")
+            << " added: "
+            << user
+            << '.'
+            << std:: endl;
 }
 
 void Client::OnRemoveUser(const String& actor, const String& subject) {
@@ -159,7 +171,7 @@ void Client::OnBlockUnblockUser(const String& actor,
   }
 
   std::cout << subject
-            << (block ? "blocked" : "unblocked")
+            << (block ? " blocked" : " unblocked")
             << " by "
             << actor
             << std::endl;
@@ -186,14 +198,24 @@ void Client::OnAddPost(const String& actor, const String& subject) {
 }
 
 void Client::OnViewPost(const String& actor, const String& subject) {
-//TODO: catch parse number exception
-  const unsigned post_id = static_cast<const unsigned int>(ParseInt(subject));
-  fmibook_.ViewPost(actor, post_id);
+  try {
+    const unsigned post_id = static_cast<const unsigned>(ParseInt(subject));
+    if (fmibook_.ViewPost(actor, post_id))
+      std::cout << "HTML view for post " << post_id << " generated." << std::endl;
+  } catch (const Fmibook::NoSuchPostException& e) {
+    std::cout << e.what() << std::endl;
+  } catch (const ParseException& e) {
+    std::cout << "Failed to parse the input post id." << std::endl;
+  }
 }
 
 void Client::OnViewAllPosts(const String& actor, const String& subject) {
-  //TODO:
-  fmibook_.ViewAllPosts(actor, subject);
+  try {
+    if (fmibook_.ViewAllPosts(actor, subject))
+      std::cout << "HTML view for all " << subject << "'s posts created." << std::endl;
+  } catch (const Fmibook::NoSuchUserException& e) {
+    std::cout << "Failed to find user with nickname: " << subject << std::endl;
+  }
 }
 
 bool Client::ProcessInput(const String& input) {
