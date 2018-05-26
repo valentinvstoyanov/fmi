@@ -155,10 +155,11 @@ void Fmibook::RemoveUser(const String& actor_nickname, const String& user_nickna
   }
 }
 
-void Fmibook::AddPost(const String& actor_nickname, const Post& post) {
-  User user = GetUserByNickname(actor_nickname);
+void Fmibook::AddPost(const String& actor_nickname, Post& post) {
+  User& user = GetUserByNickname(actor_nickname);
   if (user.IsBlocked())
     throw NoPermissionException("User is blocked so he cannot add new posts.");
+  post.set_id(PostRepository::next_id());
   user.AddPost(post);
 }
 
@@ -212,11 +213,17 @@ Stat Fmibook::GetStats() const {
 }
 
 bool Fmibook::ViewPost(const String& actor_nickname, const unsigned post_id) {
+  if (!ExistsNickname(actor_nickname))
+    throw NoPermissionException("No permission to view posts.");
   const Post& post = GetPostById(post_id);
-  return PostRepository::instance().generate_post(actor_nickname, post);
+  String out_filename(actor_nickname);
+  out_filename.PushBack('_');
+  out_filename.Append(String::FromInt(post_id));
+  return PostRepository::instance().generate_post(out_filename, post);
 }
 
 bool Fmibook::ViewAllPosts(const String& actor_nickname, const String& user_nickname) {
+  //TODO: permission
   const User& user = GetUserByNickname(user_nickname);
   return PostRepository::instance().generate_post(actor_nickname, user.GetPosts());
 }

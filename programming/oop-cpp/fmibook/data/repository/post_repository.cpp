@@ -3,6 +3,7 @@
 //
 
 #include <fstream>
+#include <iostream>
 #include "post_repository.h"
 
 const char PostRepository::kGeneratePostFileExtension[] = ".html";
@@ -39,7 +40,8 @@ bool PostRepository::generate_post(const String& name, const Post& post) const {
   std::ofstream file(filename.CStr(), std::ios::out | std::ios::trunc);
   if (file.good()) {
     file << content.CStr();
-    return file.good();
+    file.close();
+    return true;
   }
 
   return false;
@@ -56,7 +58,8 @@ bool PostRepository::generate_post(const String& name, const PostArray& posts) c
   std::ofstream file(filename.CStr(), std::ios::out | std::ios::trunc);
   if (file.good()) {
     file << content.CStr();
-    return file.good();
+    file.close();
+    return true;
   }
 
   return false;

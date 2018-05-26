@@ -26,7 +26,7 @@ class Fmibook {
 
   void AddUser(const String& actor_nickname, const User&);
   void RemoveUser(const String& actor_nickname, const String& user_nickname);
-  void AddPost(const String& actor_nickname, const Post&);
+  void AddPost(const String& actor_nickname, Post&);
   void RemovePost(const String& actor_nickname, const unsigned post_id);
   void BlockUnblock(const String& actor_nickname, const String& user_nickname, const bool);
   bool ViewPost(const String& actor_nickname, const unsigned post_id);

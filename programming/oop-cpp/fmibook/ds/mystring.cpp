@@ -138,8 +138,10 @@ const char* String::CStr() const {
 }
 
 String String::FromInt(int num) {
-  String result("");
+  if (num == 0)
+    return String("0");
 
+  String result("");
   while (num != 0) {
     int digit = num % 10;
     result.PushBack(digit + '0');

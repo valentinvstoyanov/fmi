@@ -1,6 +1,7 @@
 #include <iostream>
 #include "fmibook.h"
 #include "client.h"
+#include "data/model/text_post.h"
 
 int main() {
   String admin_nickname("valio");

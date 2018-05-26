@@ -189,7 +189,7 @@ void Client::OnAddPost(const String& actor, const String& subject) {
 
   try {
     fmibook_.AddPost(actor, *post);
-    std::cout << "Post added." << std::endl;
+    std::cout << "Post " << post->get_id() << " added." << std::endl;
   } catch (const Fmibook::NoPermissionException& e) {
     std::cout << e.what() << std::endl;
   }
@@ -206,6 +206,8 @@ void Client::OnViewPost(const String& actor, const String& subject) {
     std::cout << e.what() << std::endl;
   } catch (const ParseException& e) {
     std::cout << "Failed to parse the input post id." << std::endl;
+  } catch (const Fmibook::NoPermissionException& e) {
+    std::cout << e.what() << std::endl;
   }
 }
 
