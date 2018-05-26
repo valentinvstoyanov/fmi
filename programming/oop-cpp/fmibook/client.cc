@@ -217,6 +217,8 @@ void Client::OnViewAllPosts(const String& actor, const String& subject) {
       std::cout << "HTML view for all " << subject << "'s posts created." << std::endl;
   } catch (const Fmibook::NoSuchUserException& e) {
     std::cout << "Failed to find user with nickname: " << subject << std::endl;
+  } catch (const Fmibook::NoPermissionException& e) {
+    std::cout << e.what() << std::endl;
   }
 }
 

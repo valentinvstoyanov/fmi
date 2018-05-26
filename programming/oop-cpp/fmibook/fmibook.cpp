@@ -216,16 +216,21 @@ bool Fmibook::ViewPost(const String& actor_nickname, const unsigned post_id) {
   if (!ExistsNickname(actor_nickname))
     throw NoPermissionException("No permission to view posts.");
   const Post& post = GetPostById(post_id);
-  String out_filename(actor_nickname);
-  out_filename.PushBack('_');
-  out_filename.Append(String::FromInt(post_id));
-  return PostRepository::instance().generate_post(out_filename, post);
+  String name(actor_nickname);
+  name.PushBack('_');
+  name.Append(String::FromInt(post_id));
+  return PostRepository::instance().generate_post(name, post);
 }
 
 bool Fmibook::ViewAllPosts(const String& actor_nickname, const String& user_nickname) {
-  //TODO: permission
+  if (!ExistsNickname(actor_nickname))
+    throw NoPermissionException("No permission to view posts.");
   const User& user = GetUserByNickname(user_nickname);
-  return PostRepository::instance().generate_post(actor_nickname, user.GetPosts());
+  String name(actor_nickname);
+  name.PushBack('_');
+  name.Append(user_nickname);
+  const PostArray& posts = user.GetPosts();
+  return PostRepository::instance().generate_post(name, posts);
 }
 
 void Fmibook::Persist() const {

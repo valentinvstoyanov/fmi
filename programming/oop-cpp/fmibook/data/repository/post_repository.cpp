@@ -51,8 +51,11 @@ bool PostRepository::generate_post(const String& name, const PostArray& posts) c
   String filename(name);
   filename.Append(String(kGeneratePostFileExtension));
   String content("<!DOCTYPE html>\n<html>\n\n\t<body>\n\t\t");
-  for (size_t i = 0; i < posts.Size() ; ++i)
-    content.Append(posts.At(i).toHtml());
+  for (size_t i = 0; i < posts.Size() ; ++i) {
+    const Post& post = posts.At(i);
+    content.Append(post.toHtml());
+    content.PushBack('\n');
+  }
   content.Append(String("\n\t</body>\n\n</html>\n"));
 
   std::ofstream file(filename.CStr(), std::ios::out | std::ios::trunc);

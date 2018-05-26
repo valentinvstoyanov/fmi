@@ -18,7 +18,7 @@ void PostArray::EnsureCapacity(const size_t new_elements) {
   delete[] old_arr;
   old_arr = nullptr;
 
-  for (size_t i = 0; i < new_capacity; ++i)
+  for (size_t i = size_; i < new_capacity; ++i)
     arr_[i] = nullptr;
 
   capacity_ = new_capacity;
