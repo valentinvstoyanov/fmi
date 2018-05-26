@@ -18,7 +18,7 @@ User& Fmibook::GetUserByNickname(const String& nickname) {
     if (users_.At(i).GetNickname() == nickname)
       return users_.At(i);
 
-  throw NoSuchUserException();
+  throw NoSuchUserException("Cannot find user with this nickname.");
 }
 
 
@@ -164,32 +164,26 @@ void Fmibook::AddPost(const String& actor_nickname, Post& post) {
 }
 
 void Fmibook::RemovePost(const String& actor_nickname, const unsigned post_id) {
-  User user = GetUserByNickname(actor_nickname);
-  if (user.IsAdmin() || user.IsModerator()) {
-    if (!user.DeletePost(post_id)) {
-      bool is_deleted = false;
-      for (size_t i = 0; i < users_.Size() && !is_deleted; ++i)
-        is_deleted &= users_.At(i).DeletePost(post_id);
-      for (size_t i = 0; i < moderators_.Size() && !is_deleted; ++i)
-        is_deleted &= moderators_.At(i).DeletePost(post_id);
-      if (!is_deleted)
-        throw NoSuchPostException();
-    }
-  } else {
-    if (!user.DeletePost(post_id))
-      throw NoSuchPostException();
-  }
+  User& user = GetUserByNickname(actor_nickname);
+  if (user.DeletePost(post_id)) return;
+  if (!(user.IsAdmin() || user.IsModerator()))
+    throw NoPermissionException("No permission to delete other users' posts.");
+
+  if (admin_.DeletePost(post_id)) return;
+
+  for (size_t i = 0; i < users_.Size(); ++i)
+    if (users_.At(i).DeletePost(post_id)) return;
+  for (size_t i = 0; i < moderators_.Size(); ++i)
+    if (moderators_.At(i).DeletePost(post_id)) return;
+
+  throw NoSuchPostException("Could't find post with this id.");
 }
 
 void Fmibook::BlockUnblock(const String& actor_nickname,
                            const String& user_nickname,
                            const bool blocked) {
-  User actor = GetUserByNickname(actor_nickname);
-  User user;
-  if (actor_nickname == user_nickname)
-    user = actor;
-  else
-    user = GetUserByNickname(user_nickname);
+  User& actor = GetUserByNickname(actor_nickname);
+  User& user = (actor_nickname == user_nickname ? actor : GetUserByNickname(user_nickname));
 
   if (actor.IsAdmin() || actor.IsModerator())
     user.SetBlocked(blocked);

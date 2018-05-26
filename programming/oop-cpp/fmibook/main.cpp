@@ -15,16 +15,6 @@ int main() {
   char input[kMaxInputLen];
   bool running = true;
 
-
- /* PostArray a;
-  TextPost tp(admin_nickname);
-  a.PushBack(tp);
-  LinkPost lp(admin_nickname, admin_nickname);
-  a.PushBack(lp);
-  for (size_t i = 0; i < a.Size(); ++i) {
-    std::cout << a.At(i).toHtml() << std::endl;
-  }
-*/
   do {
     std::cin.getline(input, kMaxInputLen);
     String in(input);

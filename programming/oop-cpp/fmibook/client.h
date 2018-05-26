@@ -19,6 +19,7 @@ class Client {
   void OnRemoveUser(const String&, const String&);
   void OnBlockUnblockUser(const String&, const String&, const bool);
   void OnAddPost(const String&, const String&);
+  void OnRemovePost(const String&, const String&);
   void OnViewPost(const String&, const String&);
   void OnViewAllPosts(const String&, const String&);
  public:

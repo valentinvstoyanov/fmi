@@ -197,6 +197,21 @@ void Client::OnAddPost(const String& actor, const String& subject) {
   delete post;
 }
 
+void Client::OnRemovePost(const String& actor, const String& subject) {
+  try {
+    fmibook_.RemovePost(actor, static_cast<const unsigned>(ParseInt(subject)));
+    std::cout << "Post " << subject << " deleted by " << actor << std::endl;
+  } catch (const Fmibook::NoSuchPostException& e) {
+    std::cout << e.what() << std::endl;
+  } catch (const ParseException& e) {
+    std::cout << "Failed to parse post id." << std::endl;
+  } catch (const Fmibook::NoSuchUserException& e) {
+    std::cout << e.what() << std::endl;
+  } catch (const Fmibook::NoPermissionException& e) {
+    std::cout << e.what() << std::endl;
+  }
+}
+
 void Client::OnViewPost(const String& actor, const String& subject) {
   try {
     const unsigned post_id = static_cast<const unsigned>(ParseInt(subject));
@@ -246,6 +261,8 @@ bool Client::ProcessInput(const String& input) {
       OnBlockUnblockUser(actor, subject, false);
     else if (action == String("post"))
       OnAddPost(actor, subject);
+    else if (action == String("remove_post"))
+      OnRemovePost(actor, subject);
     else if (action == String("view_post"))
       OnViewPost(actor, subject);
     else if (action == String("view_all_posts"))
