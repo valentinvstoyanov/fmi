@@ -227,8 +227,15 @@ void Array<T>::PopBack() {
 
 template<typename T>
 void Array<T>::Fill(const T& val) {
-  for (size_t i = 0; i < size_; ++i)
-    buffer_[i] = val;
+  if (size_ > 0) {
+    const size_t old_capacity = capacity_;
+    Clear();
+    EnsureCapacity(old_capacity);
+    size_ = 0;
+  }
+
+  for (size_t i = 0; i < capacity_; ++i) buffer_[i] = val;
+  size_ = capacity_;
 }
 
 template<typename T>

@@ -15,328 +15,364 @@
   TODO: Add the rest features and check functionality.
 */
 
-  template <typename T>
+template <typename T, T kZero, T kOne>
 class Polynomial {
   Array<T> coefficients_;
-  T PowerCoefficient(const T&, const size_t) const;
-  T MonomialIndefiniteIntegral(const T&, const size_t, const T&, const T&) const;
+
+  class Monomial {
+    T coefficient_;
+    unsigned degree_{};
+
+    T Pow(const T& val) const {
+      if (degree_ == 0 || val == kOne) return kOne;
+      if (degree_ == 1) return val;
+
+      T result = val;
+      for (int i = 1; i < degree_; ++i) result *= val;
+
+      return result;
+    }
+
+   public:
+    Monomial(const T& coeffiecient, const unsigned degree)
+        : coefficient_(coeffiecient), degree_(degree) {}
+
+    Monomial()
+        : coefficient_(kZero), degree_(0) {}
+
+    void Set(const T& coefficient, const unsigned degree) {
+      SetCoefficient(coefficient);
+      SetDegree(degree);
+    }
+
+    void SetCoefficient(const T& coefficient) {
+      coefficient_ = coefficient;
+    }
+
+    void SetDegree(const unsigned degree) {
+      degree_ = degree;
+    }
+
+    const T& Coefficient() const {
+      return coefficient_;
+    }
+
+    unsigned Degree() const {
+      return degree_;
+    }
+
+    T operator()(const T& val) const {
+      return coefficient_ * (Pow(val));
+    }
+
+    Monomial& Derivative() {
+      if (degree_ == 0) coefficient_ = 0;
+      else if (degree_ == 1) degree_ = 0;
+      else coefficient_ *= degree_--;
+
+      return *this;
+    }
+
+    Monomial& Antiderivative() {
+      coefficient_ /= ++degree_;
+      return *this;
+    }
+
+    Monomial Derivative() const {
+      Monomial monomial(coefficient_, degree_);
+      return monomial.Derivative();
+    }
+
+    Monomial Antiderivative() const {
+      Monomial monomial(coefficient_, degree_);
+      return monomial.Antiderivative();
+    }
+
+    T operator()(const T& left_bound, const T& right_bound) const {
+      const Monomial antiderivative = Antiderivative();
+      return antiderivative(right_bound) - antiderivative(left_bound);
+    }
+
+    friend std::ostream& operator<<(std::ostream& out, const Monomial& monomial) {
+      if (monomial.coefficient_ == kZero)
+        return out << kZero;
+
+      if (monomial.coefficient_ < kZero)
+        out << '(' << monomial.coefficient_ << ')';
+      else
+        out << monomial.coefficient_;
+
+      if (monomial.degree_ > 0)
+        if (monomial.degree_ == 1) out << 'x';
+        else out << "x^" << monomial.degree_;
+
+      return out;
+    }
+  };
+
+  unsigned GetTrailingZerosCount() {
+    unsigned trailing_zeros = 0;
+    for (long i = coefficients_.Size() - 1; i >= 0 && coefficients_[i] == kZero; --i)
+      ++trailing_zeros;
+
+    return trailing_zeros;
+  }
+
+  void Simplify() {
+    const unsigned trailing_zeros = GetTrailingZerosCount();
+    for (unsigned i = 0; i < trailing_zeros; ++i)
+      coefficients_.PopBack();
+  }
  public:
-  explicit Polynomial(const Array<T>&);
-  Polynomial(const Polynomial&);
+  explicit Polynomial(const Array<T>& coefficients)
+      : coefficients_(coefficients) {}
 
-  Polynomial& operator=(const Polynomial&);
-  bool operator==(const Polynomial&);
-  bool operator!=(const Polynomial&);
-  bool operator<(const Polynomial&);
-  bool operator>(const Polynomial&);
-  bool operator<=(const Polynomial&);
-  bool operator>=(const Polynomial&);
+  Polynomial(const Polynomial& other)
+      : coefficients_(other.coefficients_) {}
 
-  Polynomial& operator-=(const Polynomial&);
-  Polynomial& operator+=(const Polynomial&);
-  Polynomial& operator*=(const Polynomial&);
-  Polynomial& operator/=(const Polynomial&);
-  Polynomial& operator%=(const Polynomial&);
+  friend std::ostream& operator<<(std::ostream& out, const Polynomial& polynomial){
+    const Array<T>& coefficients = polynomial.coefficients_;
+    if (coefficients.Empty())
+      return out << kZero;
 
-  Polynomial& operator*=(const T&);
-  Polynomial& operator/=(const T&);
+    Monomial monomial;
+    for (unsigned i = 0; i < coefficients.Size() - 1; ++i) {
+      monomial.Set(coefficients[i], i);
+      out << monomial << " + ";
+    }
+    monomial.Set(coefficients.Back(),
+                 static_cast<const unsigned int>(coefficients.Size() - 1));
+    out << monomial;
 
-  const T& operator[](const size_t) const;
-  T& operator[](const size_t);
+    return out;
+  }
 
-  T operator()(const T&);
-  T operator()(const T&, const T&);
+  Polynomial& operator=(const Polynomial& other) {
+    if (this != &other)
+      coefficients_ = other.coefficients_;
 
-  Polynomial<T>& operator++();
-  Polynomial<T> operator++(int);
-  Polynomial<T>& operator--();
-  Polynomial<T> operator--(int);
-
-  explicit operator int();
-  explicit operator bool();
-};
-
-template<typename T>
-Polynomial<T>::Polynomial(const Array<T>& coefficients)
-    : coefficients_(coefficients) {}
-
-template<typename T>
-Polynomial<T>::Polynomial(const Polynomial& other)
-    : coefficients_(other.coefficients_) {}
-
-template<typename T>
-Polynomial<T>& Polynomial<T>::operator=(const Polynomial& other) {
-  if (this != &other)
-    coefficients_ = other.coefficients_;
-
-  return *this;
-}
-
-template<typename T>
-bool Polynomial<T>::operator==(const Polynomial& other) {
-  return coefficients_ == other.coefficients_;
-}
-
-template<typename T>
-bool Polynomial<T>::operator!=(const Polynomial& other) {
-  return !(operator==(other));
-}
-
-template<typename T>
-bool Polynomial<T>::operator<(const Polynomial& other) {
-  return coefficients_.Size() < other.coefficients_.Size();
-}
-
-template<typename T>
-bool Polynomial<T>::operator>(const Polynomial& other) {
-  return coefficients_.Size() > other.coefficients_.Size();
-}
-
-template<typename T>
-bool Polynomial<T>::operator<=(const Polynomial& other) {
-  return !(*this > other);
-}
-
-template<typename T>
-bool Polynomial<T>::operator>=(const Polynomial& other) {
-  return !(*this < other);
-}
-
-template<typename T>
-Polynomial<T>::operator int() {
-  return coefficients_.Empty() ? std::numeric_limits<int>::max()
-                               : static_cast<int>(coefficients_.Size() - 1);
-}
-
-template<typename T>
-Polynomial<T>& Polynomial<T>::operator-=(const Polynomial<T>& other) {
-  const size_t min_size = std::min(coefficients_.Size(), other.coefficients_.Size());
-  for (size_t i = 0; i < min_size; ++i)
-    coefficients_[i] -= other.coefficients_[i];
-
-  if (coefficients_.Size() < other.coefficients_.Size())
-    for (size_t i = min_size; i < other.coefficients_.Size(); ++i)
-      coefficients_.PushBack(-other.coefficients_[i]);
-
-  //TODO: simplify
-
-  return *this;
-}
-
-template<typename T>
-Polynomial<T>& Polynomial<T>::operator+=(const Polynomial<T>& other) {
-  const size_t min_size = std::min(coefficients_.Size(), other.coefficients_.Size());
-  for (size_t i = 0; i < min_size; ++i)
-    coefficients_[i] += other.coefficients_[i];
-
-  if (coefficients_.Size() < other.coefficients_.Size())
-    for (size_t i = min_size; i < other.coefficients_.Size(); ++i)
-      coefficients_.PushBack(other.coefficients_[i]);
-
-  //TODO: simplify
-
-  return *this;
-}
-
-template<typename T>
-Polynomial<T>& Polynomial<T>::operator*=(const Polynomial<T>& other) {
-  const size_t result_deg = coefficients_.Size() + other.coefficients_.Size() - 1;
-  Array<T> result(result_deg);
-  //
-  result.Fill(T(0));
-
-  for (size_t i = 0; i < coefficients_.Size(); ++i)
-    for (size_t j = 0; j < other.coefficients_.Size(); ++j)
-      result[i + j] += coefficients_[i] * other.coefficients_[j];
-
-  coefficients_ = result;
-  //TODO: simplify
-
-  return *this;
-}
-
-template<typename T>
-Polynomial<T>& Polynomial<T>::operator/=(const Polynomial<T>& other) {
-  //TODO
-  return *this;
-}
-
-template<typename T>
-Polynomial<T>& Polynomial<T>::operator%=(const Polynomial<T>&) {
-  //TODO
-  return *this;
-}
-
-template<typename T>
-Polynomial& Polynomial<T>::operator*=(const T& val) {
-  for (Array<T>::Iterator iterator = coefficients_.Begin();
-      iterator != coefficients_.End();
-      ++iterator)
-    *iterator *= val;
-
-  return *this;
-}
-
-template<typename T>
-Polynomial& Polynomial<T>::operator/=(const T& val) {
-  for (Array<T>::Iterator iterator = coefficients_.Begin();
-       iterator != coefficients_.End();
-       ++iterator)
-    *iterator /= val;
-
-  return *this;
-}
-
-template<typename T>
-const T& Polynomial<T>::operator[](const size_t index) const {
-  if (coefficients_.Empty()) return 0;
-  if (index >= coefficients_.Size()) return 0;
-  return coefficients_[index];
-}
-
-template<typename T>
-T& Polynomial<T>::operator[](const size_t index) {
-  if (coefficients_.Empty()) return 0;
-  if (index >= coefficients_.Size()) return 0;
-  return coefficients_[index];
-}
-
-template<typename T>
-T Polynomial<T>::PowerCoefficient(const T& coefficient, const size_t power) const {
-  if (power == 0) return T(1);
-  if (power == 1) return coefficient;
-
-  T result = coefficient;
-  for (size_t i = 0; i < power; ++i)
-    result *= coefficient;
-
-  return result;
-}
-
-template<typename T>
-T Polynomial<T>::operator()(const T& x) {
-  const T kZero = T(0);
-  if (coefficients_.Empty()) return kZero;
-
-  T result = coefficients_.Front();
-  for (size_t i = 1; i < coefficients_.Size(); ++i)
-    if (coefficients_[i] != kZero)
-      result += coefficients_[i] * PowerCoefficient(x, i);
-
-  return result;
-}
-
-template<typename T>
-T Polynomial<T>::MonomialIndefiniteIntegral(const T& coefficient,
-                                            const size_t power,
-                                            const T& a,
-                                            const T& b) const {
-  if (coefficient == T(0)) return coefficient;
-  const size_t new_power = power + 1;
-  T new_coefficient = coefficient / new_power;
-  T b_value = PowerCoefficient(b, new_power);
-  T a_value = PowerCoefficient(a, new_power);
-
-  return new_coefficient * (b_value - a_value);
-}
-
-template<typename T>
-T Polynomial<T>::operator()(const T& a, const T& b) {
-  const T kZero = T(0);
-  if (coefficients_.Empty()) return kZero;
-
-  T result(0);
-  for (size_t i = 0; i < coefficients_.Size(); ++i)
-    result += MonomialIndefiniteIntegral(coefficients_[i], i, a, b);
-
-  return result;
-}
-
-template<typename T>
-Polynomial<T>& Polynomial<T>::operator++() {
-  Array<T> result(coefficients_.Size() + 1);
-  result.PushBack(T(0));
-  for (size_t i = 0; i < coefficients_.Size(); ++i)
-    result.PushBack(coefficients_[i] / (i + 1));
-
-  coefficients_ = result;
-  //TODO: simplify
-
-  return *this;
-}
-
-template<typename T>
-Polynomial<T> Polynomial<T>::operator++(int) {
-  Polynomial<T> result(*this);
-  ++(*this);
-  return result;
-}
-
-template<typename T>
-Polynomial<T>& Polynomial<T>::operator--() {
-  if (coefficients_.Empty()) return *this;
-  if (coefficients_.Size() == 1) {
-    coefficients_.PopBack();
     return *this;
   }
 
-  Array<T> result(coefficients_.Size() - 1);
-  result.PushBack(T(0));
-  for (size_t i = 1; i < coefficients_.Size(); ++i)
-    result.PushBack(coefficients_[i] * (i - 1));
+  bool operator==(const Polynomial& other) {
+    return coefficients_ == other.coefficients_;
+  }
 
-  coefficients_ = result;
-  //TODO: simplify
+  bool operator!=(const Polynomial& other) {
+    return !(*this == other);
+  }
 
-  return *this;
-}
+  bool operator<(const Polynomial& other) {
+    return coefficients_.Size() < other.coefficients_.Size();
+  }
 
-template<typename T>
-Polynomial<T> Polynomial<T>::operator--(int) {
-  Polynomial<T> result(*this);
-  --(*this);
+  bool operator>(const Polynomial& other) {
+    return coefficients_.Size() > other.coefficients_.Size();
+  }
 
-  return result;
-}
+  bool operator<=(const Polynomial& other) {
+    return !(*this > other);
+  }
 
-template<typename T>
-Polynomial<T>::operator bool() {
-  //TODO:
+  bool operator>=(const Polynomial& other) {
+    return !(*this < other);
+  }
 
-  return false;
-}
+  Polynomial& operator-=(const Polynomial& other) {
+    const size_t min_size = std::min(coefficients_.Size(), other.coefficients_.Size());
+    for (size_t i = 0; i < min_size; ++i)
+      coefficients_[i] -= other.coefficients_[i];
 
-template<typename T>
-Polynomial<T> operator+(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
-  Polynomial<T> result = lhs;
+    if (coefficients_.Size() < other.coefficients_.Size())
+      for (size_t i = min_size; i < other.coefficients_.Size(); ++i)
+        coefficients_.PushBack(-other.coefficients_[i]);
+
+    Simplify();
+
+    return *this;
+  }
+
+  Polynomial& operator+=(const Polynomial& other) {
+    const size_t min_size = std::min(coefficients_.Size(), other.coefficients_.Size());
+    for (size_t i = 0; i < min_size; ++i)
+      coefficients_[i] += other.coefficients_[i];
+
+    if (coefficients_.Size() < other.coefficients_.Size())
+      for (size_t i = min_size; i < other.coefficients_.Size(); ++i)
+        coefficients_.PushBack(other.coefficients_[i]);
+
+    Simplify();
+
+    return *this;
+  }
+
+  Polynomial& operator*=(const Polynomial& other) {
+    const size_t result_deg =
+        coefficients_.Size() + other.coefficients_.Size() - 1;
+    Array<T> result(result_deg);
+    result.Fill(kZero);
+
+    for (size_t i = 0; i < coefficients_.Size(); ++i)
+      for (size_t j = 0; j < other.coefficients_.Size(); ++j)
+        result[i + j] += coefficients_[i] * other.coefficients_[j];
+
+    coefficients_ = result;
+    Simplify();
+
+    return *this;
+  }
+
+  Polynomial& operator/=(const Polynomial&) {
+    //TODO
+  }
+
+  Polynomial& operator%=(const Polynomial&) {
+    //TODO
+  }
+
+  Polynomial& operator*=(const T& val) {
+    for (size_t i = 0; i < coefficients_.Size(); ++i)
+      coefficients_[i] *= val;
+
+    Simplify();
+
+    return *this;
+  }
+
+  Polynomial& operator/=(const T& val) {
+    if (val == kZero)
+      throw std::invalid_argument("Polynomial: Division by zero.");
+
+    for (size_t i = 0; i < coefficients_.Size(); ++i)
+      coefficients_[i] /= val;
+
+    Simplify();
+
+    return *this;
+  }
+
+  T operator[](const unsigned degree) const {
+    return (coefficients_.Empty() || degree >= coefficients_.Size()) ?
+           kZero : coefficients_[degree];
+  }
+
+  T operator()(const T& val) {
+    if (coefficients_.Empty()) return kZero;
+
+    T result = kZero;
+    Monomial monomial;
+    for (unsigned i = 0; i < coefficients_.Size(); ++i) {
+      monomial.Set(coefficients_[i], i);
+      result += monomial(val);
+    }
+
+    return result;
+  }
+
+  T operator()(const T& left_bound, const T& right_bound) {
+    if (coefficients_.Empty()) return kZero;
+
+    T result = kZero;
+    Monomial monomial;
+    for (unsigned i = 0; i < coefficients_.Size(); ++i) {
+      monomial.Set(coefficients_[i], i);
+      result += monomial(left_bound, right_bound);
+    }
+
+    return result;
+  }
+
+  Polynomial& operator++() {
+    if (coefficients_.Empty()) return *this;
+
+    Array<T> result(coefficients_.Size() + 1);
+    Monomial monomial;
+    result.PushBack(kZero);
+    for (unsigned i = 0; i < coefficients_.Size(); ++i) {
+      monomial.Set(coefficients_[i], i);
+      monomial.Antiderivative();
+      result.PushBack(monomial.Coefficient());
+    }
+    coefficients_ = result;
+    Simplify();
+
+    return *this;
+  }
+
+  Polynomial operator++(int) {
+    Polynomial result(*this);
+    ++(*this);
+    return result;
+  }
+
+  Polynomial& operator--() {
+    if (coefficients_.Empty()) return *this;
+
+    Array<T> result(coefficients_.Size() - 1);
+    Monomial monomial;
+    for (unsigned i = 1; i < coefficients_.Size(); ++i) {
+      monomial.Set(coefficients_[i], i);
+      monomial.Derivative();
+      result.PushBack(monomial.Coefficient());
+    }
+    coefficients_ = result;
+    Simplify();
+
+    return *this;
+  }
+
+  Polynomial operator--(int) {
+    Polynomial result(*this);
+    --(*this);
+    return result;
+  }
+
+  explicit operator int() {
+    return coefficients_.Empty() ? std::numeric_limits<int>::max()
+                                 : static_cast<int>(coefficients_.Size() - 1);
+  }
+
+  explicit operator bool() {
+    //TODO
+  }
+};
+
+template<typename T, T kZero, T kOne>
+Polynomial<T, kZero, kOne> operator+(const Polynomial<T, kZero, kOne>& lhs,
+                                     const Polynomial<T, kZero, kOne>& rhs) {
+  Polynomial<T, kZero, kOne> result = lhs;
   result += rhs;
   return result;
 }
 
-template<typename T>
-Polynomial<T> operator-(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
-  Polynomial<T> result = lhs;
+template<typename T, T kZero, T kOne>
+Polynomial<T, kZero, kOne> operator-(const Polynomial<T, kZero, kOne>& lhs,
+                                     const Polynomial<T, kZero, kOne>& rhs) {
+  Polynomial<T, kZero, kOne> result = lhs;
   result -= rhs;
   return result;
 }
 
-template<typename T>
-Polynomial<T> operator*(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
-  Polynomial<T> result = lhs;
+template<typename T, T kZero, T kOne>
+Polynomial<T, kZero, kOne> operator*(const Polynomial<T, kZero, kOne>& lhs,
+                                     const Polynomial<T, kZero, kOne>& rhs) {
+  Polynomial<T, kZero, kOne> result = lhs;
   result *= rhs;
   return result;
 }
 
-template<typename T>
-Polynomial<T> operator/(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
-  Polynomial<T> result = lhs;
+template<typename T, T kZero, T kOne>
+Polynomial<T, kZero, kOne> operator/(const Polynomial<T, kZero, kOne>& lhs,
+                                     const Polynomial<T, kZero, kOne>& rhs) {
+  Polynomial<T, kZero, kOne> result = lhs;
   result /= rhs;
   return result;
 }
 
-template<typename T>
-Polynomial<T> operator%(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
-  Polynomial<T> result = lhs;
+template<typename T, T kZero, T kOne>
+Polynomial<T, kZero, kOne> operator%(const Polynomial<T, kZero, kOne>& lhs,
+                                     const Polynomial<T, kZero, kOne>& rhs) {
+  Polynomial<T, kZero, kOne> result = lhs;
   result %= rhs;
   return result;
 }

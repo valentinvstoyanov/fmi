@@ -3,19 +3,25 @@
 #include "polynomial.h"
 
 int main() {
-  Array<int> coeffs(5);
-  for (size_t i = 0; i < 5; ++i)
-    coeffs.PushBack(static_cast<const int&>(i));
 
-  Polynomial<int> p(coeffs);
+  Array<int> p_coefficients(3);
+  p_coefficients.PushBack(1);
+  p_coefficients.PushBack(2);
+  p_coefficients.PushBack(3);
 
-  coeffs.PushBack(60);
-  Polynomial<int> q(coeffs);
+  Polynomial<int, 0, 1> p(p_coefficients);
 
-  p -= q;
+  Array<int> q_coefficients(3);
+  q_coefficients.PushBack(1);
+  q_coefficients.PushBack(1);
+  q_coefficients.PushBack(1);
 
-  std::cout << (int) p << std::endl;
+  Polynomial<int, 0, 1> q(q_coefficients);
 
+  std::cout << p << std::endl;
+  std::cout << q << std::endl;
+
+  std::cout << p - q << std::endl;
 
   return 0;
 }
