@@ -9,19 +9,19 @@ int main() {
   p_coefficients.PushBack(2);
   p_coefficients.PushBack(3);
 
-  Polynomial<int, 0, 1> p(p_coefficients);
+  Polynomial<int> p(p_coefficients);
 
   Array<int> q_coefficients(3);
   q_coefficients.PushBack(1);
   q_coefficients.PushBack(1);
   q_coefficients.PushBack(1);
 
-  Polynomial<int, 0, 1> q(q_coefficients);
+  Polynomial<int> q(q_coefficients);
 
   std::cout << p << std::endl;
   std::cout << q << std::endl;
 
-  std::cout << p - q << std::endl;
+  std::cout << !p << std::endl;
 
   return 0;
 }

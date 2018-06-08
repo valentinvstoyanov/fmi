@@ -15,8 +15,10 @@
   TODO: Add the rest features and check functionality.
 */
 
-template <typename T, T kZero, T kOne>
+template <typename T>
 class Polynomial {
+  static const T kZero = T(0);
+  static const T kOne = T(1);
   Array<T> coefficients_;
 
   class Monomial {
@@ -108,7 +110,19 @@ class Polynomial {
 
       return out;
     }
+
+    Monomial& operator/=(const Monomial& other) {
+      coefficient_ /= other.coefficient_;
+      degree_ -= other.degree_;
+    }
   };
+
+  explicit Polynomial(const Monomial& monomial)
+      : coefficients_(Array<T>(monomial.Degree() + 1)){
+    coefficients_.Fill(kZero);
+    coefficients_[monomial.Degree()] = monomial.Coefficient();
+    Simplify();
+  }
 
   unsigned GetTrailingZerosCount() {
     unsigned trailing_zeros = 0;
@@ -123,12 +137,27 @@ class Polynomial {
     for (unsigned i = 0; i < trailing_zeros; ++i)
       coefficients_.PopBack();
   }
+  /*
+  void Divide(Polynomial denominator, const bool is_remainder = false) {
+    if (denominator.coefficients_.Empty())
+      throw std::invalid_argument("Polynomial: Division by zero polynomial.");
+    if (coefficients_.Size() < denominator.coefficients_.Size())
+      throw std::invalid_argument("Polynomial: Division by polynomial from higher degree.");
+
+    Monomial num_monomial(coefficients_.PopBack(),
+                      static_cast<const unsigned>(coefficients_.Size() - 1));
+    Monomial denom_monomial(denominator.coefficients_.PopBack(),
+                   static_cast<const unsigned>(denominator.coefficients_.Size() - 1));
+    num_monomial /= denom_monomial;
+    Polynomial remainder(num_monomial);
+
+    while (!denominator.coefficients_.Empty()) {
+
+    }
+  }*/
  public:
   explicit Polynomial(const Array<T>& coefficients)
-      : coefficients_(coefficients) {}
-
-  Polynomial(const Polynomial& other)
-      : coefficients_(other.coefficients_) {}
+      : coefficients_(coefficients) { Simplify(); }
 
   friend std::ostream& operator<<(std::ostream& out, const Polynomial& polynomial){
     const Array<T>& coefficients = polynomial.coefficients_;
@@ -148,9 +177,7 @@ class Polynomial {
   }
 
   Polynomial& operator=(const Polynomial& other) {
-    if (this != &other)
-      coefficients_ = other.coefficients_;
-
+    if (this != &other) coefficients_ = other.coefficients_;
     return *this;
   }
 
@@ -222,8 +249,9 @@ class Polynomial {
     return *this;
   }
 
-  Polynomial& operator/=(const Polynomial&) {
-    //TODO
+  Polynomial& operator/=(const Polynomial& other) {
+
+
   }
 
   Polynomial& operator%=(const Polynomial&) {
@@ -327,52 +355,51 @@ class Polynomial {
     return result;
   }
 
-  explicit operator int() {
+  explicit operator int() const {
     return coefficients_.Empty() ? std::numeric_limits<int>::max()
                                  : static_cast<int>(coefficients_.Size() - 1);
   }
 
-  explicit operator bool() {
-    //TODO
+  explicit operator bool() const {
+    return coefficients_.Empty();
+  }
+
+  bool operator!() const {
+    return !coefficients_.Empty();
   }
 };
 
-template<typename T, T kZero, T kOne>
-Polynomial<T, kZero, kOne> operator+(const Polynomial<T, kZero, kOne>& lhs,
-                                     const Polynomial<T, kZero, kOne>& rhs) {
-  Polynomial<T, kZero, kOne> result = lhs;
+template<typename T>
+Polynomial<T> operator+(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
+  Polynomial<T> result = lhs;
   result += rhs;
   return result;
 }
 
-template<typename T, T kZero, T kOne>
-Polynomial<T, kZero, kOne> operator-(const Polynomial<T, kZero, kOne>& lhs,
-                                     const Polynomial<T, kZero, kOne>& rhs) {
-  Polynomial<T, kZero, kOne> result = lhs;
+template<typename T>
+Polynomial<T> operator-(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
+  Polynomial<T> result = lhs;
   result -= rhs;
   return result;
 }
 
-template<typename T, T kZero, T kOne>
-Polynomial<T, kZero, kOne> operator*(const Polynomial<T, kZero, kOne>& lhs,
-                                     const Polynomial<T, kZero, kOne>& rhs) {
-  Polynomial<T, kZero, kOne> result = lhs;
+template<typename T>
+Polynomial<T> operator*(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
+  Polynomial<T> result = lhs;
   result *= rhs;
   return result;
 }
 
-template<typename T, T kZero, T kOne>
-Polynomial<T, kZero, kOne> operator/(const Polynomial<T, kZero, kOne>& lhs,
-                                     const Polynomial<T, kZero, kOne>& rhs) {
-  Polynomial<T, kZero, kOne> result = lhs;
+template<typename T>
+Polynomial<T> operator/(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
+  Polynomial<T> result = lhs;
   result /= rhs;
   return result;
 }
 
-template<typename T, T kZero, T kOne>
-Polynomial<T, kZero, kOne> operator%(const Polynomial<T, kZero, kOne>& lhs,
-                                     const Polynomial<T, kZero, kOne>& rhs) {
-  Polynomial<T, kZero, kOne> result = lhs;
+template<typename T>
+Polynomial<T> operator%(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
+  Polynomial<T> result = lhs;
   result %= rhs;
   return result;
 }
