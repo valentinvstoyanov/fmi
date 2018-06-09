@@ -5,12 +5,10 @@
 #ifndef JSON_PARSER_JSON_VALUE_H
 #define JSON_PARSER_JSON_VALUE_H
 
-
 class JsonValue {
 
-public:
-
+ public:
+  virtual ~JsonValue() = default;
 };
-
 
 #endif //JSON_PARSER_JSON_VALUE_H

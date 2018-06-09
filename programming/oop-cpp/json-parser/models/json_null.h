@@ -5,16 +5,14 @@
 #ifndef JSON_PARSER_JSON_NULL_H
 #define JSON_PARSER_JSON_NULL_H
 
-
 #include "json_value.h"
 
-class JsonNull: public JsonValue {
-    JsonNull() = default;
-public:
-    JsonNull(const JsonNull&) = delete;
-    JsonNull& operator=(const JsonNull&) = delete;
-    static JsonNull& instance() const;
+class JsonNull : public JsonValue {
+  JsonNull() = default;
+ public:
+  JsonNull(const JsonNull&) = delete;
+  JsonNull& operator=(const JsonNull&) = delete;
+  static JsonNull& Instance();
 };
-
 
 #endif //JSON_PARSER_JSON_NULL_H

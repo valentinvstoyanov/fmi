@@ -84,64 +84,73 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/array.cc">
+			<Option target="json_parser"/>
+		</Unit>
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/array.h">
+			<Option target="json_parser"/>
+		</Unit>
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/list.cc">
+			<Option target="json_parser"/>
+		</Unit>
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/list.h">
+			<Option target="json_parser"/>
+		</Unit>
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.cc">
 			<Option target="json_parser"/>
 		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/pair.cpp">
-			<Option target="json_parser"/>
-		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/pair.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/main.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/main.cc">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_array.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_array.cc">
 			<Option target="json_parser"/>
 		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_array.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_boolean.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_boolean.cc">
 			<Option target="json_parser"/>
 		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_boolean.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_null.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_null.cc">
 			<Option target="json_parser"/>
 		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_null.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_number.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_number.cc">
 			<Option target="json_parser"/>
 		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_number.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_object.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_object.cc">
 			<Option target="json_parser"/>
 		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_object.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_string.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_string.cc">
 			<Option target="json_parser"/>
 		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_string.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_value.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_value.cc">
 			<Option target="json_parser"/>
 		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_value.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/json_parser.cpp">
+		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/json_parser.cc">
 			<Option target="json_parser"/>
 		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/json_parser.h">

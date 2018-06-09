@@ -7,9 +7,6 @@
 
 
 class JsonNumber {
-    double value;
-    bool is_int;
-    bool is_real;
 public:
 
 };
