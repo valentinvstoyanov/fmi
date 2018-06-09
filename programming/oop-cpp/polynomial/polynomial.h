@@ -10,15 +10,15 @@
 
 /*
   TODO: Extract some of the operators code in properly named functions.
-  TODO: Implement polynom simplification and call it.
+  TODO: Implement polynomial simplification and call it.
   TODO: Think of algorithm for polynomial division.
   TODO: Add the rest features and check functionality.
 */
 
 template <typename T>
 class Polynomial {
-  static const T kZero = T(0);
-  static const T kOne = T(1);
+  static const T kZero;
+  static const T kOne;
   Array<T> coefficients_;
 
   class Monomial {
@@ -137,25 +137,25 @@ class Polynomial {
     for (unsigned i = 0; i < trailing_zeros; ++i)
       coefficients_.PopBack();
   }
-  /*
-  void Divide(Polynomial denominator, const bool is_remainder = false) {
-    if (denominator.coefficients_.Empty())
+
+  void Divide(Polynomial divisor, const bool is_remainder = false) {
+    if (divisor.coefficients_.Empty())
       throw std::invalid_argument("Polynomial: Division by zero polynomial.");
-    if (coefficients_.Size() < denominator.coefficients_.Size())
+    if (coefficients_.Size() < divisor.coefficients_.Size())
       throw std::invalid_argument("Polynomial: Division by polynomial from higher degree.");
 
-    Monomial num_monomial(coefficients_.PopBack(),
-                      static_cast<const unsigned>(coefficients_.Size() - 1));
-    Monomial denom_monomial(denominator.coefficients_.PopBack(),
-                   static_cast<const unsigned>(denominator.coefficients_.Size() - 1));
-    num_monomial /= denom_monomial;
-    Polynomial remainder(num_monomial);
-
-    while (!denominator.coefficients_.Empty()) {
-
-    }
-  }*/
+    Monomial dividend_leading_monomial(coefficients_.Back(), coefficients_.Size() - 1);
+    Monomial divisor_leading_monomial(divisor.coefficients_.Back(), divisor.coefficients_.Size() - 1);
+    dividend_leading_monomial /= divisor_leading_monomial;
+    Polynomial result(dividend_leading_monomial);
+    divisor *= result;
+    *this -= divisor;
+    if (!is_remainder) coefficients_ = result.coefficients_;
+  }
  public:
+  Polynomial()
+      : coefficients_(Array<T>()) {}
+
   explicit Polynomial(const Array<T>& coefficients)
       : coefficients_(coefficients) { Simplify(); }
 
@@ -198,11 +198,11 @@ class Polynomial {
   }
 
   bool operator<=(const Polynomial& other) {
-    return !(*this > other);
+    return coefficients_.Size() <= other.coefficients_.Size();
   }
 
   bool operator>=(const Polynomial& other) {
-    return !(*this < other);
+    return coefficients_.Size() >= other.coefficients_.Size();
   }
 
   Polynomial& operator-=(const Polynomial& other) {
@@ -250,12 +250,11 @@ class Polynomial {
   }
 
   Polynomial& operator/=(const Polynomial& other) {
-
-
+    Divide(other);
   }
 
-  Polynomial& operator%=(const Polynomial&) {
-    //TODO
+  Polynomial& operator%=(const Polynomial& other) {
+    Divide(other, true);
   }
 
   Polynomial& operator*=(const T& val) {
@@ -403,5 +402,11 @@ Polynomial<T> operator%(const Polynomial<T>& lhs, const Polynomial<T>& rhs) {
   result %= rhs;
   return result;
 }
+
+template<typename T>
+const T Polynomial<T>::kZero = T(0);
+
+template<typename T>
+const T Polynomial<T>::kOne = T(1);
 
 #endif //POLYNOMIAL_POLYNOMIAL_H
