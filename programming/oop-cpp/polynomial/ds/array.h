@@ -16,7 +16,8 @@ class Array {
 
   T* AllocateNewBuffer(const size_t capacity);
   void EnsureCapacity(const size_t new_elements_count);
-  void Copy(T* dest, const size_t dest_size, const T* src, const size_t src_size);
+  void Copy(T* dest, const size_t dest_size,
+            const T* src, const size_t src_size);
   void CopyFrom(const Array&);
  public:
   explicit Array(const size_t initial_capacity = 2);
@@ -308,4 +309,5 @@ template<typename T>
 bool Array<T>::Empty() const {
   return size_ == 0;
 }
+
 #endif //POLYNOMIAL_ARRAY_H

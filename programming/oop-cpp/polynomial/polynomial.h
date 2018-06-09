@@ -8,14 +8,7 @@
 #include <limits>
 #include "ds/array.h"
 
-/*
-  TODO: Extract some of the operators code in properly named functions.
-  TODO: Implement polynomial simplification and call it.
-  TODO: Think of algorithm for polynomial division.
-  TODO: Add the rest features and check functionality.
-*/
-
-template <typename T>
+template<typename T>
 class Polynomial {
   static const T kZero;
   static const T kOne;
@@ -30,7 +23,8 @@ class Polynomial {
       if (degree_ == 1) return val;
 
       T result = val;
-      for (int i = 1; i < degree_; ++i) result *= val;
+      for (int i = 1; i < degree_; ++i)
+        result *= val;
 
       return result;
     }
@@ -95,7 +89,8 @@ class Polynomial {
       return antiderivative(right_bound) - antiderivative(left_bound);
     }
 
-    friend std::ostream& operator<<(std::ostream& out, const Monomial& monomial) {
+    friend std::ostream& operator<<(std::ostream& out,
+                                    const Monomial& monomial) {
       if (monomial.coefficient_ == kZero)
         return out << kZero;
 
@@ -118,7 +113,7 @@ class Polynomial {
   };
 
   explicit Polynomial(const Monomial& monomial)
-      : coefficients_(Array<T>(monomial.Degree() + 1)){
+      : coefficients_(Array<T>(monomial.Degree() + 1)) {
     coefficients_.Fill(kZero);
     coefficients_[monomial.Degree()] = monomial.Coefficient();
     Simplify();
@@ -126,7 +121,9 @@ class Polynomial {
 
   unsigned GetTrailingZerosCount() {
     unsigned trailing_zeros = 0;
-    for (long i = coefficients_.Size() - 1; i >= 0 && coefficients_[i] == kZero; --i)
+    for (long i = coefficients_.Size() - 1;
+         i >= 0 && coefficients_[i] == kZero;
+         --i)
       ++trailing_zeros;
 
     return trailing_zeros;
@@ -140,17 +137,21 @@ class Polynomial {
 
   void Divide(Polynomial divisor, const bool is_remainder = false) {
     if (divisor.coefficients_.Empty())
-      throw std::invalid_argument("Polynomial: Division by zero polynomial.");
+      throw std::invalid_argument("Polynomial: Division by zero.");
     if (coefficients_.Size() < divisor.coefficients_.Size())
-      throw std::invalid_argument("Polynomial: Division by polynomial from higher degree.");
+      throw std::invalid_argument("Polynomial division: deg(dividend) < deg(divisor).");
 
-    Monomial dividend_leading_monomial(coefficients_.Back(), coefficients_.Size() - 1);
-    Monomial divisor_leading_monomial(divisor.coefficients_.Back(), divisor.coefficients_.Size() - 1);
+    Monomial dividend_leading_monomial(coefficients_.Back(),
+                                       static_cast<const unsigned>(*this));
+    Monomial divisor_leading_monomial(divisor.coefficients_.Back(),
+                                      static_cast<const unsigned>(divisor));
     dividend_leading_monomial /= divisor_leading_monomial;
     Polynomial result(dividend_leading_monomial);
     divisor *= result;
     *this -= divisor;
-    if (!is_remainder) coefficients_ = result.coefficients_;
+
+    if (!is_remainder)
+      coefficients_ = result.coefficients_;
   }
  public:
   Polynomial()
@@ -159,7 +160,8 @@ class Polynomial {
   explicit Polynomial(const Array<T>& coefficients)
       : coefficients_(coefficients) { Simplify(); }
 
-  friend std::ostream& operator<<(std::ostream& out, const Polynomial& polynomial){
+  friend std::ostream& operator<<(std::ostream& out,
+                                  const Polynomial& polynomial) {
     const Array<T>& coefficients = polynomial.coefficients_;
     if (coefficients.Empty())
       return out << kZero;
@@ -174,11 +176,6 @@ class Polynomial {
     out << monomial;
 
     return out;
-  }
-
-  Polynomial& operator=(const Polynomial& other) {
-    if (this != &other) coefficients_ = other.coefficients_;
-    return *this;
   }
 
   bool operator==(const Polynomial& other) {
@@ -206,7 +203,8 @@ class Polynomial {
   }
 
   Polynomial& operator-=(const Polynomial& other) {
-    const size_t min_size = std::min(coefficients_.Size(), other.coefficients_.Size());
+    const size_t min_size = std::min(coefficients_.Size(),
+                                     other.coefficients_.Size());
     for (size_t i = 0; i < min_size; ++i)
       coefficients_[i] -= other.coefficients_[i];
 
@@ -220,7 +218,8 @@ class Polynomial {
   }
 
   Polynomial& operator+=(const Polynomial& other) {
-    const size_t min_size = std::min(coefficients_.Size(), other.coefficients_.Size());
+    const size_t min_size = std::min(coefficients_.Size(),
+                                     other.coefficients_.Size());
     for (size_t i = 0; i < min_size; ++i)
       coefficients_[i] += other.coefficients_[i];
 
@@ -234,6 +233,11 @@ class Polynomial {
   }
 
   Polynomial& operator*=(const Polynomial& other) {
+    if (coefficients_.Empty() || other.coefficients_.Empty()) {
+      coefficients_.Clear();
+      return *this;
+    }
+
     const size_t result_deg =
         coefficients_.Size() + other.coefficients_.Size() - 1;
     Array<T> result(result_deg);
@@ -279,12 +283,13 @@ class Polynomial {
   }
 
   T operator[](const unsigned degree) const {
-    return (coefficients_.Empty() || degree >= coefficients_.Size()) ?
+    return coefficients_.Empty() || degree >= coefficients_.Size() ?
            kZero : coefficients_[degree];
   }
 
   T operator()(const T& val) {
-    if (coefficients_.Empty()) return kZero;
+    if (coefficients_.Empty())
+      return kZero;
 
     T result = kZero;
     Monomial monomial;
@@ -297,7 +302,8 @@ class Polynomial {
   }
 
   T operator()(const T& left_bound, const T& right_bound) {
-    if (coefficients_.Empty()) return kZero;
+    if (coefficients_.Empty())
+      return kZero;
 
     T result = kZero;
     Monomial monomial;
@@ -310,7 +316,8 @@ class Polynomial {
   }
 
   Polynomial& operator++() {
-    if (coefficients_.Empty()) return *this;
+    if (coefficients_.Empty())
+      return *this;
 
     Array<T> result(coefficients_.Size() + 1);
     Monomial monomial;
@@ -333,7 +340,8 @@ class Polynomial {
   }
 
   Polynomial& operator--() {
-    if (coefficients_.Empty()) return *this;
+    if (coefficients_.Empty())
+      return *this;
 
     Array<T> result(coefficients_.Size() - 1);
     Monomial monomial;
@@ -354,9 +362,9 @@ class Polynomial {
     return result;
   }
 
-  explicit operator int() const {
-    return coefficients_.Empty() ? std::numeric_limits<int>::max()
-                                 : static_cast<int>(coefficients_.Size() - 1);
+  explicit operator unsigned() const {
+    return coefficients_.Empty() ? std::numeric_limits<unsigned>::max()
+                                 : static_cast<unsigned >(coefficients_.Size() - 1);
   }
 
   explicit operator bool() const {
