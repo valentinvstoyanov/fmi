@@ -81,7 +81,10 @@ void Example2() {
 }
 
 void Example3() {
-
+  Polynomial<int> polynomial;
+  std::cin >> polynomial;
+  for (Iterator<int> i = polynomial.Begin(); i != polynomial.End(); ++i)
+    std::cout << *i << std::endl;
 }
 
 int main() {

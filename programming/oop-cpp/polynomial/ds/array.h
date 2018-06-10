@@ -9,6 +9,75 @@
 #include <stdexcept>
 
 template<typename T>
+class Iterator;
+template<typename T>
+class Array;
+
+template <typename T>
+class Iterator {
+  T* buffer_;
+  size_t index_;
+  friend class Array<T>;
+ public:
+  Iterator(T* buffer_, const size_t index)
+      : buffer_(buffer_), index_(index) {};
+
+  Iterator& operator++() {
+    ++index_;
+    return *this;
+  }
+
+  Iterator operator++(int) {
+    Iterator result(*this);
+    ++index_;
+    return result;
+  }
+
+  Iterator& operator--() {
+    --index_;
+    return *this;
+  }
+
+  Iterator operator--(int) {
+    Iterator result(*this);
+    --index_;
+    return result;
+  }
+
+  bool operator==(const Iterator& other) const {
+    return index_ == other.index_ && buffer_ == other.buffer_;
+  }
+
+  bool operator<(const Iterator& other) const {
+    return index_ < other.index_ && buffer_ == other.buffer_;
+  }
+
+  bool operator!=(const Iterator& other) const {
+    return !(operator==(other));
+  }
+
+  bool operator<=(const Iterator& other) const {
+    return operator<(other) || operator==(other);
+  }
+
+  bool operator>=(const Iterator& other) const {
+    return !operator<(other);
+  }
+
+  bool operator>(const Iterator& other) const {
+    return !operator<=(other);
+  }
+
+  T& operator*() {
+    return buffer_[index_];
+  }
+
+  T* operator->() {
+    return buffer_;
+  }
+};
+
+template<typename T>
 class Array {
   size_t size_;
   size_t capacity_;
@@ -50,54 +119,12 @@ class Array {
 
   bool Empty() const;
 
-  class Iterator {
-    T* buffer_;
-    size_t index_;
-   public:
-    Iterator(T* buffer_, const size_t index)
-        : buffer_(buffer_), index_(index) {};
-
-    Iterator& operator++() {
-      ++index_;
-      return *this;
-    }
-
-    Iterator operator++(int) {
-      Iterator result(*this);
-      ++index_;
-      return result;
-    }
-
-    Iterator& operator--() {
-      --index_;
-      return *this;
-    }
-
-    Iterator operator--(int) {
-      Iterator result(*this);
-      --index_;
-      return result;
-    }
-
-    bool operator==(const Iterator& other) const {
-      return index_ == other.index_;
-    }
-
-    bool operator!=(const Iterator& other) const {
-      return !(operator==(other));
-    }
-
-    T& operator*() {
-      return buffer_[index_];
-    }
-  };
-
-  Iterator Begin() const {
-    return Iterator(buffer_, 0);
+  Iterator<T> Begin() const {
+    return Iterator<T>(buffer_, 0);
   }
 
-  Iterator End() const {
-    return Iterator(buffer_, size_);
+  Iterator<T> End() const {
+    return Iterator<T>(buffer_, size_);
   }
 };
 

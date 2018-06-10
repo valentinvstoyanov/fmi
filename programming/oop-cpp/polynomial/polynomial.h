@@ -178,6 +178,19 @@ class Polynomial {
     return out;
   }
 
+  friend std::istream& operator>>(std::istream& in, Polynomial& polynomial) {
+    unsigned coefficients_count;
+    in >> coefficients_count;
+
+    T obj;
+    for (unsigned i = 0; i < coefficients_count; ++i) {
+      in >> obj;
+      polynomial.coefficients_.PushBack(obj);
+    }
+
+    return in;
+  }
+
   bool operator==(const Polynomial& other) {
     return coefficients_ == other.coefficients_;
   }
@@ -364,7 +377,7 @@ class Polynomial {
 
   explicit operator unsigned() const {
     return coefficients_.Empty() ? std::numeric_limits<unsigned>::max()
-                                 : static_cast<unsigned >(coefficients_.Size() - 1);
+                             : static_cast<unsigned >(coefficients_.Size() - 1);
   }
 
   explicit operator bool() const {
@@ -373,6 +386,14 @@ class Polynomial {
 
   bool operator!() const {
     return !coefficients_.Empty();
+  }
+
+  Iterator<T> Begin() {
+    return coefficients_.Begin();
+  }
+
+  Iterator<T> End() {
+    return coefficients_.End();
   }
 };
 
