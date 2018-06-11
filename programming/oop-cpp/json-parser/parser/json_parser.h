@@ -9,6 +9,8 @@
 #include "../ds/mystring.h"
 #include "../models/json_string.h"
 #include "../models/json_boolean.h"
+#include "../models/json_null.h"
+#include "../models/json_array.h"
 
 class JsonParser {
   class StringParseException: std::runtime_error {
@@ -24,6 +26,8 @@ class JsonParser {
 
   JsonString* ParseString(const String&);
   JsonBoolean* ParseBool(const String&);
+  JsonNull* ParseNull(const String&);
+  JsonArray* ParseArray(const String&);
  public:
   JsonValue* Parse(const String&);
   JsonValue* Parse(const char*);

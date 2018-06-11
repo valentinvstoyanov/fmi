@@ -71,6 +71,8 @@ json_null.h
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_null.h
 
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_null.h
+ostream
+-
 json_value.h
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_value.h
 
@@ -121,4 +123,6 @@ json_parser.h
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_string.h
 ../models/json_boolean.h
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_boolean.h
+../models/json_null.h
+/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/models/json_null.h
 

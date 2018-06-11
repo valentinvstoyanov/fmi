@@ -123,33 +123,6 @@ json_parser/fast:
 	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/build
 .PHONY : json_parser/fast
 
-ds/array.o: ds/array.cc.o
-
-.PHONY : ds/array.o
-
-# target to build an object file
-ds/array.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/ds/array.cc.o
-.PHONY : ds/array.cc.o
-
-ds/array.i: ds/array.cc.i
-
-.PHONY : ds/array.i
-
-# target to preprocess a source file
-ds/array.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/ds/array.cc.i
-.PHONY : ds/array.cc.i
-
-ds/array.s: ds/array.cc.s
-
-.PHONY : ds/array.s
-
-# target to generate assembly for a file
-ds/array.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/ds/array.cc.s
-.PHONY : ds/array.cc.s
-
 ds/list.o: ds/list.cc.o
 
 .PHONY : ds/list.o
@@ -456,9 +429,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... json_parser"
-	@echo "... ds/array.o"
-	@echo "... ds/array.i"
-	@echo "... ds/array.s"
 	@echo "... ds/list.o"
 	@echo "... ds/list.i"
 	@echo "... ds/list.s"

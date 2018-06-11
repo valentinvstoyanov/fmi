@@ -4,8 +4,6 @@
 
 #include "json_null.h"
 
-JsonNull& JsonNull::Instance() {
-  static JsonNull json_null;
-  return json_null;
+std::ostream& operator<<(std::ostream& out, const JsonNull&) {
+  return out << "null";
 }
-

@@ -14,6 +14,7 @@ CMakeFiles/json_parser.dir/main.cc.o: ../ds/mystring.h
 CMakeFiles/json_parser.dir/main.cc.o: ../ds/pair.h
 CMakeFiles/json_parser.dir/main.cc.o: ../main.cc
 CMakeFiles/json_parser.dir/main.cc.o: ../models/json_boolean.h
+CMakeFiles/json_parser.dir/main.cc.o: ../models/json_null.h
 CMakeFiles/json_parser.dir/main.cc.o: ../models/json_string.h
 CMakeFiles/json_parser.dir/main.cc.o: ../models/json_value.h
 CMakeFiles/json_parser.dir/main.cc.o: ../parser/json_parser.h

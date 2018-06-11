@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/json_parser.dir/main.cc.o"
-  "CMakeFiles/json_parser.dir/ds/array.cc.o"
   "CMakeFiles/json_parser.dir/ds/mystring.cc.o"
   "CMakeFiles/json_parser.dir/models/json_value.cc.o"
   "CMakeFiles/json_parser.dir/models/json_null.cc.o"

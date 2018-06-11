@@ -30,11 +30,24 @@ JsonBoolean* JsonParser::ParseBool(const String& str) {
   //throw
 }
 
+JsonNull* JsonParser::ParseNull(const String& str) {
+  if (str != String("null")) {}
+    //throw
+
+  return new JsonNull;
+}
+
+JsonArray* JsonParser::ParseArray(const String& str) {
+  return nullptr;
+}
+
 JsonValue* JsonParser::Parse(const String& json) {
   if (json.Front() == '\"')
     return ParseString(json);
   if (json.Front() == 'f' || json.Front() == 't')
     return ParseBool(json);
+  if (json.Front() == 'n')
+    return ParseNull(json);
 
   throw JsonParseException("Unknown type");
 }

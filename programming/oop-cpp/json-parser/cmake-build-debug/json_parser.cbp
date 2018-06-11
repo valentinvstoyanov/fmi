@@ -84,9 +84,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/array.cc">
-			<Option target="json_parser"/>
-		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/array.h">
 			<Option target="json_parser"/>
 		</Unit>
