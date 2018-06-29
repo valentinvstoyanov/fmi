@@ -11,9 +11,10 @@
 class JsonNull : public JsonValue {
  public:
   JsonNull() = default;
-  JsonNull(const JsonNull&) = delete;
-  JsonNull& operator=(const JsonNull&) = delete;
+  JsonNull(const JsonNull&) = default;
+  JsonNull& operator=(const JsonNull&) = default;
   friend std::ostream& operator<<(std::ostream&, const JsonNull&);
+  void Serialize(std::ostream& out, bool pretty, unsigned depth) const override;
 };
 
 #endif //JSON_PARSER_JSON_NULL_H

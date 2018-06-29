@@ -5,32 +5,41 @@
 #ifndef JSON_PARSER_JSON_PARSER_H
 #define JSON_PARSER_JSON_PARSER_H
 
-#include "../models/json_value.h"
+#include "../model/json_value.h"
 #include "../ds/mystring.h"
-#include "../models/json_string.h"
-#include "../models/json_boolean.h"
-#include "../models/json_null.h"
-#include "../models/json_array.h"
+#include "../model/json_string.h"
+#include "../model/json_boolean.h"
+#include "../model/json_null.h"
+#include "../model/json_array.h"
 
 class JsonParser {
-  class StringParseException: std::runtime_error {
-   public:
-    explicit StringParseException(const char* txt = "Failed to parse string from json.")
-        : runtime_error(txt) {}
-  };
-  class JsonParseException: std::runtime_error {
-   public:
-    explicit JsonParseException(const char* txt = "Failed to parse json.")
-        : runtime_error(txt) {}
-  };
 
-  JsonString* ParseString(const String&);
-  JsonBoolean* ParseBool(const String&);
-  JsonNull* ParseNull(const String&);
-  JsonArray* ParseArray(const String&);
+  static const char kMinusCh;
+  static const char kPlusCh;
+  static const char keCh;
+  static const char kECh;
+  static const char kZeroCh;
+  static const char kFloatingPtCh;
+
+  void ThrowIfNull(const char* str, const char* error_msg);
+
+  String ParseKey(const char*);
+  JsonValue* ParseValue(const char*&);
+  JsonString* ParseString(const char*&);
+  JsonValue* ParseNumber(const char*&);
+  JsonArray* ParseArray(const char*&);
  public:
-  JsonValue* Parse(const String&);
-  JsonValue* Parse(const char*);
+  JsonValue* Parse(const char*&);
+
+  class JsonParseException : public std::exception {
+    String msg_;
+   public:
+    explicit JsonParseException(const char* txt = "JsonParser: Failed to parse json.")
+        : msg_(txt) {}
+    const char* what() const override {
+      return msg_.CStr();
+    }
+  };
 };
 
 #endif //JSON_PARSER_JSON_PARSER_H

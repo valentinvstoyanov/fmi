@@ -13,6 +13,7 @@ class JsonBoolean : public JsonValue {
  public:
   explicit JsonBoolean(bool);
   friend std::ostream& operator<<(std::ostream&, const JsonBoolean&);
+  void Serialize(std::ostream& out, bool pretty, unsigned depth) const override;
 };
 
 #endif //JSON_PARSER_JSONBOOLEAN_H

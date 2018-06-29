@@ -3,6 +3,7 @@
 //
 
 #include <cstring>
+#include <regex>
 #include "mystring.h"
 
 void String::EnsureCapacity(size_t new_elements) {
@@ -26,6 +27,12 @@ String::String(const char* str)
     buffer_ = new char[capacity_ + 1];
     strcpy(buffer_, str);
   }
+}
+
+String::String(size_t initial_capacity)
+    : size_(0), capacity_(initial_capacity), buffer_(nullptr) {
+  buffer_ = new char[capacity_ + 1];
+  buffer_[capacity_] = '\0';
 }
 
 String::String(const String& other)
@@ -182,12 +189,23 @@ String String::Substr(size_t pos, size_t n) const {
 }
 
 int String::IndexOf(char c) const {
-  for (size_t i = 0; i < size_; ++i)
+  for (int i = 0; i < size_; ++i)
     if (buffer_[i] == c)
-      return static_cast<int>(i);
+      return i;
 
   return -1;
 }
 
+bool String::Contains(char c) const {
+  return IndexOf(c) >= 0;
+}
 
+bool String::IsWhiteSpace(char c) {
+  static const String kWhitespaceCharacters = String(" \n\r\t\v\f");
+  return kWhitespaceCharacters.Contains(c);
+}
+
+const char* String::CStr() const {
+  return buffer_;
+}
 

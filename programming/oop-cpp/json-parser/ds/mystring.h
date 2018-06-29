@@ -13,7 +13,8 @@ class String {
   size_t capacity_;
   void EnsureCapacity(size_t);
  public:
-  String(const char*);
+  explicit String(const char*);
+  explicit String(size_t initial_capacity);
   String(const String&);
   ~String();
 
@@ -30,8 +31,10 @@ class String {
 
   void PushBack(char);
   String& Append(const String&);
+  const char* CStr() const;
   String Substr(size_t pos, size_t n) const;
   int IndexOf(char) const;
+  bool Contains(char) const;
   void Clear();
   char& At(size_t);
   char& Back();
@@ -41,6 +44,8 @@ class String {
   char& At(size_t) const;
   size_t Length() const;
   bool Empty() const;
+
+  static bool IsWhiteSpace(char);
 };
 
 #endif //JSON_PARSER_STRING_H

@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/22/bin/cmake/bin/cmake
+CMAKE_COMMAND = /snap/clion/25/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/22/bin/cmake/bin/cmake -E remove -f
+RM = /snap/clion/25/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-p
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/22/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/snap/clion/25/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -70,7 +70,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/snap/clion/22/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/clion/25/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -204,194 +204,194 @@ main.cc.s:
 	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/main.cc.s
 .PHONY : main.cc.s
 
-models/json_array.o: models/json_array.cc.o
+model/json_array.o: model/json_array.cc.o
 
-.PHONY : models/json_array.o
-
-# target to build an object file
-models/json_array.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_array.cc.o
-.PHONY : models/json_array.cc.o
-
-models/json_array.i: models/json_array.cc.i
-
-.PHONY : models/json_array.i
-
-# target to preprocess a source file
-models/json_array.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_array.cc.i
-.PHONY : models/json_array.cc.i
-
-models/json_array.s: models/json_array.cc.s
-
-.PHONY : models/json_array.s
-
-# target to generate assembly for a file
-models/json_array.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_array.cc.s
-.PHONY : models/json_array.cc.s
-
-models/json_boolean.o: models/json_boolean.cc.o
-
-.PHONY : models/json_boolean.o
+.PHONY : model/json_array.o
 
 # target to build an object file
-models/json_boolean.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_boolean.cc.o
-.PHONY : models/json_boolean.cc.o
+model/json_array.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_array.cc.o
+.PHONY : model/json_array.cc.o
 
-models/json_boolean.i: models/json_boolean.cc.i
+model/json_array.i: model/json_array.cc.i
 
-.PHONY : models/json_boolean.i
+.PHONY : model/json_array.i
 
 # target to preprocess a source file
-models/json_boolean.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_boolean.cc.i
-.PHONY : models/json_boolean.cc.i
+model/json_array.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_array.cc.i
+.PHONY : model/json_array.cc.i
 
-models/json_boolean.s: models/json_boolean.cc.s
+model/json_array.s: model/json_array.cc.s
 
-.PHONY : models/json_boolean.s
+.PHONY : model/json_array.s
 
 # target to generate assembly for a file
-models/json_boolean.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_boolean.cc.s
-.PHONY : models/json_boolean.cc.s
+model/json_array.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_array.cc.s
+.PHONY : model/json_array.cc.s
 
-models/json_null.o: models/json_null.cc.o
+model/json_boolean.o: model/json_boolean.cc.o
 
-.PHONY : models/json_null.o
+.PHONY : model/json_boolean.o
 
 # target to build an object file
-models/json_null.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_null.cc.o
-.PHONY : models/json_null.cc.o
+model/json_boolean.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_boolean.cc.o
+.PHONY : model/json_boolean.cc.o
 
-models/json_null.i: models/json_null.cc.i
+model/json_boolean.i: model/json_boolean.cc.i
 
-.PHONY : models/json_null.i
+.PHONY : model/json_boolean.i
 
 # target to preprocess a source file
-models/json_null.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_null.cc.i
-.PHONY : models/json_null.cc.i
+model/json_boolean.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_boolean.cc.i
+.PHONY : model/json_boolean.cc.i
 
-models/json_null.s: models/json_null.cc.s
+model/json_boolean.s: model/json_boolean.cc.s
 
-.PHONY : models/json_null.s
+.PHONY : model/json_boolean.s
 
 # target to generate assembly for a file
-models/json_null.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_null.cc.s
-.PHONY : models/json_null.cc.s
+model/json_boolean.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_boolean.cc.s
+.PHONY : model/json_boolean.cc.s
 
-models/json_number.o: models/json_number.cc.o
+model/json_null.o: model/json_null.cc.o
 
-.PHONY : models/json_number.o
+.PHONY : model/json_null.o
 
 # target to build an object file
-models/json_number.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_number.cc.o
-.PHONY : models/json_number.cc.o
+model/json_null.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_null.cc.o
+.PHONY : model/json_null.cc.o
 
-models/json_number.i: models/json_number.cc.i
+model/json_null.i: model/json_null.cc.i
 
-.PHONY : models/json_number.i
+.PHONY : model/json_null.i
 
 # target to preprocess a source file
-models/json_number.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_number.cc.i
-.PHONY : models/json_number.cc.i
+model/json_null.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_null.cc.i
+.PHONY : model/json_null.cc.i
 
-models/json_number.s: models/json_number.cc.s
+model/json_null.s: model/json_null.cc.s
 
-.PHONY : models/json_number.s
+.PHONY : model/json_null.s
 
 # target to generate assembly for a file
-models/json_number.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_number.cc.s
-.PHONY : models/json_number.cc.s
+model/json_null.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_null.cc.s
+.PHONY : model/json_null.cc.s
 
-models/json_object.o: models/json_object.cc.o
+model/json_number.o: model/json_number.cc.o
 
-.PHONY : models/json_object.o
+.PHONY : model/json_number.o
 
 # target to build an object file
-models/json_object.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_object.cc.o
-.PHONY : models/json_object.cc.o
+model/json_number.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_number.cc.o
+.PHONY : model/json_number.cc.o
 
-models/json_object.i: models/json_object.cc.i
+model/json_number.i: model/json_number.cc.i
 
-.PHONY : models/json_object.i
+.PHONY : model/json_number.i
 
 # target to preprocess a source file
-models/json_object.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_object.cc.i
-.PHONY : models/json_object.cc.i
+model/json_number.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_number.cc.i
+.PHONY : model/json_number.cc.i
 
-models/json_object.s: models/json_object.cc.s
+model/json_number.s: model/json_number.cc.s
 
-.PHONY : models/json_object.s
+.PHONY : model/json_number.s
 
 # target to generate assembly for a file
-models/json_object.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_object.cc.s
-.PHONY : models/json_object.cc.s
+model/json_number.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_number.cc.s
+.PHONY : model/json_number.cc.s
 
-models/json_string.o: models/json_string.cc.o
+model/json_object.o: model/json_object.cc.o
 
-.PHONY : models/json_string.o
+.PHONY : model/json_object.o
 
 # target to build an object file
-models/json_string.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_string.cc.o
-.PHONY : models/json_string.cc.o
+model/json_object.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_object.cc.o
+.PHONY : model/json_object.cc.o
 
-models/json_string.i: models/json_string.cc.i
+model/json_object.i: model/json_object.cc.i
 
-.PHONY : models/json_string.i
+.PHONY : model/json_object.i
 
 # target to preprocess a source file
-models/json_string.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_string.cc.i
-.PHONY : models/json_string.cc.i
+model/json_object.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_object.cc.i
+.PHONY : model/json_object.cc.i
 
-models/json_string.s: models/json_string.cc.s
+model/json_object.s: model/json_object.cc.s
 
-.PHONY : models/json_string.s
+.PHONY : model/json_object.s
 
 # target to generate assembly for a file
-models/json_string.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_string.cc.s
-.PHONY : models/json_string.cc.s
+model/json_object.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_object.cc.s
+.PHONY : model/json_object.cc.s
 
-models/json_value.o: models/json_value.cc.o
+model/json_string.o: model/json_string.cc.o
 
-.PHONY : models/json_value.o
+.PHONY : model/json_string.o
 
 # target to build an object file
-models/json_value.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_value.cc.o
-.PHONY : models/json_value.cc.o
+model/json_string.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_string.cc.o
+.PHONY : model/json_string.cc.o
 
-models/json_value.i: models/json_value.cc.i
+model/json_string.i: model/json_string.cc.i
 
-.PHONY : models/json_value.i
+.PHONY : model/json_string.i
 
 # target to preprocess a source file
-models/json_value.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_value.cc.i
-.PHONY : models/json_value.cc.i
+model/json_string.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_string.cc.i
+.PHONY : model/json_string.cc.i
 
-models/json_value.s: models/json_value.cc.s
+model/json_string.s: model/json_string.cc.s
 
-.PHONY : models/json_value.s
+.PHONY : model/json_string.s
 
 # target to generate assembly for a file
-models/json_value.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/models/json_value.cc.s
-.PHONY : models/json_value.cc.s
+model/json_string.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_string.cc.s
+.PHONY : model/json_string.cc.s
+
+model/json_value.o: model/json_value.cc.o
+
+.PHONY : model/json_value.o
+
+# target to build an object file
+model/json_value.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_value.cc.o
+.PHONY : model/json_value.cc.o
+
+model/json_value.i: model/json_value.cc.i
+
+.PHONY : model/json_value.i
+
+# target to preprocess a source file
+model/json_value.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_value.cc.i
+.PHONY : model/json_value.cc.i
+
+model/json_value.s: model/json_value.cc.s
+
+.PHONY : model/json_value.s
+
+# target to generate assembly for a file
+model/json_value.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_value.cc.s
+.PHONY : model/json_value.cc.s
 
 parser/json_parser.o: parser/json_parser.cc.o
 
@@ -420,6 +420,87 @@ parser/json_parser.cc.s:
 	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/parser/json_parser.cc.s
 .PHONY : parser/json_parser.cc.s
 
+util/cstr.o: util/cstr.cc.o
+
+.PHONY : util/cstr.o
+
+# target to build an object file
+util/cstr.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/util/cstr.cc.o
+.PHONY : util/cstr.cc.o
+
+util/cstr.i: util/cstr.cc.i
+
+.PHONY : util/cstr.i
+
+# target to preprocess a source file
+util/cstr.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/util/cstr.cc.i
+.PHONY : util/cstr.cc.i
+
+util/cstr.s: util/cstr.cc.s
+
+.PHONY : util/cstr.s
+
+# target to generate assembly for a file
+util/cstr.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/util/cstr.cc.s
+.PHONY : util/cstr.cc.s
+
+util/json_token.o: util/json_token.cc.o
+
+.PHONY : util/json_token.o
+
+# target to build an object file
+util/json_token.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/util/json_token.cc.o
+.PHONY : util/json_token.cc.o
+
+util/json_token.i: util/json_token.cc.i
+
+.PHONY : util/json_token.i
+
+# target to preprocess a source file
+util/json_token.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/util/json_token.cc.i
+.PHONY : util/json_token.cc.i
+
+util/json_token.s: util/json_token.cc.s
+
+.PHONY : util/json_token.s
+
+# target to generate assembly for a file
+util/json_token.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/util/json_token.cc.s
+.PHONY : util/json_token.cc.s
+
+writer/json_writer.o: writer/json_writer.cc.o
+
+.PHONY : writer/json_writer.o
+
+# target to build an object file
+writer/json_writer.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/writer/json_writer.cc.o
+.PHONY : writer/json_writer.cc.o
+
+writer/json_writer.i: writer/json_writer.cc.i
+
+.PHONY : writer/json_writer.i
+
+# target to preprocess a source file
+writer/json_writer.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/writer/json_writer.cc.i
+.PHONY : writer/json_writer.cc.i
+
+writer/json_writer.s: writer/json_writer.cc.s
+
+.PHONY : writer/json_writer.s
+
+# target to generate assembly for a file
+writer/json_writer.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/writer/json_writer.cc.s
+.PHONY : writer/json_writer.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -438,30 +519,39 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... models/json_array.o"
-	@echo "... models/json_array.i"
-	@echo "... models/json_array.s"
-	@echo "... models/json_boolean.o"
-	@echo "... models/json_boolean.i"
-	@echo "... models/json_boolean.s"
-	@echo "... models/json_null.o"
-	@echo "... models/json_null.i"
-	@echo "... models/json_null.s"
-	@echo "... models/json_number.o"
-	@echo "... models/json_number.i"
-	@echo "... models/json_number.s"
-	@echo "... models/json_object.o"
-	@echo "... models/json_object.i"
-	@echo "... models/json_object.s"
-	@echo "... models/json_string.o"
-	@echo "... models/json_string.i"
-	@echo "... models/json_string.s"
-	@echo "... models/json_value.o"
-	@echo "... models/json_value.i"
-	@echo "... models/json_value.s"
+	@echo "... model/json_array.o"
+	@echo "... model/json_array.i"
+	@echo "... model/json_array.s"
+	@echo "... model/json_boolean.o"
+	@echo "... model/json_boolean.i"
+	@echo "... model/json_boolean.s"
+	@echo "... model/json_null.o"
+	@echo "... model/json_null.i"
+	@echo "... model/json_null.s"
+	@echo "... model/json_number.o"
+	@echo "... model/json_number.i"
+	@echo "... model/json_number.s"
+	@echo "... model/json_object.o"
+	@echo "... model/json_object.i"
+	@echo "... model/json_object.s"
+	@echo "... model/json_string.o"
+	@echo "... model/json_string.i"
+	@echo "... model/json_string.s"
+	@echo "... model/json_value.o"
+	@echo "... model/json_value.i"
+	@echo "... model/json_value.s"
 	@echo "... parser/json_parser.o"
 	@echo "... parser/json_parser.i"
 	@echo "... parser/json_parser.s"
+	@echo "... util/cstr.o"
+	@echo "... util/cstr.i"
+	@echo "... util/cstr.s"
+	@echo "... util/json_token.o"
+	@echo "... util/json_token.i"
+	@echo "... util/json_token.s"
+	@echo "... writer/json_writer.o"
+	@echo "... writer/json_writer.i"
+	@echo "... writer/json_writer.s"
 .PHONY : help
 
 

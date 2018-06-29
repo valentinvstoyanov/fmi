@@ -14,6 +14,8 @@ class JsonString : public JsonValue {
   explicit JsonString(const char*);
   explicit JsonString(const String&);
   friend std::ostream& operator<<(std::ostream&, const JsonString&);
+  void Serialize(std::ostream& ostream,
+                 bool pretty, unsigned depth) const override;
 };
 
 #endif //JSON_PARSER_JSON_STRING_H
