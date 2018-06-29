@@ -297,33 +297,9 @@ CMakeFiles/json_parser.dir/parser/json_parser.cc.o.provides: CMakeFiles/json_par
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o.provides.build: CMakeFiles/json_parser.dir/parser/json_parser.cc.o
 
 
-CMakeFiles/json_parser.dir/ds/list.cc.o: CMakeFiles/json_parser.dir/flags.make
-CMakeFiles/json_parser.dir/ds/list.cc.o: ../ds/list.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/json_parser.dir/ds/list.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/json_parser.dir/ds/list.cc.o -c /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/list.cc
-
-CMakeFiles/json_parser.dir/ds/list.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/json_parser.dir/ds/list.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/list.cc > CMakeFiles/json_parser.dir/ds/list.cc.i
-
-CMakeFiles/json_parser.dir/ds/list.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/json_parser.dir/ds/list.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/list.cc -o CMakeFiles/json_parser.dir/ds/list.cc.s
-
-CMakeFiles/json_parser.dir/ds/list.cc.o.requires:
-
-.PHONY : CMakeFiles/json_parser.dir/ds/list.cc.o.requires
-
-CMakeFiles/json_parser.dir/ds/list.cc.o.provides: CMakeFiles/json_parser.dir/ds/list.cc.o.requires
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/ds/list.cc.o.provides.build
-.PHONY : CMakeFiles/json_parser.dir/ds/list.cc.o.provides
-
-CMakeFiles/json_parser.dir/ds/list.cc.o.provides.build: CMakeFiles/json_parser.dir/ds/list.cc.o
-
-
 CMakeFiles/json_parser.dir/util/cstr.cc.o: CMakeFiles/json_parser.dir/flags.make
 CMakeFiles/json_parser.dir/util/cstr.cc.o: ../util/cstr.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/json_parser.dir/util/cstr.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/json_parser.dir/util/cstr.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/json_parser.dir/util/cstr.cc.o -c /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/cstr.cc
 
 CMakeFiles/json_parser.dir/util/cstr.cc.i: cmake_force
@@ -347,7 +323,7 @@ CMakeFiles/json_parser.dir/util/cstr.cc.o.provides.build: CMakeFiles/json_parser
 
 CMakeFiles/json_parser.dir/writer/json_writer.cc.o: CMakeFiles/json_parser.dir/flags.make
 CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../writer/json_writer.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/json_parser.dir/writer/json_writer.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/json_parser.dir/writer/json_writer.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/json_parser.dir/writer/json_writer.cc.o -c /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/writer/json_writer.cc
 
 CMakeFiles/json_parser.dir/writer/json_writer.cc.i: cmake_force
@@ -371,7 +347,7 @@ CMakeFiles/json_parser.dir/writer/json_writer.cc.o.provides.build: CMakeFiles/js
 
 CMakeFiles/json_parser.dir/util/json_token.cc.o: CMakeFiles/json_parser.dir/flags.make
 CMakeFiles/json_parser.dir/util/json_token.cc.o: ../util/json_token.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/json_parser.dir/util/json_token.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/json_parser.dir/util/json_token.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/json_parser.dir/util/json_token.cc.o -c /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/json_token.cc
 
 CMakeFiles/json_parser.dir/util/json_token.cc.i: cmake_force
@@ -393,6 +369,54 @@ CMakeFiles/json_parser.dir/util/json_token.cc.o.provides: CMakeFiles/json_parser
 CMakeFiles/json_parser.dir/util/json_token.cc.o.provides.build: CMakeFiles/json_parser.dir/util/json_token.cc.o
 
 
+CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o: CMakeFiles/json_parser.dir/flags.make
+CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o: ../exception/deserialize_exception.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o -c /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/exception/deserialize_exception.cc
+
+CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/exception/deserialize_exception.cc > CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.i
+
+CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/exception/deserialize_exception.cc -o CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.s
+
+CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o.requires:
+
+.PHONY : CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o.requires
+
+CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o.provides: CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o.requires
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o.provides.build
+.PHONY : CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o.provides
+
+CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o.provides.build: CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o
+
+
+CMakeFiles/json_parser.dir/parser/file.cc.o: CMakeFiles/json_parser.dir/flags.make
+CMakeFiles/json_parser.dir/parser/file.cc.o: ../parser/file.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/json_parser.dir/parser/file.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/json_parser.dir/parser/file.cc.o -c /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/file.cc
+
+CMakeFiles/json_parser.dir/parser/file.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/json_parser.dir/parser/file.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/file.cc > CMakeFiles/json_parser.dir/parser/file.cc.i
+
+CMakeFiles/json_parser.dir/parser/file.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/json_parser.dir/parser/file.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/file.cc -o CMakeFiles/json_parser.dir/parser/file.cc.s
+
+CMakeFiles/json_parser.dir/parser/file.cc.o.requires:
+
+.PHONY : CMakeFiles/json_parser.dir/parser/file.cc.o.requires
+
+CMakeFiles/json_parser.dir/parser/file.cc.o.provides: CMakeFiles/json_parser.dir/parser/file.cc.o.requires
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/parser/file.cc.o.provides.build
+.PHONY : CMakeFiles/json_parser.dir/parser/file.cc.o.provides
+
+CMakeFiles/json_parser.dir/parser/file.cc.o.provides.build: CMakeFiles/json_parser.dir/parser/file.cc.o
+
+
 # Object files for target json_parser
 json_parser_OBJECTS = \
 "CMakeFiles/json_parser.dir/main.cc.o" \
@@ -405,10 +429,11 @@ json_parser_OBJECTS = \
 "CMakeFiles/json_parser.dir/model/json_array.cc.o" \
 "CMakeFiles/json_parser.dir/model/json_object.cc.o" \
 "CMakeFiles/json_parser.dir/parser/json_parser.cc.o" \
-"CMakeFiles/json_parser.dir/ds/list.cc.o" \
 "CMakeFiles/json_parser.dir/util/cstr.cc.o" \
 "CMakeFiles/json_parser.dir/writer/json_writer.cc.o" \
-"CMakeFiles/json_parser.dir/util/json_token.cc.o"
+"CMakeFiles/json_parser.dir/util/json_token.cc.o" \
+"CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o" \
+"CMakeFiles/json_parser.dir/parser/file.cc.o"
 
 # External object files for target json_parser
 json_parser_EXTERNAL_OBJECTS =
@@ -423,13 +448,14 @@ json_parser: CMakeFiles/json_parser.dir/model/json_number.cc.o
 json_parser: CMakeFiles/json_parser.dir/model/json_array.cc.o
 json_parser: CMakeFiles/json_parser.dir/model/json_object.cc.o
 json_parser: CMakeFiles/json_parser.dir/parser/json_parser.cc.o
-json_parser: CMakeFiles/json_parser.dir/ds/list.cc.o
 json_parser: CMakeFiles/json_parser.dir/util/cstr.cc.o
 json_parser: CMakeFiles/json_parser.dir/writer/json_writer.cc.o
 json_parser: CMakeFiles/json_parser.dir/util/json_token.cc.o
+json_parser: CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o
+json_parser: CMakeFiles/json_parser.dir/parser/file.cc.o
 json_parser: CMakeFiles/json_parser.dir/build.make
 json_parser: CMakeFiles/json_parser.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable json_parser"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable json_parser"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/json_parser.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -447,10 +473,11 @@ CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/model/json_numbe
 CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/model/json_array.cc.o.requires
 CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/model/json_object.cc.o.requires
 CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/parser/json_parser.cc.o.requires
-CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/ds/list.cc.o.requires
 CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/util/cstr.cc.o.requires
 CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/writer/json_writer.cc.o.requires
 CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/util/json_token.cc.o.requires
+CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o.requires
+CMakeFiles/json_parser.dir/requires: CMakeFiles/json_parser.dir/parser/file.cc.o.requires
 
 .PHONY : CMakeFiles/json_parser.dir/requires
 

@@ -13,6 +13,7 @@ class JsonString : public JsonValue {
  public:
   explicit JsonString(const char*);
   explicit JsonString(const String&);
+  static JsonString* Deserialize(const char*&);
   friend std::ostream& operator<<(std::ostream&, const JsonString&);
   void Serialize(std::ostream& ostream,
                  bool pretty, unsigned depth) const override;

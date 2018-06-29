@@ -3,6 +3,7 @@
 //
 
 #include "json_number.h"
+#include "../exception/deserialize_exception.h"
 
 JsonNumber::JsonNumber(long long value)
     : is_real_(false), value_{.integer_ = value} {}
@@ -30,6 +31,10 @@ double JsonNumber::GetReal() const {
 void JsonNumber::Serialize(std::ostream& out, bool pretty, unsigned depth) const {
   if (is_real_) out << value_.real_;
   else out << value_.integer_;
+}
+
+JsonNumber* JsonNumber::Deserialize(const char*& str) {
+  throw DeserializeException("Number deserialization is not yet implemented.");
 }
 
 

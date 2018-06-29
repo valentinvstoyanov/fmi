@@ -11,35 +11,19 @@
 #include "../model/json_boolean.h"
 #include "../model/json_null.h"
 #include "../model/json_array.h"
+#include "file.h"
 
 class JsonParser {
-
-  static const char kMinusCh;
-  static const char kPlusCh;
-  static const char keCh;
-  static const char kECh;
-  static const char kZeroCh;
-  static const char kFloatingPtCh;
-
-  void ThrowIfNull(const char* str, const char* error_msg);
-
-  String ParseKey(const char*);
-  JsonValue* ParseValue(const char*&);
-  JsonString* ParseString(const char*&);
-  JsonValue* ParseNumber(const char*&);
-  JsonArray* ParseArray(const char*&);
+  static void PrintError(const std::runtime_error&);
+  static JsonValue* Validate(const char*);
  public:
-  JsonValue* Parse(const char*&);
-
-  class JsonParseException : public std::exception {
-    String msg_;
-   public:
-    explicit JsonParseException(const char* txt = "JsonParser: Failed to parse json.")
-        : msg_(txt) {}
-    const char* what() const override {
-      return msg_.CStr();
-    }
-  };
+  static bool CheckValidity(const char*);
+  static bool CheckValidity(const String&);
+  static JsonValue* parseFromFile(const File& file, bool nothrow = false);
+  static JsonValue* parseFromFile(const char* filename, bool nothrow = false);
+  static JsonValue* parseFromFile(const String& filename, bool nothrow = false);
+  static JsonValue* parseFromString(const char* json, bool nothrow = false);
+  static JsonValue* parseFromString(const String& json, bool nothrow = false);
 };
 
 #endif //JSON_PARSER_JSON_PARSER_H

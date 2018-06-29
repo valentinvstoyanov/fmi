@@ -7,7 +7,6 @@
 
 #include "json_value.h"
 #include "../ds/pair.h"
-#include "../ds/list.h"
 
 class JsonObject : public JsonValue {
   struct Node {
@@ -20,6 +19,7 @@ class JsonObject : public JsonValue {
 
   Node* head_;
   size_t size_;
+  static String DeserializeKey(const char*&);
  public:
   JsonObject();
   JsonObject(const JsonObject& other) = delete;
@@ -38,6 +38,7 @@ class JsonObject : public JsonValue {
   Pair<String, JsonValue*>& Back();
 
   void Serialize(std::ostream& out, bool pretty, unsigned depth) const override;
+  static JsonObject* Deserialize(const char*&);
 
   class CIterator {
     Node* current_node_;

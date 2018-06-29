@@ -123,33 +123,6 @@ json_parser/fast:
 	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/build
 .PHONY : json_parser/fast
 
-ds/list.o: ds/list.cc.o
-
-.PHONY : ds/list.o
-
-# target to build an object file
-ds/list.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/ds/list.cc.o
-.PHONY : ds/list.cc.o
-
-ds/list.i: ds/list.cc.i
-
-.PHONY : ds/list.i
-
-# target to preprocess a source file
-ds/list.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/ds/list.cc.i
-.PHONY : ds/list.cc.i
-
-ds/list.s: ds/list.cc.s
-
-.PHONY : ds/list.s
-
-# target to generate assembly for a file
-ds/list.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/ds/list.cc.s
-.PHONY : ds/list.cc.s
-
 ds/mystring.o: ds/mystring.cc.o
 
 .PHONY : ds/mystring.o
@@ -176,6 +149,33 @@ ds/mystring.s: ds/mystring.cc.s
 ds/mystring.cc.s:
 	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/ds/mystring.cc.s
 .PHONY : ds/mystring.cc.s
+
+exception/deserialize_exception.o: exception/deserialize_exception.cc.o
+
+.PHONY : exception/deserialize_exception.o
+
+# target to build an object file
+exception/deserialize_exception.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o
+.PHONY : exception/deserialize_exception.cc.o
+
+exception/deserialize_exception.i: exception/deserialize_exception.cc.i
+
+.PHONY : exception/deserialize_exception.i
+
+# target to preprocess a source file
+exception/deserialize_exception.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.i
+.PHONY : exception/deserialize_exception.cc.i
+
+exception/deserialize_exception.s: exception/deserialize_exception.cc.s
+
+.PHONY : exception/deserialize_exception.s
+
+# target to generate assembly for a file
+exception/deserialize_exception.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.s
+.PHONY : exception/deserialize_exception.cc.s
 
 main.o: main.cc.o
 
@@ -393,6 +393,33 @@ model/json_value.cc.s:
 	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/model/json_value.cc.s
 .PHONY : model/json_value.cc.s
 
+parser/file.o: parser/file.cc.o
+
+.PHONY : parser/file.o
+
+# target to build an object file
+parser/file.cc.o:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/parser/file.cc.o
+.PHONY : parser/file.cc.o
+
+parser/file.i: parser/file.cc.i
+
+.PHONY : parser/file.i
+
+# target to preprocess a source file
+parser/file.cc.i:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/parser/file.cc.i
+.PHONY : parser/file.cc.i
+
+parser/file.s: parser/file.cc.s
+
+.PHONY : parser/file.s
+
+# target to generate assembly for a file
+parser/file.cc.s:
+	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/parser/file.cc.s
+.PHONY : parser/file.cc.s
+
 parser/json_parser.o: parser/json_parser.cc.o
 
 .PHONY : parser/json_parser.o
@@ -510,12 +537,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... json_parser"
-	@echo "... ds/list.o"
-	@echo "... ds/list.i"
-	@echo "... ds/list.s"
 	@echo "... ds/mystring.o"
 	@echo "... ds/mystring.i"
 	@echo "... ds/mystring.s"
+	@echo "... exception/deserialize_exception.o"
+	@echo "... exception/deserialize_exception.i"
+	@echo "... exception/deserialize_exception.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -540,6 +567,9 @@ help:
 	@echo "... model/json_value.o"
 	@echo "... model/json_value.i"
 	@echo "... model/json_value.s"
+	@echo "... parser/file.o"
+	@echo "... parser/file.i"
+	@echo "... parser/file.s"
 	@echo "... parser/json_parser.o"
 	@echo "... parser/json_parser.i"
 	@echo "... parser/json_parser.s"

@@ -16,6 +16,7 @@ class JsonValue {
                          bool pretty,
                          unsigned depth) const = 0;
   void Serialize(std::ostream& out, bool pretty) const;
+  static JsonValue* FromJson(const char*&);
 };
 
 #endif //JSON_PARSER_JSON_VALUE_H

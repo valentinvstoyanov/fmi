@@ -4,6 +4,8 @@
 
 #include "json_object.h"
 #include "../util/json_token.h"
+#include "../util/cstr.h"
+#include "../exception/deserialize_exception.h"
 
 JsonObject::Node::Node()
     : data_(Pair<String, JsonValue*>(String(nullptr), nullptr)),
@@ -147,3 +149,68 @@ void JsonObject::Serialize(std::ostream& out, bool pretty, unsigned depth) const
   out << JsonToken::kEndObjCh;
 }
 
+String JsonObject::DeserializeKey(const char*& str) {
+  if (*str != JsonToken::kStrCh) {
+    String err_msg("Missing opening quotation mark for key  > ");
+    err_msg.Append(String(str));
+    throw DeserializeException(err_msg);
+  }
+
+  const int closing_quot_mark_index = StrIndexOf(str + 1, JsonToken::kStrCh) + 1;
+  if (closing_quot_mark_index < 0) {
+    String err_msg("Missing closing quotation mark for key  > ");
+    err_msg.Append(String(str));
+    throw DeserializeException(err_msg);
+  }
+
+  String result(static_cast<size_t>(closing_quot_mark_index - 1));
+  for (unsigned i = 1; i < closing_quot_mark_index; ++i)
+    result.PushBack(str[i]);
+
+  return result;
+}
+
+JsonObject* JsonObject::Deserialize(const char*& str) {
+  str = StrSkipWhiteSpace(str);
+  if (*str != JsonToken::kBegObjCh) {
+    String err_msg("Missing opening object bracket > ");
+    err_msg.Append(String(str));
+    throw DeserializeException(err_msg);
+  }
+
+  JsonObject* json_obj = new JsonObject;
+
+  if (*StrSkipWhiteSpace(str + 1) == JsonToken::kEndObjCh) {
+    ++str;
+    return json_obj;
+  }
+
+  do {
+    ++str;
+    str = StrSkipWhiteSpace(str);
+    String key = DeserializeKey(str);
+    str += key.Length() + 2;
+    str = StrSkipWhiteSpace(str);
+    if (*str != JsonToken::kColonSeparatorCh) {
+      String err_msg("Missing colon between key and value > ");
+      err_msg.Append(String(str));
+      throw DeserializeException(err_msg);
+    }
+    ++str;
+    JsonValue* value = JsonValue::FromJson(str);
+    json_obj->PushBack(Pair<String, JsonValue*>(key, value));
+    str = StrSkipWhiteSpace(str);
+  } while (*str == JsonToken::kValueSeparatorCh);
+
+  str = StrSkipWhiteSpace(str);
+
+  if (*str != JsonToken::kEndObjCh) {
+    String err_msg("Missing closing object bracket > ");
+    err_msg.Append(String(str));
+    throw DeserializeException(err_msg);
+  }
+
+  ++str;
+
+  return json_obj;
+}

@@ -5,6 +5,7 @@
 #include "util/cstr.h"
 #include "model/json_value.h"
 #include "writer/json_writer.h"
+#include "exception/deserialize_exception.h"
 
 const unsigned MAX_CMD_LEN = 256;
 
@@ -19,14 +20,14 @@ int main() {
                        " \"onclick\": \"CreateNewDoc()\"},\r\n      {\"value\": \"Open\", "
                        "\"onclick\": \"OpenDoc()\"},\r\n      {\"value\": \"Close\", "
                        "\"onclick\": \"CloseDoc()\"}\r\n   ]\r\n  }\r\n}}   ]\r\n  }\r\n}}";
-    JsonParser json_parser;
-    JsonValue* value = json_parser.Parse(json);
+    //JsonParser json_parser;
+    JsonValue* value = JsonObject::Deserialize(json);//json_parser.Parse(json);
     JsonWriter writer;
-    writer.SetPretty(false);
+    writer.SetPretty(true);
     writer.Write(std::cout, *value);
     delete value;
-  } catch (const JsonParser::JsonParseException& e) {
-    std::cerr << "Exception catched..." << std::endl;
+  } catch (const DeserializeException& e) {
+    std::cerr << e.what() << std::endl;
   }
 
   /*

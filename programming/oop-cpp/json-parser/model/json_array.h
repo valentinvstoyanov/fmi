@@ -15,6 +15,7 @@ class JsonArray : public JsonValue {
  public:
   ~JsonArray() override;
   void PushBack(JsonValue*);
+  static JsonArray* Deserialize(const char*&);
   void Serialize(std::ostream& out, bool pretty, unsigned depth) const override;
 };
 
