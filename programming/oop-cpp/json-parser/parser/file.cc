@@ -17,7 +17,8 @@ String File::GetContent() const {
   while(f.getline(chunk, chunk_size))
     content.Append(String(chunk));
   if (!f.good())
-    throw FileException("FileException: failed to get content from file.");
+    if (!f.eof())
+      throw FileException("FileException: failed to get content from file.");
 
   return content;
 }

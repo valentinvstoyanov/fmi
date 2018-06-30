@@ -14,7 +14,7 @@ class File {
   explicit File(const String&);
   String GetContent() const;
 
-  class FileException : std::runtime_error {
+  class FileException : public std::runtime_error {
    public:
     explicit FileException(const char* txt) : runtime_error(txt) {}
   };

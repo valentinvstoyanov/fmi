@@ -7,8 +7,6 @@
 #include "writer/json_writer.h"
 #include "exception/deserialize_exception.h"
 
-const unsigned MAX_CMD_LEN = 256;
-
 int main() {
   try {
     const char* json = "{\"menu\": {\r\n  \"id\": \"file\",\r\n  \"value\": \"File\",\r\n"
@@ -20,8 +18,7 @@ int main() {
                        " \"onclick\": \"CreateNewDoc()\"},\r\n      {\"value\": \"Open\", "
                        "\"onclick\": \"OpenDoc()\"},\r\n      {\"value\": \"Close\", "
                        "\"onclick\": \"CloseDoc()\"}\r\n   ]\r\n  }\r\n}}   ]\r\n  }\r\n}}";
-    //JsonParser json_parser;
-    JsonValue* value = JsonObject::Deserialize(json);//json_parser.Parse(json);
+    JsonValue* value = JsonParser::parseFromFile("test.txt");
     JsonWriter writer;
     writer.SetPretty(true);
     writer.Write(std::cout, *value);

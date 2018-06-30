@@ -19,6 +19,7 @@ CMakeFiles/json_parser.dir/main.cc.o: ../model/json_null.h
 CMakeFiles/json_parser.dir/main.cc.o: ../model/json_object.h
 CMakeFiles/json_parser.dir/main.cc.o: ../model/json_string.h
 CMakeFiles/json_parser.dir/main.cc.o: ../model/json_value.h
+CMakeFiles/json_parser.dir/main.cc.o: ../parser/file.h
 CMakeFiles/json_parser.dir/main.cc.o: ../parser/json_parser.h
 CMakeFiles/json_parser.dir/main.cc.o: ../util/cstr.h
 CMakeFiles/json_parser.dir/main.cc.o: ../writer/json_writer.h
@@ -84,15 +85,21 @@ CMakeFiles/json_parser.dir/model/json_value.cc.o: ../model/json_value.h
 CMakeFiles/json_parser.dir/model/json_value.cc.o: ../util/cstr.h
 CMakeFiles/json_parser.dir/model/json_value.cc.o: ../util/json_token.h
 
+CMakeFiles/json_parser.dir/parser/file.cc.o: ../ds/mystring.h
+CMakeFiles/json_parser.dir/parser/file.cc.o: ../parser/file.cc
+CMakeFiles/json_parser.dir/parser/file.cc.o: ../parser/file.h
+
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../ds/array.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../ds/mystring.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../ds/pair.h
+CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../exception/deserialize_exception.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../model/json_array.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../model/json_boolean.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../model/json_null.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../model/json_object.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../model/json_string.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../model/json_value.h
+CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../parser/file.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../parser/json_parser.cc
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../parser/json_parser.h
 CMakeFiles/json_parser.dir/parser/json_parser.cc.o: ../util/cstr.h

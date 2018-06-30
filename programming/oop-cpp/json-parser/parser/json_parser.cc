@@ -30,33 +30,30 @@ bool JsonParser::CheckValidity(const String& json) {
   return CheckValidity(json.CStr());
 }
 
-JsonValue* JsonParser::parseFromFile(const File& file, bool nothrow = false) {
-  String content("");
+JsonValue* JsonParser::parseFromFile(const File& file, bool nothrow) {
   if (nothrow) {
     try {
-      content = file.GetContent();
-      return parseFromString(content, nothrow);
+      return parseFromString(file.GetContent(), nothrow);
     } catch (const File::FileException& error) {
       PrintError(error);
       return nullptr;
     }
   }else {
-    content = file.GetContent();
-    return parseFromString(content, nothrow);
+    return parseFromString(file.GetContent(), nothrow);
   }
 }
 
-JsonValue* JsonParser::parseFromFile(const char* filename, bool nothrow = false) {
+JsonValue* JsonParser::parseFromFile(const char* filename, bool nothrow) {
   return parseFromFile(String(filename), nothrow);
 }
-JsonValue* JsonParser::parseFromFile(const String& filename, bool nothrow = false) {
+JsonValue* JsonParser::parseFromFile(const String& filename, bool nothrow) {
   return parseFromFile(File(filename), nothrow);
 }
 
-JsonValue* JsonParser::parseFromString(const char* json, bool nothrow = false) {
+JsonValue* JsonParser::parseFromString(const char* json, bool nothrow) {
   return nothrow ? Validate(json) : JsonValue::FromJson(json);
 }
 
-JsonValue* JsonParser::parseFromString(const String& filename, bool nothrow = false) {
+JsonValue* JsonParser::parseFromString(const String& filename, bool nothrow) {
   return parseFromString(filename.CStr(), nothrow);
 }
