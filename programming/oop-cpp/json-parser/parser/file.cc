@@ -22,3 +22,19 @@ String File::GetContent() const {
 
   return content;
 }
+
+void File::Save(const JsonValue& json, bool pretty) const {
+  std::ofstream f;
+  f.open(name_.CStr());
+  json.Serialize(f, pretty);
+  f.close();
+}
+
+bool File::Exists() const {
+  std::ifstream f(name_.CStr());
+  return f.good();
+}
+
+const String& File::GetName() const {
+  return name_;
+}

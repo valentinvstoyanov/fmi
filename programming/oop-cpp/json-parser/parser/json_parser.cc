@@ -30,30 +30,68 @@ bool JsonParser::CheckValidity(const String& json) {
   return CheckValidity(json.CStr());
 }
 
-JsonValue* JsonParser::parseFromFile(const File& file, bool nothrow) {
+JsonValue* JsonParser::ParseFromFile(const File& file, bool nothrow) {
   if (nothrow) {
     try {
-      return parseFromString(file.GetContent(), nothrow);
+      return ParseFromString(file.GetContent(), nothrow);
     } catch (const File::FileException& error) {
       PrintError(error);
       return nullptr;
     }
   }else {
-    return parseFromString(file.GetContent(), nothrow);
+    return ParseFromString(file.GetContent(), nothrow);
   }
 }
 
-JsonValue* JsonParser::parseFromFile(const char* filename, bool nothrow) {
-  return parseFromFile(String(filename), nothrow);
+JsonValue* JsonParser::ParseFromFile(const char* filename, bool nothrow) {
+  return ParseFromFile(String(filename), nothrow);
 }
-JsonValue* JsonParser::parseFromFile(const String& filename, bool nothrow) {
-  return parseFromFile(File(filename), nothrow);
+JsonValue* JsonParser::ParseFromFile(const String& filename, bool nothrow) {
+  return ParseFromFile(File(filename), nothrow);
 }
 
-JsonValue* JsonParser::parseFromString(const char* json, bool nothrow) {
+JsonValue* JsonParser::ParseFromString(const char* json, bool nothrow) {
   return nothrow ? Validate(json) : JsonValue::FromJson(json);
 }
 
-JsonValue* JsonParser::parseFromString(const String& filename, bool nothrow) {
-  return parseFromString(filename.CStr(), nothrow);
+JsonValue* JsonParser::ParseFromString(const String& filename, bool nothrow) {
+  return ParseFromString(filename.CStr(), nothrow);
+}
+
+void JsonParser::WriteToFile(const JsonValue& json,
+                             const char* filename,
+                             bool pretty) {
+  WriteToFile(json, File(filename), pretty);
+}
+
+void JsonParser::WriteToFile(const JsonValue& json,
+                             const String& filename,
+                             bool pretty) {
+  WriteToFile(json, File(filename), pretty);
+}
+
+void JsonParser::WriteToFile(const JsonValue& json,
+                             const File& file,
+                             bool pretty) {
+  if (file.Exists()) {
+    std::cout << "If you want to override file content enter Y or y. "
+                 "N or n to cancel." << std::endl;
+    char c;
+    do {
+      std::cin >> c;
+      if (c == 'Y' || c == 'y') {
+        file.Save(json, pretty);
+        break;
+      } else if (c == 'N' || c == 'n') {
+        std::cout << "Cancelled." << std::endl;
+        break;
+      } else {
+        std::cout << "Unknown command y, Y, n or N expected but found: "
+                  << c << std::endl;
+      }
+    } while (true);
+  } else {
+    file.Save(json, pretty);
+    std::cout << "Json saved to " << file.GetName() << '.' << std::endl;
+  }
 }

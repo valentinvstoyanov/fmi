@@ -18,10 +18,13 @@ int main() {
                        " \"onclick\": \"CreateNewDoc()\"},\r\n      {\"value\": \"Open\", "
                        "\"onclick\": \"OpenDoc()\"},\r\n      {\"value\": \"Close\", "
                        "\"onclick\": \"CloseDoc()\"}\r\n   ]\r\n  }\r\n}}   ]\r\n  }\r\n}}";
-    JsonValue* value = JsonParser::parseFromFile("test.txt");
+    JsonValue* value = JsonParser::ParseFromFile("test.txt", true);
     JsonWriter writer;
     writer.SetPretty(true);
     writer.Write(std::cout, *value);
+
+    JsonParser::WriteToFile(*value, "test_ouput_json.txt", true);
+
     delete value;
   } catch (const DeserializeException& e) {
     std::cerr << e.what() << std::endl;
