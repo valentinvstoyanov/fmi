@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 5/14/18.
-//
-
 #include <cstring>
 #include "json_boolean.h"
 #include "../util/json_token.h"

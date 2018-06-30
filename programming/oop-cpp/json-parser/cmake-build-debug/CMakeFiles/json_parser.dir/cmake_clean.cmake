@@ -10,7 +10,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/json_parser.dir/model/json_object.cc.o"
   "CMakeFiles/json_parser.dir/parser/json_parser.cc.o"
   "CMakeFiles/json_parser.dir/util/cstr.cc.o"
-  "CMakeFiles/json_parser.dir/writer/json_writer.cc.o"
   "CMakeFiles/json_parser.dir/util/json_token.cc.o"
   "CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o"
   "CMakeFiles/json_parser.dir/parser/file.cc.o"

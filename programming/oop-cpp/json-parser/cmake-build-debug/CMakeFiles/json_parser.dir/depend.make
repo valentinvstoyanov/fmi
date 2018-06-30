@@ -10,19 +10,15 @@ CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o: ../exception/de
 
 CMakeFiles/json_parser.dir/main.cc.o: ../ds/array.h
 CMakeFiles/json_parser.dir/main.cc.o: ../ds/mystring.h
-CMakeFiles/json_parser.dir/main.cc.o: ../ds/pair.h
 CMakeFiles/json_parser.dir/main.cc.o: ../exception/deserialize_exception.h
 CMakeFiles/json_parser.dir/main.cc.o: ../main.cc
 CMakeFiles/json_parser.dir/main.cc.o: ../model/json_array.h
 CMakeFiles/json_parser.dir/main.cc.o: ../model/json_boolean.h
 CMakeFiles/json_parser.dir/main.cc.o: ../model/json_null.h
-CMakeFiles/json_parser.dir/main.cc.o: ../model/json_object.h
 CMakeFiles/json_parser.dir/main.cc.o: ../model/json_string.h
 CMakeFiles/json_parser.dir/main.cc.o: ../model/json_value.h
 CMakeFiles/json_parser.dir/main.cc.o: ../parser/file.h
 CMakeFiles/json_parser.dir/main.cc.o: ../parser/json_parser.h
-CMakeFiles/json_parser.dir/main.cc.o: ../util/cstr.h
-CMakeFiles/json_parser.dir/main.cc.o: ../writer/json_writer.h
 
 CMakeFiles/json_parser.dir/model/json_array.cc.o: ../ds/array.h
 CMakeFiles/json_parser.dir/model/json_array.cc.o: ../ds/mystring.h
@@ -111,16 +107,4 @@ CMakeFiles/json_parser.dir/util/cstr.cc.o: ../util/cstr.h
 
 CMakeFiles/json_parser.dir/util/json_token.cc.o: ../util/json_token.cc
 CMakeFiles/json_parser.dir/util/json_token.cc.o: ../util/json_token.h
-
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../ds/array.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../ds/mystring.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../ds/pair.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../model/json_array.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../model/json_boolean.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../model/json_null.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../model/json_object.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../model/json_value.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../util/json_token.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../writer/json_writer.cc
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o: ../writer/json_writer.h
 

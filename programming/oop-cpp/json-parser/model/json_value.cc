@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 5/14/18.
-//
-
 #include "json_value.h"
 #include "../util/cstr.h"
 #include "../util/json_token.h"
@@ -25,6 +21,8 @@ void JsonValue::Serialize(std::ostream& out, bool pretty) const {
 
 JsonValue* JsonValue::FromJson(const char*& str) {
   str = StrSkipWhiteSpace(str);
+  if (*str == '\0')
+    throw DeserializeException("Cannot parse json value from empty string.");
 
   if (*str == JsonToken::kStrCh)
     return JsonString::Deserialize(str);
@@ -39,7 +37,7 @@ JsonValue* JsonValue::FromJson(const char*& str) {
   else if (*str== JsonToken::kBegObjCh)
     return JsonObject::Deserialize(str);
 
-  String err_msg("Unknown value type found. Check for missing quote > ");
+  String err_msg("Unknown value type found.Check for missing symbols like {, [, \" > ");
   err_msg.Append(String(str));
   throw DeserializeException(err_msg);
 }

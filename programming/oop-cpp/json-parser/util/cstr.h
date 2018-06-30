@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 6/26/18.
-//
-
 #ifndef JSON_PARSER_CSTR_H
 #define JSON_PARSER_CSTR_H
 

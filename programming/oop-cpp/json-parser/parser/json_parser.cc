@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 5/14/18.
-//
-
 #include <fstream>
 #include "json_parser.h"
 #include "../util/cstr.h"
@@ -75,12 +71,13 @@ void JsonParser::WriteToFile(const JsonValue& json,
                              bool pretty) {
   if (file.Exists()) {
     std::cout << "If you want to override file content enter Y or y. "
-                 "N or n to cancel." << std::endl;
+                 "N or n to cancel: ";
     char c;
     do {
       std::cin >> c;
       if (c == 'Y' || c == 'y') {
         file.Save(json, pretty);
+        std::cout << "JSON saved to " << file.GetName() << '.' << std::endl;
         break;
       } else if (c == 'N' || c == 'n') {
         std::cout << "Cancelled." << std::endl;
@@ -92,6 +89,11 @@ void JsonParser::WriteToFile(const JsonValue& json,
     } while (true);
   } else {
     file.Save(json, pretty);
-    std::cout << "Json saved to " << file.GetName() << '.' << std::endl;
+    std::cout << "JSON saved to " << file.GetName() << '.' << std::endl;
   }
+}
+
+void JsonParser::PrintToStdin(const JsonValue& json, bool pretty) {
+  json.Serialize(std::cout, pretty);
+  std::cout << std::endl;
 }

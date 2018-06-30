@@ -171,12 +171,6 @@
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/json_token.h">
 			<Option target="json_parser"/>
 		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/writer/json_writer.cc">
-			<Option target="json_parser"/>
-		</Unit>
-		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/writer/json_writer.h">
-			<Option target="json_parser"/>
-		</Unit>
 		<Unit filename="/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

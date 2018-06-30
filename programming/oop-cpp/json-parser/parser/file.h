@@ -15,7 +15,7 @@ class File {
   explicit File(const String&);
   String GetContent() const;
   const String& GetName() const;
-  void Save(const JsonValue&, bool pretty) const;
+  void Save(const JsonValue& json, bool pretty) const;
   bool Exists() const;
 
   class FileException : public std::runtime_error {

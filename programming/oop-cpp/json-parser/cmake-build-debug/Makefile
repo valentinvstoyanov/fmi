@@ -501,33 +501,6 @@ util/json_token.cc.s:
 	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/util/json_token.cc.s
 .PHONY : util/json_token.cc.s
 
-writer/json_writer.o: writer/json_writer.cc.o
-
-.PHONY : writer/json_writer.o
-
-# target to build an object file
-writer/json_writer.cc.o:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/writer/json_writer.cc.o
-.PHONY : writer/json_writer.cc.o
-
-writer/json_writer.i: writer/json_writer.cc.i
-
-.PHONY : writer/json_writer.i
-
-# target to preprocess a source file
-writer/json_writer.cc.i:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/writer/json_writer.cc.i
-.PHONY : writer/json_writer.cc.i
-
-writer/json_writer.s: writer/json_writer.cc.s
-
-.PHONY : writer/json_writer.s
-
-# target to generate assembly for a file
-writer/json_writer.cc.s:
-	$(MAKE) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/writer/json_writer.cc.s
-.PHONY : writer/json_writer.cc.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -579,9 +552,6 @@ help:
 	@echo "... util/json_token.o"
 	@echo "... util/json_token.i"
 	@echo "... util/json_token.s"
-	@echo "... writer/json_writer.o"
-	@echo "... writer/json_writer.i"
-	@echo "... writer/json_writer.s"
 .PHONY : help
 
 

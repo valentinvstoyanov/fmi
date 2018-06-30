@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 6/26/18.
-//
-
 #include <stdexcept>
 #include "cstr.h"
 

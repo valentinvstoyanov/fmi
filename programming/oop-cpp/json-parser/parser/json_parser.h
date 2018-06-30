@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 5/14/18.
-//
-
 #ifndef JSON_PARSER_JSON_PARSER_H
 #define JSON_PARSER_JSON_PARSER_H
 
@@ -36,6 +32,8 @@ class JsonParser {
   static void WriteToFile(const JsonValue& json,
                           const File& file,
                           bool pretty = false);
+
+  static void PrintToStdin(const JsonValue& json, bool pretty = false);
 };
 
 #endif //JSON_PARSER_JSON_PARSER_H

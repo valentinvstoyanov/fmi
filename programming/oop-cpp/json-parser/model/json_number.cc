@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 5/14/18.
-//
-
 #include "json_number.h"
 #include "../exception/deserialize_exception.h"
 

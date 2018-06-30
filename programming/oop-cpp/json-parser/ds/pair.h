@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 5/14/18.
-//
-
 #ifndef JSON_PARSER_PAIR_H
 #define JSON_PARSER_PAIR_H
 

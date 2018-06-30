@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 6/29/18.
-//
-
 #include "deserialize_exception.h"
 
 DeserializeException::DeserializeException(const char* message)

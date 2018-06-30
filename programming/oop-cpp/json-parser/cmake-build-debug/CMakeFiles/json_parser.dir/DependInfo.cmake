@@ -18,7 +18,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/json_parser.cc" "/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles/json_parser.dir/parser/json_parser.cc.o"
   "/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/cstr.cc" "/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles/json_parser.dir/util/cstr.cc.o"
   "/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/json_token.cc" "/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles/json_parser.dir/util/json_token.cc.o"
-  "/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/writer/json_writer.cc" "/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles/json_parser.dir/writer/json_writer.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

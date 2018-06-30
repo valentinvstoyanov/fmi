@@ -11,19 +11,15 @@ CMakeFiles/json_parser.dir/exception/deserialize_exception.cc.o
 CMakeFiles/json_parser.dir/main.cc.o
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/array.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/pair.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/exception/deserialize_exception.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/main.cc
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_array.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_boolean.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_null.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_object.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_string.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_value.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/file.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/json_parser.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/cstr.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/writer/json_writer.h
 CMakeFiles/json_parser.dir/model/json_array.cc.o
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/array.h
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.h
@@ -112,15 +108,3 @@ CMakeFiles/json_parser.dir/util/cstr.cc.o
 CMakeFiles/json_parser.dir/util/json_token.cc.o
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/json_token.cc
  /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/json_token.h
-CMakeFiles/json_parser.dir/writer/json_writer.cc.o
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/array.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/pair.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_array.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_boolean.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_null.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_object.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_value.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/json_token.h
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/writer/json_writer.cc
- /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/writer/json_writer.h

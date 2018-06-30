@@ -1,7 +1,3 @@
-//
-// Created by valio_stoyanov on 5/30/18.
-//
-
 #ifndef POLYNOMIAL_ARRAY_H
 #define POLYNOMIAL_ARRAY_H
 
