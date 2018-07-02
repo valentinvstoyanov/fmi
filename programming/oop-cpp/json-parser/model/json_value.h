@@ -13,6 +13,7 @@ class JsonValue {
                          bool pretty,
                          unsigned depth) const = 0;
   void Serialize(std::ostream& out, bool pretty) const;
+  virtual JsonValue* Clone() const = 0;
   static JsonValue* FromJson(const char*&);
 };
 

@@ -8,7 +8,6 @@ bool StrContains(const char* str, char ch);
 const char* StrSkipWhiteSpace(const char* str);
 unsigned StrCountCharLeadingOccurrence(const char* str, char ch);
 bool IsDigit(char ch);
-long long StrToLongLong(const char* str);
 
 
 #endif //JSON_PARSER_CSTR_H

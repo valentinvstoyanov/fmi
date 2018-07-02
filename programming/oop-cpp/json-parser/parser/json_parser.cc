@@ -97,3 +97,24 @@ void JsonParser::PrintToStdin(const JsonValue& json, bool pretty) {
   json.Serialize(std::cout, pretty);
   std::cout << std::endl;
 }
+
+JsonObject* JsonParser::Find(Array<String> keys, const JsonObject& obj) {
+  if (keys.Empty())
+    return nullptr;
+  if (keys.Size() == 1)
+    return dynamic_cast<JsonObject*>(obj.GetValueByKey(keys.Front()));
+
+  JsonValue* val = obj.GetValueByKey(keys.Front());
+  if (val == nullptr)
+    return nullptr;
+
+  JsonObject* nested_obj = dynamic_cast<JsonObject*>(val);
+  if (nested_obj == nullptr)
+    return nullptr;
+
+  Array<String> new_keys(keys.Size() -1);
+  for (size_t i = 1; i < keys.Size(); ++i)
+    new_keys.PushBack(keys[i]);
+
+  return Find(new_keys, *nested_obj);
+}

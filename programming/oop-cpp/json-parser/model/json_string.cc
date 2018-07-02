@@ -38,5 +38,8 @@ JsonString* JsonString::Deserialize(const char*& str) {
   str += closing_quot_mark_index + 1;
   return new JsonString(parsed_str);
 }
+JsonValue* JsonString::Clone() const {
+  return new JsonString(*this);
+}
 
 

@@ -13,6 +13,7 @@ class JsonString : public JsonValue {
   friend std::ostream& operator<<(std::ostream&, const JsonString&);
   void Serialize(std::ostream& ostream,
                  bool pretty, unsigned depth) const override;
+  JsonValue* Clone() const override;
 };
 
 #endif //JSON_PARSER_JSON_STRING_H

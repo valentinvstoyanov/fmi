@@ -11,6 +11,7 @@ class JsonBoolean : public JsonValue {
   friend std::ostream& operator<<(std::ostream&, const JsonBoolean&);
   void Serialize(std::ostream& out, bool pretty, unsigned depth) const override;
   static JsonBoolean* Deserialize(const char*&);
+  JsonValue* Clone() const override;
 };
 
 #endif //JSON_PARSER_JSONBOOLEAN_H

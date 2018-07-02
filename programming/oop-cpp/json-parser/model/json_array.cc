@@ -64,4 +64,12 @@ JsonArray* JsonArray::Deserialize(const char*& str) {
 
   return json_arr;
 }
+JsonArray* JsonArray::Clone() const {
+  return new JsonArray(*this);
+}
+
+void JsonArray::Append(const JsonArray& arr) {
+  for (int i = 0; i < arr.elements_.Size(); ++i)
+    elements_.PushBack(arr.elements_[i]->Clone());
+}
 

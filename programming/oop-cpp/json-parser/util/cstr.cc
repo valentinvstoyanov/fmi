@@ -34,28 +34,5 @@ bool IsDigit(char ch) {
   return ch >= '0' && ch <= '9';
 }
 
-long long StrToLongLong(const char* str) {
-  if (!str) throw std::invalid_argument("Cannot parse number from null pointer.");
-  if (!*str) throw std::invalid_argument("Cannot parse number from empty string.");
 
-  long long result = 1LL;
 
-  const unsigned neg_sign_occur = StrCountCharLeadingOccurrence(str, '-');
-  if (neg_sign_occur > 1)
-    throw std::invalid_argument("Cannot parse number. It has too many negative signs.");
-  else if (neg_sign_occur == 1)
-    result *= -1LL;
-  else
-    if (StrCountCharLeadingOccurrence(str, '+') > 1)
-      throw std::invalid_argument("Cannot parse number. It has too many positive signs.");
-
-  ++str;
-
-  while (*str) {
-    if (!IsDigit(*str))
-      throw std::invalid_argument("Cannot parse number. Non-digit character found.");
-
-  }
-
-  return result;
-}

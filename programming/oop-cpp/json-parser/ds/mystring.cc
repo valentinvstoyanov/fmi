@@ -205,3 +205,19 @@ const char* String::CStr() const {
   return buffer_;
 }
 
+Array<String> String::Split(char delim) const {
+  Array<String> res;
+  size_t curr_pos = 0;
+  for (size_t i = 0; i < size_; ++i) {
+    if (buffer_[i] == delim) {
+      res.PushBack(Substr(curr_pos, i - curr_pos));
+      curr_pos = i + 1;
+    }
+  }
+  res.PushBack(Substr(curr_pos, size_ - curr_pos));
+
+  return res;
+}
+
+String::String(): String(2) {}
+

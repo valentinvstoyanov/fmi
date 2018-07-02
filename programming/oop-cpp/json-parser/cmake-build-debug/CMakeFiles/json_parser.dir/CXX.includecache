@@ -23,6 +23,8 @@ mystring.h
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/mystring.h
 ostream
 -
+array.h
+/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/array.h
 
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/pair.h
 mystring.h
@@ -125,6 +127,8 @@ json_value.h
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_value.h
 ../ds/pair.h
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/ds/pair.h
+json_array.h
+/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_array.h
 
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_string.cc
 json_string.h
@@ -211,6 +215,8 @@ json_parser.h
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_array.h
 file.h
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/parser/file.h
+../model/json_object.h
+/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/model/json_object.h
 
 /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/util/cstr.cc
 stdexcept

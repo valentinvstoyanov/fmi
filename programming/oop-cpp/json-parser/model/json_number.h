@@ -19,6 +19,7 @@ class JsonNumber : public JsonValue {
   double GetReal() const;
   void Serialize(std::ostream& out, bool pretty, unsigned depth) const override;
   static JsonNumber* Deserialize(const char*&);
+  JsonValue* Clone() const override;
 };
 
 

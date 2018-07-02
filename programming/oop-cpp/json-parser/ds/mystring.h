@@ -2,6 +2,7 @@
 #define JSON_PARSER_STRING_H
 
 #include <ostream>
+#include "array.h"
 
 class String {
   char* buffer_;
@@ -9,6 +10,7 @@ class String {
   size_t capacity_;
   void EnsureCapacity(size_t);
  public:
+  String();
   explicit String(const char*);
   explicit String(size_t initial_capacity);
   String(const String&);
@@ -29,6 +31,7 @@ class String {
   String& Append(const String&);
   const char* CStr() const;
   String Substr(size_t pos, size_t n) const;
+  Array<String> Split(char delim) const;
   int IndexOf(char) const;
   bool Contains(char) const;
   void Clear();

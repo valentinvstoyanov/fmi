@@ -32,5 +32,8 @@ void JsonNumber::Serialize(std::ostream& out, bool pretty, unsigned depth) const
 JsonNumber* JsonNumber::Deserialize(const char*& str) {
   throw DeserializeException("Number deserialization is not yet implemented.");
 }
+JsonValue* JsonNumber::Clone() const {
+  return new JsonNumber(*this);
+}
 
 

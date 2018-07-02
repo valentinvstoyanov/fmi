@@ -12,6 +12,7 @@ class JsonNull : public JsonValue {
   friend std::ostream& operator<<(std::ostream&, const JsonNull&);
   void Serialize(std::ostream& out, bool pretty, unsigned depth) const override;
   static JsonNull* Deserialize(const char*&);
+  JsonValue* Clone() const override;
 };
 
 #endif //JSON_PARSER_JSON_NULL_H

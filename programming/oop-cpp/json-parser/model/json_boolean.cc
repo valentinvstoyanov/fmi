@@ -30,3 +30,6 @@ JsonBoolean* JsonBoolean::Deserialize(const char*& str) {
   err_msg.Append(String(str));
   throw DeserializeException(err_msg);
 }
+JsonValue* JsonBoolean::Clone() const {
+  return new JsonBoolean(*this);
+}

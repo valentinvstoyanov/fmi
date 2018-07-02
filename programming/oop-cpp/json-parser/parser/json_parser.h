@@ -8,6 +8,7 @@
 #include "../model/json_null.h"
 #include "../model/json_array.h"
 #include "file.h"
+#include "../model/json_object.h"
 
 class JsonParser {
   static void PrintError(const std::runtime_error&);
@@ -34,6 +35,8 @@ class JsonParser {
                           bool pretty = false);
 
   static void PrintToStdin(const JsonValue& json, bool pretty = false);
+
+  static JsonObject* Find(Array<String> keys, const JsonObject& obj);
 };
 
 #endif //JSON_PARSER_JSON_PARSER_H

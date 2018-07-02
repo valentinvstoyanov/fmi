@@ -21,3 +21,6 @@ JsonNull* JsonNull::Deserialize(const char*& str) {
   err_msg.Append(String(str));
   throw DeserializeException(err_msg);
 }
+JsonValue* JsonNull::Clone() const {
+  return new JsonNull(*this);
+}
