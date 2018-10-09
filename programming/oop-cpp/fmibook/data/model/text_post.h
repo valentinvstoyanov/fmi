@@ -11,10 +11,11 @@ class TextPost : public Post {
  public:
   TextPost();
   explicit TextPost(const String&, const unsigned = 0);
-  String toHtml() const override;
-  Post* clone() const override;
- protected:
-  Type get_type() const override;
+
+  String ToHtml() const override;
+  Post* Clone() const override;
+
+  Type GetType() const override;
 };
 
 #endif //FMIBOOK_TEXT_POST_H

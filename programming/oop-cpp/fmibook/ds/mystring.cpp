@@ -5,39 +5,36 @@
 #include <cstring>
 #include <algorithm>
 #include <stdexcept>
+#include <iostream>
 #include "mystring.h"
 
 void String::EnsureCapacity(const size_t new_elements) {
-  if (size_ + new_elements <= capacity_)
+  if (size_ + new_elements < capacity_)
     return;
 
-  const size_t new_capacity = std::max(capacity_ + new_elements, 2 * capacity_);
-  char* old_buffer = buffer_;
-  buffer_ = new char[new_capacity + 1];
-  buffer_[new_capacity] = '\0';
-  if (old_buffer != nullptr)
-    strcpy(buffer_, old_buffer);
-  delete[] old_buffer;
-  old_buffer = nullptr;
-  capacity_ = new_capacity;
+  const size_t kNewCapacity = std::max(capacity_ + new_elements + 1, 2 * capacity_ + 1);
+  char* old_buff = buffer_;
+  buffer_ = new char[kNewCapacity];
+  strcpy(buffer_, old_buff);
+  delete[] old_buff;
+  old_buff = nullptr;
+  capacity_ = kNewCapacity;
 }
 
-String::String(const char* str)
-    : size_(0), capacity_(0), buffer_(nullptr) {
-  if (str) {
-    size_ = strlen(str);
-    capacity_ = size_ + 1;
-    buffer_ = new char[capacity_ + 1];
-    strcpy(buffer_, str);
-  }
+String::String(const char* str/* = ""*/) {
+  if (str == nullptr)
+    throw std::runtime_error("String: nullptr passed as ctor argument.");
+  size_ = strlen(str);
+  capacity_ = size_ + 1;
+  buffer_ = new char[capacity_];
+  strcpy(buffer_, str);
 }
 
-String::String(const String& other)
-    : size_(other.size_), capacity_(other.capacity_), buffer_(nullptr) {
-  if (other.buffer_) {
-    buffer_ = new char[capacity_ + 1];
-    strcpy(buffer_, other.buffer_);
-  }
+String::String(const String& other) {
+  size_ = other.size_;
+  capacity_ = other.capacity_;
+  buffer_ = new char[capacity_];
+  strcpy(buffer_, other.buffer_);
 }
 
 String::~String() {
@@ -50,7 +47,7 @@ String& String::operator=(const String& other) {
     delete[] buffer_;
     size_ = other.size_;
     capacity_ = other.capacity_;
-    buffer_ = new char[capacity_ + 1];
+    buffer_ = new char[capacity_];
     strcpy(buffer_, other.buffer_);
   }
 
@@ -85,18 +82,10 @@ char& String::At(size_t pos) {
   return buffer_[pos];
 }
 
-void String::Clear() {
-  delete[] buffer_;
-  buffer_ = nullptr;
-  size_ = 0;
-  capacity_ = 0;
-}
-
 String& String::Append(const String& str) {
   EnsureCapacity(str.size_);
   size_ += str.size_;
   strcat(buffer_, str.buffer_);
-
   return *this;
 }
 
@@ -155,32 +144,26 @@ String String::FromInt(int num) {
 void String::Serialize(std::ostream& out) const {
   if (out.good()) {
     out.write(reinterpret_cast<const char*>(&size_), sizeof(size_t));
-    out.write(reinterpret_cast<const char*>(&buffer_), size_);
+    if (size_ > 0) out.write(reinterpret_cast<const char*>(&buffer_), size_);
   }
 }
 
 void String::Deserialize(std::istream& in) {
-  Clear();
+  delete[] buffer_;
+  buffer_ = nullptr;
+  size_ = 0;
+  capacity_ = 0;
   if (in.good()) {
-    size_t read_size = 0;
-    in.read(reinterpret_cast<char*>(&read_size), sizeof(size_t));
-    if (read_size > 0) {
-      EnsureCapacity(read_size);
-      size_ = read_size;
-      in.read(reinterpret_cast<char*>(&buffer_), read_size);
-    }
+    in.read(reinterpret_cast<char*>(&size_), sizeof(size_t));
+    capacity_ = size_ + 1;
+    buffer_ = new char[capacity_];
+    buffer_[size_] = '\0';
+    if (size_ > 0) in.read(reinterpret_cast<char*>(&buffer_), 3);
   }
 }
 
 bool String::operator==(const String& other) const {
-  if (this == &other)
-    return true;
-  else if (buffer_ == nullptr)
-    return other.buffer_ == nullptr;
-  else if (other.buffer_ == nullptr)
-    return buffer_ == nullptr;
-  else
-    return strcmp(buffer_, other.buffer_) == 0;
+  return strcmp(buffer_, other.buffer_) == 0;
 }
 
 int String::IndexOf(const char c) const {
@@ -190,10 +173,9 @@ int String::IndexOf(const char c) const {
 
   return -1;
 }
-std::ostream& operator<<(std::ostream& out, const String& str) {
-  if (str.size_ > 0)
-    out << str.buffer_;
 
+std::ostream& operator<<(std::ostream& out, const String& str) {
+  if (str.size_ > 0) out << str.buffer_;
   return out;
 }
 

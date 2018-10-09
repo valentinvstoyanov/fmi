@@ -19,9 +19,8 @@ class Fmibook {
   UserArray GetBlockedUsers() const;
   UserArray GetYoungestUsers() const;
   UserArray GetOldestUsers() const;
- public:
   explicit Fmibook(const User&);
-
+ public:
   bool ExistsNickname(const String&);
 
   void AddUser(const String& actor_nickname, const User&);
@@ -31,8 +30,11 @@ class Fmibook {
   void BlockUnblock(const String& actor_nickname, const String& user_nickname, const bool);
   bool ViewPost(const String& actor_nickname, const unsigned post_id);
   bool ViewAllPosts(const String& actor_nickname, const String& user_nickname);
-  void Persist() const;
+  bool Persist() const;
   Stat GetStats() const;
+
+  static Fmibook From(const User&, const UserArray&, const UserArray&);
+  static Fmibook From(const User&);
 
   class NoSuchUserException : public std::runtime_error {
    public:

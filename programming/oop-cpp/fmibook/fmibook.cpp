@@ -5,6 +5,7 @@
 #include <iostream>
 #include "fmibook.h"
 #include "data/repository/post_repository.h"
+#include "data/repository/user_repository.h"
 
 User& Fmibook::GetUserByNickname(const String& nickname) {
   if (admin_.GetNickname() == nickname)
@@ -159,7 +160,7 @@ void Fmibook::AddPost(const String& actor_nickname, Post& post) {
   User& user = GetUserByNickname(actor_nickname);
   if (user.IsBlocked())
     throw NoPermissionException("User is blocked so he cannot add new posts.");
-  post.set_id(PostRepository::next_id());
+  post.SetId(PostRepository::NextId());
   user.AddPost(post);
 }
 
@@ -213,7 +214,7 @@ bool Fmibook::ViewPost(const String& actor_nickname, const unsigned post_id) {
   String name(actor_nickname);
   name.PushBack('_');
   name.Append(String::FromInt(post_id));
-  return PostRepository::instance().generate_post(name, post);
+  return PostRepository::Instance().GeneratePost(name, post);
 }
 
 bool Fmibook::ViewAllPosts(const String& actor_nickname, const String& user_nickname) {
@@ -224,11 +225,33 @@ bool Fmibook::ViewAllPosts(const String& actor_nickname, const String& user_nick
   name.PushBack('_');
   name.Append(user_nickname);
   const PostArray& posts = user.GetPosts();
-  return PostRepository::instance().generate_post(name, posts);
+  return PostRepository::Instance().GeneratePost(name, posts);
 }
 
-void Fmibook::Persist() const {
-  //TODO: save users and their posts
+bool Fmibook::Persist() const {
+  const UserRepository& kUserRepo = UserRepository::Instance();
+  if (kUserRepo.SaveAdmin(admin_) &&
+      kUserRepo.SaveModerators(moderators_) &&
+      kUserRepo.SaveUsers(users_)) {
+    kUserRepo.SetHasRecords();
+    //TODO: save post id.
+    return true;
+  }
+
+  return false;
+}
+
+Fmibook Fmibook::From(const User& admin,
+                      const UserArray& moderators,
+                      const UserArray& users) {
+  Fmibook res(admin);
+  res.moderators_ = moderators;
+  res.users_ = users;
+  return res;
+}
+
+Fmibook Fmibook::From(const User& admin) {
+  return Fmibook(admin);
 }
 
 Fmibook::NoSuchUserException::NoSuchUserException(const char* what/* = "No such user."*/)

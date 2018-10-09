@@ -8,13 +8,14 @@
 #include "fmibook.h"
 
 class Client {
+  static const unsigned kMaxInputLen;
   Fmibook fmibook_;
-  String GetNextWord(const String&, const size_t start, const char delim = ' ');
+  static String GetNextWord(const String&, const size_t start, const char delim = ' ');
   void PrintUsers(const UserArray&, const char* prefix = "");
   void PrintStats(const Stat&);
-  User ParseUser(const String&);
+  static User ParseUser(const String&);
   Post* ParsePost(const String&);
-  int ParseInt(const String&);
+  static int ParseInt(const String&);
   void OnAddUser(const String&, const String&, const User::Role = User::Role::kNormal);
   void OnRemoveUser(const String&, const String&);
   void OnBlockUnblockUser(const String&, const String&, const bool);
@@ -24,6 +25,8 @@ class Client {
   void OnViewAllPosts(const String&, const String&);
  public:
   explicit Client(Fmibook&);
+  static String ReadInput();
+  static User ReadAdmin();
   bool ProcessInput(const String&);
 
   class ParseException : public std::runtime_error {

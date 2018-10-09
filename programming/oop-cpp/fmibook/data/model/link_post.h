@@ -13,14 +13,19 @@ class LinkPost : public Post {
   LinkPost();
   LinkPost(const String&, const String&, const unsigned = 0);
   LinkPost(const LinkPost&);
-  virtual ~LinkPost() override;
+  ~LinkPost() override;
   LinkPost &operator=(const LinkPost&);
-  void set_description(const String&);
-  const String& get_description() const;
-  String toHtml() const override;
-  Post* clone() const override;
- protected:
-  Type get_type() const override;
+
+  void SetDescription(const String&);
+
+  const String& GetDescription() const;
+
+  String ToHtml() const override;
+  Post* Clone() const override;
+  Type GetType() const override;
+
+  void Serialize(std::ostream& ostream) const override;
+  void Deserialize(std::istream& istream) override;
 };
 
 #endif //FMIBOOK_LINK_POST_H

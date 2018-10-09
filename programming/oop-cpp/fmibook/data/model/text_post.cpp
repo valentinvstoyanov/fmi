@@ -5,8 +5,8 @@
 #include <cstring>
 #include "text_post.h"
 
-String TextPost::toHtml() const {
-  String result(get_content());
+String TextPost::ToHtml() const {
+  String result(GetContent());
   return result;
 }
 
@@ -16,11 +16,11 @@ TextPost::TextPost()
 TextPost::TextPost(const String& text, const unsigned id)
     : Post(text, id) {}
 
-Post::Type TextPost::get_type() const {
-  return kText;
+Post* TextPost::Clone() const {
+  return new TextPost(*this);
 }
 
-Post* TextPost::clone() const {
-  return new TextPost(*this);
+Post::Type TextPost::GetType() const {
+  return kText;
 }
 

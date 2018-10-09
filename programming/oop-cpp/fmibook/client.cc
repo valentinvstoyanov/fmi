@@ -7,6 +7,9 @@
 #include "data/model/text_post.h"
 #include "data/model/link_post.h"
 #include "data/model/picture_post.h"
+#include "data/repository/user_repository.h"
+
+const unsigned Client::kMaxInputLen = 2048;
 
 String Client::GetNextWord(const String& str, const size_t start, const char delim/* = ' '*/) {
   String res;
@@ -23,9 +26,9 @@ void Client::PrintUsers(const UserArray& users, const char* prefix/* = ""*/) {
 
 void Client::PrintStats(const Stat& stat) {
   std::cout << "Fmibook Statistics:\n"
-              << "\t- Users count: " << stat.GetUsersCount() << '\n'
-              << "\t- Moderators count: " << stat.GetModeratorsCount()
-              << std::endl;
+            << "\t- Users count: " << stat.GetUsersCount() << '\n'
+            << "\t- Moderators count: " << stat.GetModeratorsCount()
+            << std::endl;
 
   const UserArray& users_with_most_posts = stat.GetUsersWithMostPosts();
   if (!users_with_most_posts.Empty()) {
@@ -61,7 +64,6 @@ void Client::PrintStats(const Stat& stat) {
     PrintUsers(oldest_users, "\t\t- ");
   }
 }
-
 
 User Client::ParseUser(const String& str) {
   User res;
@@ -132,7 +134,7 @@ void Client::OnAddUser(const String& actor,
             << " added: "
             << user
             << '.'
-            << std:: endl;
+            << std::endl;
 }
 
 void Client::OnRemoveUser(const String& actor, const String& subject) {
@@ -189,7 +191,7 @@ void Client::OnAddPost(const String& actor, const String& subject) {
 
   try {
     fmibook_.AddPost(actor, *post);
-    std::cout << "Post " << post->get_id() << " added." << std::endl;
+    std::cout << "Post " << post->GetId() << " added." << std::endl;
   } catch (const Fmibook::NoPermissionException& e) {
     std::cout << e.what() << std::endl;
   }
@@ -239,7 +241,10 @@ void Client::OnViewAllPosts(const String& actor, const String& subject) {
 
 bool Client::ProcessInput(const String& input) {
   if (input == String("quit")) {
-    fmibook_.Persist();
+    if (fmibook_.Persist())
+      std::cout << "Data successfully persisted." << std::endl;
+    else
+      std::cout << "Failed to persist Fmibook data." << std::endl;
     return false;
   } else if (input == String("stats")) {
     Stat stat = fmibook_.GetStats();
@@ -275,6 +280,33 @@ bool Client::ProcessInput(const String& input) {
 }
 Client::Client(Fmibook& fmibook)
     : fmibook_(fmibook) {}
+
+String Client::ReadInput() {
+  std::cout << "$: ";
+  char input[kMaxInputLen];
+  std::cin.getline(input, kMaxInputLen);
+  return String(input);
+}
+
+User Client::ReadAdmin() {
+  std::cout << "Enter admin data ";
+  User admin;
+  bool successful;
+  do {
+    try {
+      admin = ParseUser(ReadInput());
+      successful = true;
+    } catch (const ParseException&) {
+      successful = false;
+      std::cout << "Failed to parse the admin data."
+                   " Please check your input and try again!" << std::endl;
+    }
+  } while (!successful);
+
+  admin.SetRole(User::Role::kAdmin);
+
+  return admin;
+}
 
 Client::ParseException::ParseException(const char* what)
     : runtime_error(what) {}

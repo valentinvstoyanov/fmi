@@ -5,9 +5,9 @@
 #include <cstring>
 #include "link_post.h"
 
-String LinkPost::toHtml() const {
+String LinkPost::ToHtml() const {
   String result("<a href=\"");
-  result.Append(get_content());
+  result.Append(GetContent());
   result.Append(String("\">"));
   result.Append(description_);
   result.Append(String("</a>"));
@@ -15,7 +15,7 @@ String LinkPost::toHtml() const {
 }
 
 LinkPost::LinkPost()
-    : Post(), description_(nullptr) {}
+    : Post(), description_() {}
 
 LinkPost::LinkPost(const String& content, const String& description, const unsigned id)
     : Post(content, id), description_(description) {}
@@ -32,20 +32,30 @@ LinkPost& LinkPost::operator=(const LinkPost& other) {
   return *this;
 }
 
-void LinkPost::set_description(const String& description) {
+void LinkPost::SetDescription(const String& description) {
   description_ = description;
 }
 
-const String& LinkPost::get_description() const {
+const String& LinkPost::GetDescription() const {
   return description_;
 }
 
 LinkPost::~LinkPost() {}
 
-Post::Type LinkPost::get_type() const {
-  return kLink;
+Post* LinkPost::Clone() const {
+  return new LinkPost(*this);
 }
 
-Post* LinkPost::clone() const {
-  return new LinkPost(*this);
+void LinkPost::Serialize(std::ostream& ostream) const {
+  Post::Serialize(ostream);
+  description_.Serialize(ostream);
+}
+
+void LinkPost::Deserialize(std::istream& istream) {
+  Post::Deserialize(istream);
+  description_.Deserialize(istream);
+}
+
+Post::Type LinkPost::GetType() const {
+  return kLink;
 }

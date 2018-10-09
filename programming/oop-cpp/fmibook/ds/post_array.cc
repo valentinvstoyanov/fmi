@@ -34,7 +34,7 @@ PostArray::PostArray(const PostArray& other)
   EnsureCapacity(other.capacity_);
   size_ = other.size_;
   for (int i = 0; i < size_; ++i)
-    arr_[i] = other.arr_[i]->clone();
+    arr_[i] = other.arr_[i]->Clone();
 }
 
 PostArray::~PostArray() {
@@ -46,8 +46,8 @@ PostArray& PostArray::operator=(const PostArray& other) {
     Clear();
     EnsureCapacity(other.capacity_);
     size_ = other.size_;
-    for (int i = 0; i < size_; ++i)
-      arr_[i] = other.arr_[i]->clone();
+    for (size_t i = 0; i < size_; ++i)
+      arr_[i] = other.arr_[i]->Clone();
   }
 
   return *this;
@@ -59,13 +59,14 @@ void PostArray::Clear() {
     arr_[i] = nullptr;
   }
   delete[] arr_;
+  arr_ = nullptr;
   size_ = 0;
   capacity_ = 0;
 }
 
 void PostArray::PushBack(const Post& post) {
   EnsureCapacity(1);
-  arr_[size_++] = post.clone();
+  arr_[size_++] = post.Clone();
 }
 
 void PostArray::PopBack() {

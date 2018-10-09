@@ -41,6 +41,9 @@ class User {
   void AddPost(const Post&);
   bool DeletePost(const unsigned id);
 
+  void Serialize(std::ostream&) const;
+  void Deserialize(std::istream&);
+
   class NoSuchPostException : public std::runtime_error {
    public:
     explicit NoSuchPostException(const char* = "No such post.");

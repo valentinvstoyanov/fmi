@@ -5,9 +5,9 @@
 #include <cstring>
 #include "picture_post.h"
 
-String PicturePost::toHtml() const {
+String PicturePost::ToHtml() const {
   String result("<img src=\"");
-  result.Append(get_content());
+  result.Append(GetContent());
   result.Append(String("\">"));
   return result;
 }
@@ -18,10 +18,10 @@ PicturePost::PicturePost()
 PicturePost::PicturePost(const String& path, const unsigned id)
     : Post(path, id) {}
 
-Post::Type PicturePost::get_type() const {
-  return kPicture;
+Post* PicturePost::Clone() const {
+  return new PicturePost(*this);
 }
 
-Post* PicturePost::clone() const {
-  return new PicturePost(*this);
+Post::Type PicturePost::GetType() const {
+  return kPicture;
 }

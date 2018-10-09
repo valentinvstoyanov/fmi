@@ -1,25 +1,27 @@
 #include <iostream>
 #include "fmibook.h"
 #include "client.h"
-#include "data/model/text_post.h"
-#include "data/model/link_post.h"
+#include "data/repository/user_repository.h"
+
+Fmibook BuildFmibook() {
+  const UserRepository& kUserRepo = UserRepository::Instance();
+  if (kUserRepo.HasRecords()) {
+    try {
+      return Fmibook::From(kUserRepo.LoadAdmin(),
+                           kUserRepo.LoadModerators(),
+                           kUserRepo.LoadUsers());
+    } catch (const UserRepository::LoadException&) {
+      return Fmibook::From(Client::ReadAdmin());
+    }
+  } else {
+    return Fmibook::From(Client::ReadAdmin());
+  }
+}
 
 int main() {
-  String admin_nickname("valio");
-
-  User admin(admin_nickname, 20, User::Role::kAdmin);
-  Fmibook fmibook(admin);
+  Fmibook fmibook(BuildFmibook());
   Client client(fmibook);
-
-  const unsigned kMaxInputLen = 2048;
-  char input[kMaxInputLen];
-  bool running = true;
-
-  do {
-    std::cin.getline(input, kMaxInputLen);
-    String in(input);
-    running = client.ProcessInput(in);
-  } while(running);
+  while(client.ProcessInput(Client::ReadInput()));
 
   return 0;
 }

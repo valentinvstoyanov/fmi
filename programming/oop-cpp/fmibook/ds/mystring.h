@@ -15,28 +15,35 @@ class String {
   size_t capacity_;
   void EnsureCapacity(const size_t);
  public:
-  explicit String(const char* = nullptr);
+  explicit String(const char* = "");
   String(const String&);
   ~String();
   String& operator=(const String&);
   bool operator==(const String& other) const;
   friend std::ostream& operator<<(std::ostream&, const String&);
+
   void PushBack(char);
   String& Append(const String&);
-  void Clear();
+
   char& At(size_t);
+  char& At(size_t) const;
   char& Back();
-  char& Front();
-  void Reverse();
-  const char* CStr() const;
-  const char& Front() const;
   const char& Back() const;
+  char& Front();
+  const char& Front() const;
+
+  void Reverse();
+
+  const char* CStr() const;
+
   size_t Length() const;
   bool Empty() const;
+
   int IndexOf(const char) const;
-  char& At(size_t) const;
+
   void Serialize(std::ostream&) const;
   void Deserialize(std::istream&);
+
   static String FromInt(int);
 };
 
