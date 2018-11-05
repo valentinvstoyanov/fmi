@@ -6,20 +6,17 @@
 #include <ostream>
 #include "conga_line.h"
 
-CongaLine::Node::Node()
-    : student_(Student("", Student::kFmi)) {}
-
 CongaLine::Node::Node(const Student& student)
     : student_(student) {}
 
 CongaLine::CongaLine()
-    : head_(Node()) {
+    : head_(Node(Student("", "tu"))) {
   head_.next_ = &head_;
   head_.prev_ = &head_;
 }
 
 CongaLine::CongaLine(const CongaLine& other)
-    : head_(Node()) {
+    : head_(Node(Student("", "tu"))) {
   head_.next_ = &head_;
   head_.prev_ = &head_;
   CopyConga(other);

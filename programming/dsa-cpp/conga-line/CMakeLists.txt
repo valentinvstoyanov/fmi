@@ -3,4 +3,4 @@ project(conga_line)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(conga_line student.cc student.h conga_line.cc conga_line.h conga_collection.cc conga_collection.h main.cc)
+add_executable(conga_line student.cc student.h conga_line.cc conga_line.h conga_collection.cc conga_collection.h main.cc command_parser.cc command_parser.h)

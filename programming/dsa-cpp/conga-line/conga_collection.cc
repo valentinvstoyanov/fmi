@@ -55,6 +55,10 @@ size_t CongaCollection::Size() const {
   return size_;
 }
 
+bool CongaCollection::Empty() const {
+  return size_ == 0;
+}
+
 long CongaCollection::Append(const Student& student, size_t conga_index) {
   if (conga_index >= size_) {
     CongaLine conga_line;
@@ -138,4 +142,3 @@ void CongaCollection::PushBack(const CongaLine& conga_line) {
   }
   conga_lines_[size_++] = conga_line;
 }
-

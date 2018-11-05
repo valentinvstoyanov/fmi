@@ -14,7 +14,6 @@ class CongaLine {
     Student student_;
     Node* next_;
     Node* prev_;
-    Node();
     explicit Node(const Student& student);
   } head_;
 

@@ -21,6 +21,7 @@ class CongaCollection {
   CongaCollection& operator=(const CongaCollection&);
 
   size_t Size() const;
+  bool Empty() const;
 
   void PushBack(const CongaLine&);
 
