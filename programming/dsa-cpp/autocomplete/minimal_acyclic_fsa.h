@@ -28,6 +28,7 @@ class MinimalAcyclicFSA {
   StateMap state_map;
   StateType start_state;
   StateType empty_state;
+
  public:
 
   MinimalAcyclicFSA() : empty_state(0) {};
