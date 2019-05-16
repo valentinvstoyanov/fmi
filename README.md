@@ -1,5 +1,6 @@
 # FMI
-Most of the work I've done during my bachelor degree in [Faculty of Mathematics and Informatics(FMI)](https://www.fmi.uni-sofia.bg/en) of [Sofia University](https://www.uni-sofia.bg/eng)
+
+Part of the work I've done during my bachelor degree in [Faculty of Mathematics and Informatics(FMI)](https://www.fmi.uni-sofia.bg/en) of [Sofia University](https://www.uni-sofia.bg/eng)
 
 ## Content
 * [Math courses](https://github.com/valentinstoqnov/fmi-education/tree/master/math)
