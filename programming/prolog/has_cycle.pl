@@ -1,5 +1,4 @@
-has_cycle(E, C) :- member([X, Y], E),
-				X \= Y,
-			   	path(E, Y, X, P),
-			   	length(P, N), N > 2,
-				C = [X|P].
+has_cycle(E) :- member([X, Y], E),
+				path(E, Y, X, P),
+				length(P, L),
+				L > 2.
