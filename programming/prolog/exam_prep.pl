@@ -180,3 +180,15 @@ fib(X, Y) :- fib(W, X), Y is W + X.
 
 %most frequent(least frequent is the same, just change the sign).
 mf(X, N, Xs) :- member(X, Xs), cnt(Xs, X, N), not((member(X1, Xs), cnt(Xs, X1, N1), N < N1)).
+
+%Balance problem
+max(X, Xs) :- member(X, Xs), not((member(X1, Xs), X1 > X)).
+min(X, Xs) :- member(X, Xs), not((member(X1, Xs), X1 < X)).
+max_elements([], []).
+max_elements([X|Xs], [Y|Ys]) :- max_elements(Xs, Ys), max(Y, X).
+min_elements([], []).
+min_elements([X|Xs], [Y|Ys]) :- min_elements(Xs, Ys), min(Y, X).
+balance(Xs, Balance) :- min_elements(Xs, MinXs), max_elements(Xs, MaxXs),
+						max(MaxMin, MinXs), min(MinMax, MaxXs),
+						Balance is MinMax - MaxMin.
+balance_problem(Xs) :- balance(Xs, Balance), not((member(X, Xs), not(member(Balance, X)))).
