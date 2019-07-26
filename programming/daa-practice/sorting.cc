@@ -2,11 +2,11 @@
 
 using namespace std;
 
-const int MAX_SIZE = 100000;
-unsigned long long arr[MAX_SIZE];
-unsigned long long temp[MAX_SIZE];
+const int MAX_SIZE = 1000;
+unsigned arr[MAX_SIZE];
+unsigned temp[MAX_SIZE];
 
-void merge(unsigned long long* arr1, unsigned long long* arr2, int arr1_size, int arr2_size) {
+void merge(unsigned* arr1, unsigned* arr2, int arr1_size, int arr2_size) {
 	int i = 0;
 	int j = 0;
 	int c = 0;
@@ -15,24 +15,27 @@ void merge(unsigned long long* arr1, unsigned long long* arr2, int arr1_size, in
 		if (arr1[i] <= arr2[j]) {
 			temp[c++] = arr1[i];
 			++i;
-		}
-		else {
+		} else {
 			temp[c++] = arr2[j];
 			++j;
 		}
 	}
 
-	for (int c1 = i; i < arr1_size; ++i)
-		temp[c++] = arr1[c1];
+	for (; i < arr1_size; ++i)
+		temp[c++] = arr1[i];
 
-	for (int c2 = j; j < arr2_size; ++j)
-		temp[c++] = arr2[c2];
+	for (; j < arr2_size; ++j)
+		temp[c++] = arr2[j];
 
-	for (int c3 = 0; c3 < c; ++c3)
-		arr1[c3] = temp[c3];
+	for (i = 0; i < arr1_size; ++i)
+		arr1[i] = temp[i];
+	for (j = 0; j < arr2_size; ++j)
+		arr2[j] = temp[j + i];
+	//for (i = 0; i < c; ++i)
+	//	arr1[i] = temp[i];
 }
 
-void mergeSort(unsigned long long* arr, int low, int high) {
+void mergeSort(unsigned* arr, int low, int high) {
 	if (low < high) {
 		int middle = (low + high) / 2;
 		mergeSort(arr, low, middle);
@@ -43,15 +46,17 @@ void mergeSort(unsigned long long* arr, int low, int high) {
 
 int main() {
 	int n;
-	cin >> n;
+	scanf("%d", &n);
 
 	for (int i = 0; i < n; ++i)
-		cin >> arr[i];
+		scanf("%d", &arr[i]);
 
 	mergeSort(arr, 0, n - 1);
+	printf("%d", arr[0]);
+	for (int i = 1; i < n; ++i)
+		printf(" %d", arr[i]);
 
-	for (int i = 0; i < n; ++i)
-		cout << arr[i] << (i == n - 1 ? "" : " ");
+	printf("\n");
 
 	return 0;
 }
