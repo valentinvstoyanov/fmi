@@ -40,3 +40,36 @@
   (if (null? xs) nv
       (fldl op (op nv (car xs)) (cdr xs))))
 (fldl appnd '() '((a b) (c d) (e f)))
+
+(define (fldr1 op xs)
+  (fldr op (car xs) (cdr xs)))
+(fldr1 + (list 1 2 3))
+
+(define (fldr1 op xs)
+  (if (null? (cdr xs)) (car xs)
+      (op (car xs) (fldr1 op (cdr xs)))))
+(fldr1 + (list 1 2 3))
+
+(define (list-rf xs i)
+  (if (= i 0) (car xs)
+      (list-rf (cdr xs) (- i 1))))
+(list-rf (list 1 2 3 4 5 6 7) 3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
