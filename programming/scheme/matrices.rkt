@@ -1,3 +1,10 @@
+(define (foldr op nv xs)
+  (if (null? xs) nv
+      (op (car xs) (foldr op nv (cdr xs)))))
+
+(define (all? p? xs)
+  (foldr (lambda (x y) (and x y)) #t (map p? xs)))
+
 (define get-rows length)
 (define (get-cols m) (length (car m)))
 
@@ -22,6 +29,19 @@
            (map (lambda(v2) (mult-vectors v1 v2)) m2t))
          m1)))
 
+(define (upper-triang m)
+  (if (null? m) '()
+      (cons (car m) (upper-triang (map cdr (cdr m))))))                              
+     ;(cons (get-first-row m) (upper-triang (del-first-col (del-first-row m))))))
+
+
+(define (matrix? m)
+  (and (list? m)
+       (not (null? m))
+       (not (null? (get-first-row m)))
+       (all? list? m)
+       (all? (lambda (x) (= (length x) (length (get-first-row m)))) m)))
+       
 
 ;Example
 (define m '((1 2 3) (4 5 6) (7 8 9)))
@@ -38,3 +58,10 @@
 
 (sum-matrices m zero-m)
 (mult-matrices m id-m)
+
+(upper-triang m)
+(upper-triang '((1 2 3 4 5) (1 3 4 5 6) (9 8 7 6 5) (1 7 4 2 9) (2 0 9 4 8)))
+
+(matrix? m)
+(matrix? '())
+(matrix? '((1 2 3) (1 2) (3 4 5)))
