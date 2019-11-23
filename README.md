@@ -12,4 +12,4 @@ Part of the work I've done during my bachelor degree in [Faculty of Mathematics 
   * [Object oriented programming with C++](https://github.com/valentinstoqnov/fmi-education/tree/master/programming/oop-cpp)
   
 ## Acknowledgement
-Last but not least, I would like to express my gratefullness to [Faculty of Mathematics and Informatics(FMI)](https://www.fmi.uni-sofia.bg/en) of [Sofia University](https://www.uni-sofia.bg/eng) for the education they gave me.
+[Faculty of Mathematics and Informatics(FMI)](https://www.fmi.uni-sofia.bg/en) of [Sofia University](https://www.uni-sofia.bg/eng)
