@@ -15,13 +15,13 @@
 (define (fenwick l)
   (define (merge-tr t1 t2) (mk-tr (+ (root-tr t1) (root-tr t2)) t1 t2))
   
-  (define (m2 xs)
+  (define (merge2 xs)
     (if (null? xs) '()
-        (cons (merge-tr (car xs) (cadr xs)) (m2 (cddr xs)))))
+        (cons (merge-tr (car xs) (cadr xs)) (merge2 (cddr xs)))))
   
   (define (build-tr xs)
     (if (null? (cdr xs)) (car xs)
-        (build-tr (m2 xs))))
+        (build-tr (merge2 xs))))
     
   (build-tr (map (lambda(x) (leaf-tr x)) l)))
   

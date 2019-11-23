@@ -68,12 +68,3 @@
              (left (filter (lambda(x) (< x pivot)) tail))
              (right (filter (lambda(x) (>= x pivot)) tail)))
         (append (quick-sort left) (list pivot) (quick-sort right)))))
-        
-  
-      
-
-
-
-
-
-        

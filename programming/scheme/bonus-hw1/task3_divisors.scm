@@ -2,19 +2,23 @@
 
 (define (prime? n)
   (define (loop i)
-    (cond ((= i n) #t)
-          ((= 0 (remainder n i)) #f)
-          (else (loop (1+ i)))))
-  (loop 2))
+    (cond ((> (* i i) n) #t)
+          ((or (= 0 (remainder n i)) (= 0 (remainder n (+ i 2)))) #f)
+          (else (loop (+ i 6)))))
+  
+  (cond ((< n 3) (> n 1))
+        ((or (= 0 (remainder n 2)) (= 0 (remainder n 3))) #f)
+        (else (loop 5))))
 
 (define (next-prime n)
   (define (loop i)
-    (if (prime? i) i (loop (1+ i))))
-  (loop (1+ n)))
+    (if (prime? i) i (loop (+ i 2))))
+  
+  (if (= n 2) 3 (loop (+ n 2))))
 
 (define (divisors n)
   (define (loop p res)
-    (if (or (= p n) (> p n)) res
+    (if (> p n) res
         (loop (next-prime p)
               (if (= 0 (remainder n p))
                   (cons (cons p (quotient n p)) res) res))))
