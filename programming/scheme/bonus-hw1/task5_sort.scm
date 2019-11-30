@@ -1,5 +1,11 @@
 #lang racket
 
+;Зад.5. a) Напишете генератор на списъци с подадена дължина и случайни елементи.
+;b) Напишете функция, която проверява дали списък е сортиран.
+;c) Напишете няколко (поне 4) алгоритъма за сортиране на списъци
+;   и проверете кой е по-бърз (при експерименти с различни размери на списъка).
+;   Напишете кратък текст, който описва вашите тестове, наблюдаваните резултати и направете заключения.
+
 (define (rnd-list n)
   (define (loop i res)
     (if (= i n) res
@@ -68,3 +74,11 @@
              (left (filter (lambda(x) (< x pivot)) tail))
              (right (filter (lambda(x) (>= x pivot)) tail)))
         (append (quick-sort left) (list pivot) (quick-sort right)))))
+
+(define (test s l)
+  (if (null? (s l)) 0 1))
+
+;За 10 000 произволни елемента merge-sort и quick-sort са видимо по-бързи от останалите.(очаквано)
+;При 10 000 и 20 000 изгледжа, че insertion-sort е по-бърз от selection-sort
+;За 500 000 и 1 000 000 : quick-sort е по-бърз от merge-sort
+;Извод от наблюденията: quick-sort > merge-sort > insertion-sort > selection-sort

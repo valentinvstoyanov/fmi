@@ -10,7 +10,6 @@
   (if (> a b) nv (accumulate op (op nv (term a)) (next a) b term next)))
 
 (define (meets-criteria? n p s)
-  (display (list n "=" p "+" 2 "*" s "^ 2")) (newline)
   (= n (+ p (* 2 (square s)))))
 
 (define (prime? n)
@@ -27,20 +26,18 @@
 
 (define (square-iter n p i)
   (let* ((s (square i)) (res (+ p (* 2 s))))
-    (display (list n "=" p "+" 2 "*" s " = " res)) (newline)
-    (cond ((< n res) #t) ;continue to search with next prime
-          ((= n res) #f) ;can be represented in this way so we should stop searching and count it as 0
-          (else (square-iter n p (1+ i)))))) ;continue trying with different square
+    (cond ((< n res) #t) ;продължи търсенето, но със следващото просто число
+          ((= n res) #f) ;може да се представи по този начин -> спираме да търсим
+          (else (square-iter n p (1+ i)))))) ;продължи търсенето, но със следващият квадрат
 
 (define (prime-iter n p)
-  (cond ((= 0 p) 0) ;shouldn't count it because it matches the criteria
-        ((> p n) 1) ;we didn't find anything that matches so we should count it
-        ((square-iter n p 0) (prime-iter n (next-prime p))) ;try with this prime and all possible squares
-        (else 0))) ;matches the criteria so 0
+  (cond ((> p n) 1) ;не сме открили начин да се представи по желания начин -> броим го
+        ((square-iter n p 0) (prime-iter n (next-prime p)))
+        (else 0))) ;открили сме начин да се представи -> не го броим
 
-;Returns 0 if it cat be represented like that, 1 else.
+;0 ако n може да се представи по този начин, 1 иначе
 (define (good n)
-  (if (prime? n) 0
+  (if (prime? n) 0 ;не е съставно -> не го броим
       (prime-iter n 2)))
     
 (define (count-2-digits)
