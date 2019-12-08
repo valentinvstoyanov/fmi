@@ -1,0 +1,10 @@
+(define (vertices g) (map car g))
+(define (children x g) (cdr (assoc x g)))
+(define (edge? x y g) (member y (children x g)))
+
+(define g '((1 2 3)
+ (2 3)
+ (3 4 5)
+ (4)
+ (5 2 4 6)
+ (6 2)))

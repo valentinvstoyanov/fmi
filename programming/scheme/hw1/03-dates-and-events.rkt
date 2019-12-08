@@ -1,4 +1,5 @@
 #lang racket
+(require rackunit rackunit/text-ui)
 
 (define ds 'date)
 
@@ -13,7 +14,8 @@
 (define (30? m) (not (31? m)))
 
 (define (make-date d m y)
-  ((check-date identity) (list ds d m y)))
+  (let ((date (list ds d m y)))
+    (if (date? date) date 'invalid-date)))
 
 (define day cadr)
 (define month caddr)
@@ -29,9 +31,6 @@
                     (or (< d 1) (> d 31))
                     (and (= m 2) (if (leap? y) (> d 29) (> d 28)))
                     (and (not (= m 2)) (if (31? m) #f (> d 30)))))))))
-             
-(define (check-date f)
-  (lambda(d) (if (date? d) (f d) 'invalid-date)))
 
 (define (date->string date)
   (string-append (number->string (day date)) "."
@@ -98,10 +97,7 @@
         (else (cons kv al))))
 
 (define (add k v al)
-  (if (assd k al)
-      (map (lambda(kv)
-             (if (date= (car kv) k) (cons k (cons v (cdr kv)))
-                 kv)) al)
+  (if (assd k al) (map (lambda(kv) (if (date= (car kv) k) (cons k (append (cdr kv) (list v))) kv)) al)
       (insert-sorted (cons k (list v)) al)))
 
 (define (calendar events)
@@ -109,6 +105,46 @@
     (if (null? events) res
         (loop (cdr events) (add (caar events) (cdar events) res))))
   (loop events '()))
+
+;Tests
+
+(define leap-tests
+  (test-suite "Leap? tests"
+              (test-case "should return #t for 2000" (check-true (leap? 2000)))
+              (test-case "should return #t for 2008" (check-true (leap? 2008)))
+              (test-case "should return #t for 2020" (check-true (leap? 2020)))
+              (test-case "should return #f for 2019" (check-false (leap? 2019)))
+              (test-case "should return #f for 2001" (check-false (leap? 2001)))))
+(run-tests leap-tests 'verbose)
+
+(define 31-tests
+  (test-suite "31? tests"
+              (test-case "should return #t for January" (check-true (31? 1)))
+              (test-case "should return #t for March" (check-true (31? 3)))
+              (test-case "should return #t for December" (check-true (31? 12)))
+              (test-case "should return #f for February" (check-false (31? 2)))
+              (test-case "should return #f for April" (check-false (31? 4)))))
+(run-tests 31-tests 'verbose)
+
+(define 30-tests
+  (test-suite "30? tests"
+              (test-case "should return #f for January" (check-false (30? 1)))
+              (test-case "should return #f for May" (check-false (30? 5)))
+              (test-case "should return #t for November" (check-true (30? 11)))
+              (test-case "should return #t for February" (check-true (30? 2)))
+              (test-case "should return #t for April" (check-true (30? 4)))))
+(run-tests 30-tests 'verbose)
+
+(define date-tests
+  (test-suite "date? tests"
+              (test-case "should return #t for 31.12.2019" (check-true (date? (make-date 31 12 2019))))
+              (test-case "should return #t for 30.3.2019" (check-true (date? (make-date 30 3 2019))))
+              (test-case "should return #f for 29.2.2019" (check-false (date? (make-date 29 2 2019))))
+              (test-case "should return #t for 28.2.2019" (check-true (date? (make-date 28 2 2019))))
+              (test-case "should return #f for 31.9.2019" (check-false (date? (make-date 31 9 2019))))
+              (test-case "should return #f for 5.13.2019" (check-false (date? (make-date 5 13 2019))))))
+(run-tests date-tests 'verbose)
+              
 
   
 

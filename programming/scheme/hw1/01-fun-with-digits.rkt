@@ -1,4 +1,6 @@
 #lang racket
+(require rackunit rackunit/text-ui)
+
 ; Искаме да дефинираме следните имена: one, two, three, ..., nine, plus, minus, times, div,
 ; така че извиквания от типа на (one (plus (three))) (операция с точно две операнди) да връщат легитимни числови стойности (в този случай - 4)
 ; Още малко примери:
@@ -25,3 +27,10 @@
 (define (minus x) (lambda(y) (- y x)))
 (define (times x) (lambda(y) (* y x)))
 (define (div x) (lambda(y) (/ y x)))
+
+(define tests
+  (test-suite "Fun with digits tests"
+              (test-case "should return 15 for (three (times (five)))" (check-eq? (three (times (five))) 15))
+              (test-case "should return 3 for (nine (div (three)))" (check-eq? (nine (div (three))) 3))
+              (test-case "should return 4 for (eight (minus (four)))" (check-eq? (eight (minus (four))) 4))))
+(run-tests tests 'verbose)
