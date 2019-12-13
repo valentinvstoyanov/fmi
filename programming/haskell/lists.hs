@@ -1,5 +1,3 @@
-module Lists where
-
 import Prelude hiding(head, tail, last, init, length, null, reverse, take, drop)
 
 head :: [a] -> a

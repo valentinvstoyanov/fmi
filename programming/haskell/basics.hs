@@ -1,5 +1,3 @@
-module Basics where
-
 x :: Int
 x = 5
 
