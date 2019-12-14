@@ -7,3 +7,5 @@ concat([X|Xs], Y, [X|Z]) :- concat(Xs, Y, Z).
 perm([], []).
 perm([X|Xs], P) :- perm(Xs, P1), concat(P2, P3, P1),
     concat(P2, [X|P3], P).
+
+% perm([X|Xs], Ys) :- perm(Xs, Zs), my_insert(X, Zs, Ys).
