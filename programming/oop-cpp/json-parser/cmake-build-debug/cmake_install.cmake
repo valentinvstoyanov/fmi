@@ -1,4 +1,4 @@
-# Install script for directory: /home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser
+# Install script for directory: /home/valentinvstoyanov/git/fmi/programming/oop-cpp/json-parser
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/valio_stoyanov/fmi-education/programming/oop-cpp/json-parser/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/valentinvstoyanov/git/fmi/programming/oop-cpp/json-parser/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
