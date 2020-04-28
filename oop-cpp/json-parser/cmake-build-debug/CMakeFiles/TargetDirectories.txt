@@ -1,3 +1,0 @@
-/home/valentinvstoyanov/git/fmi/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/valentinvstoyanov/git/fmi/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles/json_parser.dir
-/home/valentinvstoyanov/git/fmi/programming/oop-cpp/json-parser/cmake-build-debug/CMakeFiles/edit_cache.dir
