@@ -13,6 +13,7 @@ struct Company {
     else if (teamCharacteristic.front() == 'S') return 3;
     else if (teamCharacteristic.front() == 'A') return 2;
     else if (teamCharacteristic.front() == 'W') return 1;
+    else throw std::runtime_error("Unknown team characteristic");
   }
 };
 
@@ -60,16 +61,16 @@ bool classifyCompanySuccess(size_t k, const CompanyDataset& dataset, const Compa
 }
 
 CompanyDataset getCompanyDataset() {
-  return {{982, "Very Strong", 0},
-          {1304, "Very Strong", 1},
-          {1256, "Very Strong", 1},
-          {1562, "Very Strong", 1},
-          {703, "Very Strong", 0},
-          {1213, "Very Strong", 0},
-          {1471, "Very Strong", 1},
-          {1315, "Very Strong", 1},
-          {691, "Very Strong", 0},
-          {1439, "Very Strong", 1},
+  return {{982, "VeryStrong", 0},
+          {1304, "VeryStrong", 1},
+          {1256, "VeryStrong", 1},
+          {1562, "VeryStrong", 1},
+          {703, "VeryStrong", 0},
+          {1213, "VeryStrong", 0},
+          {1471, "VeryStrong", 1},
+          {1315, "VeryStrong", 1},
+          {691, "VeryStrong", 0},
+          {1439, "VeryStrong", 1},
           {1377, "Strong", 1},
           {675, "Strong", 0},
           {1458, "Strong", 1},
@@ -102,8 +103,14 @@ CompanyDataset getCompanyDataset() {
           {1256, "Weak", 1}};
 }
 
-DistanceType euclDist(const Company& c1, const Company& c2) {
-  return std::sqrt(std::pow(c2.revenue - c1.revenue, 2) + std::pow(c2.getNumericTeamCharacteristic() - c1.getNumericTeamCharacteristic(), 2));
+DistanceType eucledianDist(const Company& c1, const Company& c2) {
+  return std::sqrt(std::pow(c2.revenue - c1.revenue, 2)
+                       + std::pow(c2.getNumericTeamCharacteristic() - c1.getNumericTeamCharacteristic(), 2));
+}
+
+DistanceType manhattanDist(const Company& c1, const Company& c2) {
+  return std::abs(c2.revenue - c1.revenue)
+      + std::abs(c2.getNumericTeamCharacteristic() - c1.getNumericTeamCharacteristic());
 }
 
 int main() {
@@ -125,8 +132,9 @@ int main() {
     std::string tc;
     std::cin >> tc;
 
-    bool isSuccessful = classifyCompanySuccess(k, dataset, {rev, tc, 0}, euclDist);
+    bool isSuccessful = classifyCompanySuccess(k, dataset, {static_cast<int>(rev), tc, 0}, manhattanDist);
     std::cout << isSuccessful << std::endl;
+    dataset.push_back({static_cast<int>(rev), tc, isSuccessful});
   }
 
   return 0;
